@@ -1,0 +1,166 @@
+﻿
+<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            Acompanhamento de pedidos PJ
+        </h1>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-2">
+
+            <div class="input-group">
+
+                <input type="text" class="form-control date-picker" name="txtDe" disabled="disabled"
+                       datepicker-popup="{{format}}"
+                       ng-model="DtDe"  
+                       is-open="datepickerDe.opened"
+                       datepicker-options="dateOptions"
+                       datepicker-append-to-body="true" close-text="Close" placeholder="De" />
+                <span class="input-group-addon">
+                    <a href="javascript:void(0);" ng-click="openDatePickerDe($event)">
+                        <i class="fa fa-calendar bigger-110"></i>
+                    </a>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-2">
+
+            <div class="input-group">
+
+                <input type="text" class="form-control date-picker" name="txtAte" disabled="disabled"
+                       datepicker-popup="{{format}}" ng-model="DtAte"
+                   
+                       is-open="datepickerAte.opened"
+                       datepicker-options="dateOptions"
+                       datepicker-append-to-body="true"
+                       close-text="Close" placeholder="Até" />
+                <span class="input-group-addon">
+                    <a href="javascript:void(0);" ng-click="openDatePickerAte($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-horizontal">
+                <input type="text" class="form-control" placeholder="Número do Pedido" ng-model="pedidoId" value="" />
+                <!--<select id="ddlStatus" ng-model="StatusId" class="form-control black" ng-change="loadPedidos();" ng-on ng-options="option.Id as option.DescEntrega for option in StatusEntrega" required>
+
+                    <option value="" selected>Status...</option>
+                </select>
+                <input type="hidden" name="hdnStatusId" ng-value="StatusId"/>-->
+            </div>
+        </div>
+
+
+
+        <div class="col-md-5">
+            <div class="form-horizontal">
+                <button type="button" class="btn btn-info btn-sm" ng-click="loadPedidos();">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+            <span class="blue lbl bigger-125"> Período: </span>
+
+            <span class="lbl bigger-110" ng-show="DtDe!='' && DtAte!='' "> {{DtDe | date: 'dd/MM/yyyy'}} - {{DtAte | date: 'dd/MM/yyyy'}}</span>
+
+            <span class="lbl bigger-110" ng-show="DtDe=='' && DtAte=='' "> Últimos 10 Pedidos</span>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="gvPedidos" style="margin-bottom: 10px;">
+                            <thead>
+                            <tr>
+
+                                <th colspan="3">PEDIDO</th>
+                                <th colspan="2">QUANTIDADE</th>
+                                <th style="width: 20%;">PRAZO ENTREGA</th>
+                                <!--<th>TOTAL</th>-->
+                                <!--<th>Á VISTA</th>-->
+                                <th>TOTAL</th>
+                                <th style="text-align: center;">DETALHES</th>
+                                <th style="text-align: center;">SITUAÇÃO</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="" ng-repeat="pedido in pedidos">
+                                <td colspan="3">{{pedido.PedidoId}}</td>
+                                <td colspan="2">{{pedido.QtdItem}}</td>
+                                <td style="width: 20%;">
+                                    <div ng-show="{{pedido.PrazoEntrega > 0}}">
+                                        {{pedido.PrazoEntrega}} {{pedido.PrazoEntrega > 1 ? 'DIAS' : 'DIA'}}
+                                    </div>
+                                    <div ng-show="{{pedido.FornecedorPrazoSemanal.length > 0}}">
+                                        <div ng-repeat="prazo in pedido.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                            <label class="label label-danger">
+                                                {{prazo.DescSemana}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!--<td>{{pedido.ValorTotal | currency : "R$ "}}</td>-->
+                                <td>{{pedido.Quantidade.ValorTotalAvista | currency : "R$ "}}</td>
+                                <td style="text-align: center;">
+                                    <a href="javascript:void(0);" ng-click="openDialogDetalhesPedidoGerado(pedido);" tooltip="DETALHE DO PEDIDO" tooltip-placement="bottom">
+                                        <i class="grey fa fa-list fa-2x" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div ng-show="!pedido.PedidoEntregue" style="text-align: center;">
+                                        <button class="btn btn-success btn-xs"
+                                                tooltip="PEDIDO ENTREGUE"
+                                                tooltip-placement="bottom"
+                                                ng-click="entregaEfetuada(pedido.Itens);"
+                                                style="padding-top: 0; padding-bottom: 0;">
+                                            <i class="ace-icon fa fa-check  bigger-100 icon-only"></i>
+                                        </button>
+
+                                        <button  class="btn btn-primary btn-xs"
+                                                ng-show="!pedido.PedidoDespachado"    
+                                                tooltip="Informe ao membro que o pedido foi despachado"
+                                                tooltip-placement="bottom"
+                                                ng-click="despachoParaEntrega(pedido.Itens);"
+                                                style="padding-top: 0; padding-bottom: 0;">
+                                            <i class="fa fa-truck" aria-hidden="true"></i>
+                                        </button>
+
+                                      
+
+
+                                    </div>
+                                    <div ng-show="pedido.PedidoEntregue" class="center">
+                                        <label class="label label-warning">
+                                            Entregue
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadPedidos(page)"></custom-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

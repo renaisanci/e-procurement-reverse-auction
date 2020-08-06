@@ -1,0 +1,92 @@
+﻿
+
+<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">FORMAS DE PAGAMENTO</h4>
+
+    </div>
+</div>
+
+<div class="panel-body">
+    <h4 style="margin-bottom: 20px;">
+        Escolha uma forma de pagamento para {{ItensPromocionais.length > 1 ? 'cada produto promocional':'o produto promocional'}}
+    </h4>
+
+    <div class="widget-box">
+
+        <div class="widget-header widget-header-flat widget-header-small">
+
+        </div>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-condensed shortMargin">
+                    <tr>
+                        <td class="shortPadding" style="width: 25%;"><b>Fornecedor</b></td>
+                        <td class="shortPadding" style="width: 25%;"><b>Descrição Produto</b></td>
+                        <td class="shortPadding"><b>Forma de Pagamento</b></td>
+                        <td class="shortPadding"><b>Valor</b></td>
+                        <td class="shortPadding"><b>Valor Final</b></td>
+                    </tr>
+                    <tr ng-repeat="itens in ItensPromocionais | orderBy:'DescProduto'">
+                        <td class="shortPadding">
+                            <i>{{itens.Fornecedor.NomeFantasia}}</i>
+                        </td>
+                        <td class="shortPadding">
+                            <i>{{itens.DescProduto}}</i>
+                        </td>
+                        <td class="shortPadding" style="width:50%;">
+                            <div class="">
+                                <div ng-repeat="pag in itens.PromocaoFormaPagto" style="float: left; margin-left: 5px;">
+                                    <label>
+                                        <input name="{{itens.Id}}" class="ace" type="radio" value="{{pag.FormaPagtoId}}"
+                                               ng-model="confirmed"
+                                               ng-click="formaPagamento(pag.FormaPagtoId,itens.Id,itens)">
+                                        <span class="lbl">
+                                            {{pag.DescFormaPagamento}}
+                                        </span>
+                                    </label>
+                                    <span class="badge badge-danger" ng-show="{{pag.Desconto > 0}}"><b>-</b>{{pag.Desconto}}<b>%</b></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="shortPadding">
+                            <div class="">
+                                <label class="label label-info" style="font-weight: bold;">
+                                    {{itens.Valor | currency}}
+                                </label>
+                            </div>
+                        </td>
+                        <td class="shortPadding">
+                            <div class="">
+                                <label class="label label-success" style="font-weight: bold;">
+                                    {{itens.ValorPedDesconto | currency}}
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+
+        </div>
+    </div>
+
+    <!--Inicio Botoes-->
+    <hr />
+    <button type="submit" class="btn btn-success btn-block" ng-click="inserirPedidoPromocao()">
+        <i class="ace-icon fa fa-check"></i>
+        Salvar
+    </button>
+    <!--Fim Botoes-->
+
+</div>
+
+
+
+

@@ -1,0 +1,174 @@
+﻿
+
+<div id="sidebar" class="sidebar responsive ace-save-state menu-min" ng-if="userData.isUserLoggedIn">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('sidebar');
+        } catch (e) {
+        }
+        $(document).trigger('simularClique');
+    </script>
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-danger " ng-click="exibirMenus(true,false);">
+                <i class="ace-icon fa fa-cart-plus"></i>
+            </button>
+            <button class="btn btn-warning " ng-click="exibirMenus(false,true);">
+                <i class="ace-icon fa fa-folder-open-o"></i>
+            </button>
+        </div>
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-danger  "></span>
+            <span class="btn btn-warning"></span>
+        </div>
+    </div>
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-right ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+
+    <!-- Menu Categoria -->
+    <ul class="nav nav-list" ng-if="userData.isUserLoggedIn" ng-show="exibiMenuCategoria">
+
+        <li class="active">
+            <a ng-href="/#/promocoes">
+                <i class="menu-icon fa fa-money icon-animated-bell fa-6x"></i>
+                <span class="menu-text"> PROMOÇÕES </span>
+            </a>
+
+            <b class="arrow"></b>
+
+        </li>
+
+        <li class="active">
+            <a ng-href="/#/produto/1269">
+                <i class="menu-icon fa fa-search"></i>
+                <span class="menu-text">BUSCAR PRODUTOS</span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+
+        <li class="" ng-repeat="catMenu in categoriasMembro" ng-show="habilitaMenCategoria">
+            <a ng-href="/#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-caret-right"> {{catMenu.PrimeiraLetra}} </i>
+                <span class="menu-text">
+
+                    {{catMenu.DescCategoria}}
+                </span>
+
+
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="" ng-repeat="catSubMenu in catMenu.MenuSubCategorias">
+
+
+                    <a ng-href="#/produto/{{catSubMenu.Id}}" ng-click="pesquisarProduto(page);">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        {{catSubMenu.DescSubCategoria}}
+                    </a>
+                    <b class="arrow"></b>
+
+
+
+                </li>
+            </ul>
+
+        </li>
+
+
+
+    </ul><!-- /.nav-list -->
+    <!-- Menu gerencial -->
+    <ul class="nav nav-list " ng-if="userData.isUserLoggedIn" ng-show="exibiMenuGerencial">
+
+        <li class="active">
+            <a ng-href="/#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-folder-open-o" style="color:#E59729;"></i>
+                <span class="menu-text" style="color:#E59729;"> GERENCIAR </span>
+            </a>
+
+            <b class="arrow"></b>
+
+
+        </li>
+
+
+        <li class="" ng-repeat="nivel1 in menuCli">
+            <a ng-href="{{nivel1.Url}}" class="{{nivel1.Feature2}}">
+                <i class="menu-icon fa {{nivel1.FontIcon}} " style="color:#E59729;"></i>
+                <span class="menu-text">
+
+                    {{nivel1.DescMenu}}
+                </span>
+
+                <b class="arrow fa {{nivel1.Feature1}} "></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="" ng-repeat="nivel2 in nivel1.Children | orderBy : 'Ordem' ">
+
+
+                    <a ng-href="{{nivel2.Url}}" class="{{nivel2.Feature2}}">
+                        <i class="menu-icon fa {{nivel2.FontIcon}}" style="color:#E59729;"></i>
+                        <span class="menu-text">
+                            {{nivel2.DescMenu}}
+                        </span>
+                        <b class="arrow fa {{nivel2.Feature1}} " style="color:#E59729;"></b>
+                    </a>
+                    <b class="arrow"></b>
+
+
+                    <ul class="submenu">
+                        <li class="" ng-repeat="nivel3 in nivel2.Children| orderBy : 'Ordem' ">
+
+
+                            <a ng-href="{{nivel3.Url}}" class="{{nivel3.Feature2}}">
+                                <i class="menu-icon fa {{nivel3.Feature1}} "></i>
+                                {{nivel3.DescMenu}}
+                            </a>
+
+                            <b class="arrow"></b>
+
+
+
+                            <ul class="submenu">
+                                <li class="" ng-repeat="nivel4 in nivel3.Children | orderBy : 'Ordem' ">
+
+
+                                    <a ng-href="{{nivel4.Url}}" class="{{nivel4.Feature2}}">
+                                        <i class="menu-icon fa {{nivel4.Feature1}} "></i>
+                                        {{nivel4.DescMenu}}
+                                    </a>
+
+                                    <b class="arrow"></b>
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                    </ul>
+                </li>
+            </ul>
+
+        </li>
+
+
+
+    </ul><!-- /.nav-list -->
+
+
+
+
+</div>

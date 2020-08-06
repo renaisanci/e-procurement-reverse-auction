@@ -1,0 +1,108 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="clModalTrocaFornItem();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">FORNECEDORES QUE DERAM PREÇO</h4>
+
+    </div>
+
+
+
+</div>
+
+<div class="panel-body ">
+
+ 
+    <div class="row">
+
+        <div class="col-md-12">
+            {{size}}
+            <span class="blue lbl bigger-125"> Item: </span><span class="red lbl bigger-125"><b> {{nomeItemParaTroca}}</b></span>
+            <div class="" id="divItensPedido" style="display:block;overflow-y:scroll;max-height:150px;">
+                <div class="table-responsive center">
+
+                    <table class="table table-bordered table-hover center" id="gvCarrinhoCotacao">
+                        <thead>
+                            <tr>
+                                <td><b>Fornecedor</b></td>
+                                <td ng-show="statusPedidoId ==24 || statusPedidoId ==36 || statusPedidoId ==29"><b>Forma Pagamento</b></td>
+                                <td><b>QTD.</b></td>
+                                <td><b>Preço Unit</b></td>
+                                <td><b>SubTotal</b></td>
+                                <td><b>Obs Marca, Cor Brinde</b></td>
+                                <td class="center"><b>Trocar</b></td>
+                            </tr>
+                        </thead>
+                        <!-- cart items -->
+                        <tbody>
+
+
+
+                            <!--Carrinho para itens da cotação-->
+                            <tr ng-repeat="fornItemTroca in listPrecoItemFornecedor">
+                                <td>{{fornItemTroca.fornecedor}}</td>
+
+
+                                <td ng-show="statusPedidoId ==24 || statusPedidoId ==36 || statusPedidoId ==29">
+
+                                    <div style="overflow-y:scroll;max-height:50px;text-align:left;">
+
+                                        <div ng-repeat="pag in fornItemTroca.FornecedorFormaPagtos" class="">
+                                            <label>
+                                                <input class="ace" type="radio"
+                                                       ng-click="formaPagamento(pag, fornItemTroca)">
+                                                <span class="lbl" tooltip-placement="right">
+                                                    {{pag.DescFormaPagto}}
+                                                </span>
+                                            </label>
+                                            <span class="badge badge-danger" ng-show="pag.Desconto > 0"><b>-</b>{{pag.Desconto}}<b>%</b></span>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </td>
+                                <td>{{fornItemTroca.Qtd}}</td>
+
+                                <td>{{fornItemTroca.PrecoNegociadoUnit | currency : "R$" }}</td>
+                                <td>{{fornItemTroca.SubTotal  | currency : "R$"}}</td>
+                                <td>{{fornItemTroca.Observacao}}</td>
+                                <td class="center">
+
+
+
+
+                                    <a href="javascript:void(0);" ng-hide="statusPedidoId >=24" ng-click="trocaFornDoItem(fornItemTroca);"
+                                       tooltip="CLIQUE PARA TROCAR"
+                                       tooltip-placement="bottom">
+                                        <i class="fa fa-check-square-o fa-2x green" aria-hidden="true"></i>
+
+                                    </a>
+
+
+                                    <a href="javascript:void(0);" ng-show="statusPedidoId >=24" ng-click="salvaTrocaFornecedorDoItemCancelado(fornItemTroca);"
+                                       tooltip="CLIQUE PARA TROCAR"
+                                       tooltip-placement="bottom">
+                                        <i class="fa fa-check-square-o fa-2x green" aria-hidden="true"></i>
+
+                                    </a>
+
+
+
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 </div>
+            </div>
+        </div>
+
+    <hr />
+
+
+</div>

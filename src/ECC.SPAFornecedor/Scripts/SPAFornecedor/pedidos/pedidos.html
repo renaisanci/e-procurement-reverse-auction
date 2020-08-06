@@ -1,0 +1,114 @@
+﻿
+<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            Aprovação de Pedido PJ
+        </h1>
+
+    </div>
+   
+    <!--Pedidos Cotação-->
+    <div class="row">
+        <div class="col-sm-12" ng-repeat="cotacao in cotacoes">
+            <br />
+            <div class="<!--widget-header widget-header-small-->">
+                <span class="blue lbl bigger-200"> Cotação: </span><span class="blue lbl bigger-200"><b> {{cotacao.CotacaoId}}</b></span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="gvPedidos">
+                    <thead>
+                        <tr>
+                            <th>PEDIDO</th>
+                            <th>EMPRESA</th>
+                            <th>QTD. ITENS</th>
+                            <th>DATA PEDIDO</th>
+                            <th>PAGAMENTO</th>
+                            <th>HR. ENTREGA</th>
+                            <th ng-show="existeTaxa">TAXA ENTREGA</th>
+                            <th>OBS. ENTREGA</th>
+                            <th>TOTAL</th>
+                            <th>AÇÃO</th>
+                            <th>DETALHES</th>
+                        </tr>
+                    </thead>
+                    <!-- ngRepeat: item in cotacoes -->
+                    <tbody>
+                        <tr class="accordion-toggle" ng-repeat="pedido in cotacao.Pedidos">
+                            <td style="text-align: center;">
+                                {{pedido.PedidoId}}
+                                <i ng-show="pedido.ValorPedidoMinimo >= pedido.Quantidade.ValorTotalAvista" class='fa fa-exclamation orange'
+                                   tooltip="Valor deste pedido é menor que o seu valor de pedido mínimo"
+                                   tooltip-placement="top" aria-hidden='true'></i>
+
+                            </td>
+                            <td style="text-align: center;">{{pedido.Membro.NomeFantasia}}</td>
+                            <td style="text-align: center;">{{pedido.Quantidade.QtdItens}}</td>
+                            <td style="text-align: center;">{{pedido.DtPedido | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td style="text-align: center;">{{pedido.Quantidade.FormaPagamento}}</td>
+                            <td style="text-align: center;">
+
+                                <div ng-repeat="ped in pedido.Endereco.PeriodoEntrega" style="float: left; margin-left: 1px;">
+                                    <label class="label label-warning">
+                                        {{ped.DescPeriodoEntrega}}
+                                    </label>
+                                </div>
+
+                            </td>
+
+                            <td ng-show="existeTaxa" style="text-align: center;">
+                                
+                                <div ng-show="{{pedido.Itens[0].TaxaEntrega > 0}}">
+                                    {{pedido.Itens[0].TaxaEntrega | currency : "R$ "}}
+                                </div>
+
+                                <div ng-show="{{pedido.Itens[0].TaxaEntrega === 0}}">
+                                    <label class="label label-info" tooltip="Frete de responsabilidade do Fornecedor" tooltip-placement="left">
+                                        C I F
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td style="text-align: center;">
+                                <div>{{pedido.Endereco.DescHorarioEntrega}}</div>
+                            </td>
+                            <td>{{pedido.Quantidade.ValorTotalAvista | currency : "R$ "}}</td>
+
+                            <td style="text-align: center;">
+                                <button class="btn btn-success btn-xs" tooltip="APROVAR PEDIDO" tooltip-placement="bottom"
+                                        ng-click="aprovarPedido(pedido);" style="padding-top: 0; padding-bottom: 0;">
+                                    <i class="ace-icon fa fa-check  bigger-100 icon-only"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" tooltip="CANCELAR PEDIDO" tooltip-placement="bottom"
+                                        ng-click="cancelarPedido(pedido);" style="padding-top: 0; padding-bottom: 0;">
+                                    <i class="ace-icon fa fa-times  bigger-100 icon-only"></i>
+                                </button>
+
+                            </td>
+                            <td style="text-align: center;">
+                                <a href="javascript:void(0);" ng-click="openPedidoMapa(pedido.PedidoId);"
+                                   tooltip="VISUALIZE OS PEDIDOS NO MAPA"
+                                   tooltip-placement="bottom" style="cursor: pointer;">
+
+                                    <i class="fa fa-globe  fa-2x" aria-hidden="true"></i>
+                                </a>
+                                <a href="javascript:void(0);" ng-click="openDialogDetalhesPedido(pedido);"
+                                   tooltip="DETALHES DO PEDIDO"
+                                   tooltip-placement="bottom" style="cursor: pointer;">
+                                    <i class="fa fa-list  fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- end ngRepeat: item in cotacoes -->
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

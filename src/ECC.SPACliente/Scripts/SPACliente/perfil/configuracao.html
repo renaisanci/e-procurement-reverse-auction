@@ -1,0 +1,38 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+            Configurações
+        </h1>
+    </div>
+
+    <div class="row">
+        <!--<div class="col-md-12">
+            <h4>Notificações</h4>
+            <hr />
+        </div>-->
+        <div  class="table-responsive col-md-12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr  >
+                        <th>Notificações</th>
+                        <th >Receber SMS</th>
+                        <th >Receber Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr   ng-repeat="tipo in TiposNotificacao">
+                        <td class="align-left">{{tipo.Descricao}}</td>
+                        <td class="tdCenter" ng-repeat="notificacao in tipo.Notificacoes">
+                            <label class="pos-rel" ng-if="notificacao.Ativo">
+                                <input class="ace ace-switch ng-pristine ng-untouched ng-valid" type="checkbox" ng-checked="notificacao.Checked" ng-model="notificacao.Checked" ng-change="notificacaoUsuario(notificacao)">
+                                <span class="lbl" data-lbl="SIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NÃO"></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

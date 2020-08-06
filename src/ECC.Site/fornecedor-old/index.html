@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+    <title>Economiza Já - Fornecedor</title>
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+<div id="navbar" ng-if="!userData.isUserLoggedIn" class="navbar navbar-default ace-save-state ng-scope">
+<img src="img/economizaja.png" alt="Logo Site">
+</div>
+
+<div class="container">
+  <div class="card"></div>
+
+    <div class="card">
+      <h1 class="title"><i class="fa fa-sign-out fa-lg"></i>Login de acesso</h1>
+      <form>
+
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">E-mail</label>
+          <div class="bar"></div>
+        </div>
+
+        <div class="input-container">
+          <input type="#{type}" id="#{label}" required="required"/>
+          <label for="#{label}">Senha</label>
+          <div class="bar"></div>
+        </div>
+
+        <div class="button-container">
+          <button><span>Enviar</span></button>
+        </div>
+
+        <div class="footer"><a href="#">Esqueci a senha</a></div>
+      </form>
+    </div>
+
+   <!-- form esqueci senha-->
+  <div class="card alt">
+    <div class="toggle"></div>
+    <h1 class="title">Recuperar Senha
+      <div class="close"></div>
+    </h1>
+    <form>
+      <div class="input-container">
+        <input type="#{type}" id="#{label}" required="required"/>
+        <label for="#{label}">E-mail</label>
+        <div class="bar"></div>
+      </div>
+      
+      
+      <div class="button-container">
+        <button><span>Enviar</span></button>
+      </div>
+    </form>
+  </div>
+  <!-- fim form esqueci senha-->
+
+<div class="card"></div>
+
+
+</div>
+
+<footer>
+
+                    <p>
+                        <i class="fa fa-copyright"></i> Copyright 2017 - A Economiza Já é uma plataforma da Saicro Tecnologia LTDA e possui todos os direitos reservados.
+                        Para informações legais com relação ao uso da plataforma consulte os termos de uso.
+                    </p>
+</footer>
+
+
+<!-- Portfolio-->
+<a id="Facebook" href="https://www.facebook.com/economizaja" target="_blank" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+<!-- CodePen--><a id="instagram" href="https://www.instagram.com/economizaja/" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+  
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="js/index.js"></script>
+
+</body>
+</html>

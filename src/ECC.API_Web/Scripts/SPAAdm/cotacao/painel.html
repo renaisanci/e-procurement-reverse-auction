@@ -1,0 +1,43 @@
+﻿<div class="page-content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-success" id="painel">
+                <div class="panel-heading">
+                    <h3 class="panel-title center">TOTAL DE PRODUTOS AGRUPADOS</h3>
+                </div>
+
+
+                <div ng-if="loadingProdG">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-6">
+                        <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Carregando Produtos Agrupados para cotação...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
+                </div>
+                <!--Inicio Tabela Produtos Agrupados-->
+
+                <div class="table-responsive">
+                    <ul class="list-group">
+                        <li class="list-group-item ng-trans ng-trans-fade-left" ng-repeat="prod in prodAgrupados ">
+                            <a href="javascript:void(0);" class="list-group-item">
+                                {{prod.DescProduto}}
+                                <span class="badge badge-important">{{prod.qtd}}</span>
+                            </a>
+                        </li>
+                        <li ng-hide="prodAgrupados.length > 0" class="list-group-item" style="background-color: white; color: red; text-align: center">
+                            Nenhum Registro Encontrado.
+
+                        </li>
+                    </ul>
+                </div>
+                <!--Fim-->
+            </div>
+            <button class="btn btn-block btn-primary"
+                    ng-click="atualizaFlgCotado();"
+                    ng-disabled="prodAgrupados.length < 1">
+                <i class="fa fa-retweet fa-2x" aria-hidden="true"></i> Gerar cotação
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,576 @@
+﻿<!--Script para abrir o accordion e mudar o botão para abrir e fechar-->
+<script>
+    $('#collapseDivitens > i').removeClass('fa-chevron-down');
+    $('#collapseDivitens > i').addClass('fa-chevron-up');
+
+    $('#collapseDivitens').click(function () {
+        var display = $('#divItensPedido').css('display');
+        if (display === "block") {
+            $('#divItensPedido').css('display', 'none');
+            $('#collapseDivitens > i').removeClass('fa-chevron-up');
+            $('#collapseDivitens > i').addClass('fa-chevron-down');
+        } else {
+            $('#divItensPedido').css('display', 'block');
+            $('#collapseDivitens > i').removeClass('fa-chevron-down');
+            $('#collapseDivitens > i').addClass('fa-chevron-up');
+        }
+    });
+
+    $('#collapseDivFormaPagamento').click(function () {
+
+        var display = $('#divFormapagamento').css('display');
+        if (display === "block") {
+            $('#divFormapagamento').css('display', 'none');
+            $('#collapseDivFormaPagamento > i').removeClass('fa-chevron-up');
+            $('#collapseDivFormaPagamento > i').addClass('fa-chevron-down');
+        } else {
+            $('#divFormapagamento').css('display', 'block');
+            $('#collapseDivFormaPagamento > i').removeClass('fa-chevron-down');
+            $('#collapseDivFormaPagamento > i').addClass('fa-chevron-up');
+        }
+    });
+
+</script>
+
+<!--Estilo para o modal caso o pedido do fornecedor esteja abaixo do valor mínimo-->
+<style>
+    .sweet-alert {
+        background-color: red;
+    }
+
+        .sweet-alert p {
+            color: white;
+            font-weight: bold;
+        }
+
+        .sweet-alert h2 {
+            color: #F8BD86;
+        }
+
+        .sweet-alert button {
+            background-color: white !important;
+            color: black;
+        }
+
+    .modal.in .modal-dialog {
+        width: 90% !important;
+    }
+</style>
+
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> DETALHE DO PEDIDO  </h4>
+    </div>
+</div>
+
+<div class="panel-body">
+    <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{pedido.PedidoId}}</b></span>
+    <br />
+    <span class="orange lbl bigger-200">
+        <b>
+            Valor Total:    <span class="green lbl">{{subtotal | currency}} </span>
+        </b>
+    </span>
+    <div class="content">
+        <!--Endereço de Entrega Membro-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-box ui-sortable-handle collapsed" id="widget-box-1" style="opacity: 1; margin-bottom:20px;">
+                    <div class="widget-header">
+                        <h5 class="widget-title">Detalhes do Endereço</h5>
+                        <div class="widget-toolbar">
+                            <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                <i class="ace-icon fa fa-expand"></i>
+                            </a>-->
+                            <a href="javascript:void(0);" data-action="collapse">
+                                <i class="ace-icon fa fa-chevron-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="widget-body" style="display: none;">
+                        <div class="widget-main">
+                            <table class="table table-condensed shortMargin">
+                                <tr>
+                                    <td class="shortPadding"><b>Destinatário:</b></td>
+                                    <td class="shortPadding"><i>{{pedido.Endereco.Logradouro}} {{pedido.Endereco.Endereco}} , {{pedido.Endereco.NumEndereco}} </i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Complemento:</b></td>
+                                    <td class="shortPadding"><i>{{pedido.Endereco.Complemento}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Bairro:</b></td>
+                                    <td class="shortPadding"><i>{{pedido.Endereco.Bairro}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Cidade:</b></td>
+                                    <td class="shortPadding"><i>{{pedido.Endereco.Cidade }} </i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Cep:</b></td>
+                                    <td class="shortPadding"><i>{{pedido.Endereco.Cep }}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Referência: </b></td>
+                                    <td class="shortPadding"><i> {{pedido.Endereco.Referencia }}</i></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Formas de Pagamento dos Fornecedores-->
+        <div class="row" ng-show="somaSubTotalFornecedores.length > 0" style="margin-bottom:20px;">
+            <div class="col-md-12">
+                <div class="widget-box ui-sortable-handle collapsed" id="widget-box-2" style="opacity: 1; margin-bottom:20px;">
+                    <div class="widget-header">
+                        <h5 class="widget-title">Subtotal Por Fornecedor</h5>
+                        <div class="widget-toolbar">
+                            <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                <i class="ace-icon fa fa-expand"></i>
+                            </a>-->
+                            <a href="javascript:void(0);" data-action="" id="collapseDivFormaPagamento">
+                                <i ng-class="{'ace-icon fa fa-chevron-up':pedido.StatusId == 23, 'ace-icon fa fa-chevron-down':pedido.StatusId !== 23}" style="color:#AAA;"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="" id="divFormapagamento" ng-style="{display: pedido.StatusId == 23  ? 'block' : 'none'}">
+                        <div class="widget-main" style="padding: 0;">
+                            <div class="table-responsive">
+                                <table class="table table-condensed" style="padding:0; width:100%; margin-bottom:0;">
+                                    <tbody>
+                                        <tr>
+                                            <td class=""><b>Fornecedor:</b></td>
+                                            <td class=""><b>Forma de Pagamento:</b></td>
+                                            <!--<td class=""><b>Frete:</b></td>-->
+                                            <td class=""><b>Prazo:</b></td>
+                                            <td class="" ng-show="exibirMensagemValPedMinimo"><b>Tx. Entrega:</b></td>
+                                            <td class="" ng-show="exibirColunaObservacaoFornecedor"><b>Obs. Forma Pagto:</b></td>
+                                            <td class="" ng-show="exibirColunaObservacaoEntregaFornecedor"><b>Obs. Prazo Entrega:</b></td>
+                                            <td class=""><b>Valor Ped. Mín:</b></td>
+                                            <td class=""><b>Subtotal:</b></td>
+                                        </tr>
+                                        <tr ng-repeat="itens in somaSubTotalFornecedores | orderBy:'Fornecedor.NomeFantasia'">
+                                            <td>
+                                                <span class="blue lbl bigger-110">
+
+                                                    <a ng-hide="pedido.PedidoPromocional || pedido.StatusId > 23" href="javascript:void(0);" ng-click="openTrocaFornecedorItem(itens.Fornecedor.Id);"
+                                                       tooltip="Trocar os itens que você comprou para esse fornecedor"
+                                                       tooltip-placement="bottom">
+                                                        <strong> {{itens.Fornecedor.NomeFantasia}}</strong>
+                                                    </a>
+                                                    <strong ng-show="pedido.PedidoPromocional || pedido.StatusId > 23 "> {{itens.Fornecedor.NomeFantasia}}</strong>
+
+                                                    <span tooltip="Qtd. Itens que este fornecedor deu preço" tooltip-placement="top" class="badge badge-danger">{{this["itensRespondido_"+itens.Fornecedor.Id]}}</span>
+
+                                                </span><br />
+                                                <a href="javascript:void(0);" ng-click="FornecedorRespondeu(itens.Fornecedor.Id);"
+                                                   tooltip="Ver a quantidade de itens que esse fornecedor deu preço"
+                                                   tooltip-placement="bottom">
+                                                    <i class="fa fa-exclamation-circle orange" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="tdCenter">
+                                                <div class="" style="margin-left: 5px;">
+
+                                                    <div style="overflow-y:scroll;max-height:90px;max-width:270px;">
+
+                                                        <div ng-repeat="pag in itens.Fornecedor.FormasPagamento" class="">
+                                                            <label>
+                                                                <input name="{{itens.FornecedorId}}" class="ace" type="radio" value="{{pag.Id}}"
+                                                                       ng-checked="{{pag.Id == itens.FormaPagtoId}}"
+                                                                       ng-model="pag.confirmed"
+                                                                       ng-click="formaPagamento(pag, itens.FornecedorId, pedido,pag)"
+                                                                       ng-disabled="pedido.StatusId != 23">
+                                                                <span class="lbl" tooltip="{{pag.DescMotivo}}" tooltip-placement="right">
+                                                                    {{pag.DescFormaPagto}}
+                                                                </span>
+                                                            </label>
+                                                            <span class="badge badge-danger" ng-show="{{pag.Desconto > 0}}"><b>-</b>{{pag.Desconto}}<b>%</b></span>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </td>
+
+                                            <!--<td class="tdCenter">
+                                                <div class="popover-warning customPopover"
+                                                     ng-repeat="frete in Frete"
+                                                     ng-show="Frete.length > 0 && !itens.Fornecedor.Cif"
+                                                     data-rel="popover" data-trigger="hover"
+                                                     title="" data-content="Pagamento: <strong>{{frete.FormaPagto}}</strong><br>Prazo de Entrega: <strong>{{frete.PrazoEntrega}}</strong>"
+                                                     data-original-title="{{frete.Transportadora}}"
+                                                     data-placement="left">
+                                                    <div class="">
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" name="form-field-radio" class="ace"
+                                                                       ng-disabled="itens.Fornecedor.TaxaEntregaChecked || pedido.StatusId > 23">
+
+                                                                <span class="lbl">{{frete.Valor | currency}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{frete.selected}}
+                                                <div ng-show="itens.Fornecedor.Cif">
+                                                    <label class="label label-warning">Grátis</label>
+                                                </div>
+                                            </td>-->
+
+                                            <td class="tdCenter">
+                                                <div ng-show="{{itens.Fornecedor.PrazoEntrega > 0}}" style="width:50px;">
+                                                    {{itens.Fornecedor.PrazoEntrega}} dia(s)
+
+                                                </div>
+                                                <div ng-show="itens.Fornecedor.FornecedorPrazoSemanal.length > 0" style="width:100px;">
+                                                    <div ng-repeat="semanal in itens.Fornecedor.FornecedorPrazoSemanal | orderBy:'DiaSemana'" style="float: left; margin-left: 2px;">
+                                                        <label class="label label-danger">
+                                                            {{semanal.DescDiaSemana}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="exibirMensagemValPedMinimo">
+                                                <!--<div ng-show="!itens.Fornecedor.Cif">-->
+                                                <div>
+                                                    <!--<label>
+                                                        <input name="cbTaxa{{itens.FornecedorId}}"
+                                                               class="ace" type="checkbox"
+                                                               value="cbTaxa{{itens.FornecedorId}}"
+                                                               ng-model="itens.Fornecedor.TaxaEntregaChecked"
+                                                               ng-checked="(itens.TaxaEntrega > 0 && pedido.StatusId > 23) || itens.Fornecedor.TaxaEntregaChecked"
+                                                               ng-disabled="pedido.StatusId != 23 || itens.Fornecedor.TaxaEntregaObrigatoria">
+                                                        <span class="lbl" tooltip-placement="right">
+                                                            {{itens.Fornecedor.TaxaEntrega | currency}}
+                                                        </span>
+                                                    </label>-->
+
+                                                    <label class="label label-warning" ng-show="itens.Fornecedor.exibirTaxaEntrega">
+                                                        {{itens.Fornecedor.TaxaEntrega | currency}}
+                                                    </label>
+                                                </div>
+                                                <!--<div ng-show="itens.Fornecedor.Cif">
+                                                    <label class="label label-warning" tooltip="Frete de responsabilidade do Fornecedor" tooltip-placement="left">
+                                                        CIF
+                                                    </label>
+                                                </div>-->
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="exibirColunaObservacaoFornecedor">
+
+                                                <div class="alert alert-info" style="overflow-y:scroll;height:90px;width:300px;padding:5px;margin:0;"
+                                                     ng-show="itens.Fornecedor.Observacao != null && itens.Fornecedor.Observacao.length > 0">
+
+                                                    <p>
+                                                        {{itens.Fornecedor.Observacao}}
+                                                    </p>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="exibirColunaObservacaoEntregaFornecedor">
+
+                                                <div class="alert alert-info" style="overflow-y:scroll;height:90px;width:300px;padding:5px;margin:0;"
+                                                     ng-show="itens.Fornecedor.ObservacaoEntrega != null && itens.Fornecedor.ObservacaoEntrega.length > 0">
+
+                                                    <p>
+                                                        {{itens.Fornecedor.ObservacaoEntrega}}
+                                                    </p>
+
+                                                </div>
+
+
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="true">
+                                                <div style="padding:5px;">
+                                                    <label class="label label-info" style="font-weight:bold;">
+                                                        R${{itens.Fornecedor.VlPedidoMin}}
+
+                                                    </label>
+                                                </div>
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="true">
+                                                <div style="padding:5px;">
+                                                    <label class="label label-success" style="font-weight:bold;">
+                                                        {{itens.subtotalFornecedor | currency}}
+
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Itens do pedido Membro-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-box ui-sortable-handle collapsed" id="widget-box-1" style="opacity: 1; margin-bottom:20px;">
+                    <div class="widget-header">
+
+
+                        <div class="nav-search" style="margin-right: 20px;margin-top: 5px;right:unset" id="nav-search">
+                            <form class="form-search">
+                                <span class="input-icon">
+                                    <input type="text" placeholder="Filtrar Itens do Pedido" ng-model="filtroItens" class="nav-search-input" id="nav-search-input" autocomplete="off">
+                                    <i class="ace-icon fa fa-search nav-search-icon"></i>
+                                </span>
+                            </form>
+                        </div>
+
+
+                        <div class="widget-toolbar">
+                            <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                <i class="ace-icon fa fa-expand"></i>
+                            </a>-->
+
+                            <a href="javascript:void(0);" data-action="" id="collapseDivitens">
+                                <i class="ace-icon fa fa-chevron-down" style="color:#AAA;"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="" id="divItensPedido" style="display:block;overflow-y:scroll;max-height:400px;">
+                        <div class="widget-main">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="gvCarrinho">
+                                    <thead>
+                                        <tr style="background-color: #F5F5F5">
+                                            <td><b>Item</b></td>
+                                            <td class="tdCenter"><b>Quantidade</b></td>
+                                            <td class="tdCenter"><b>Preço Médio Unit.</b></td>
+                                            <td class="tdCenter">
+                                                <b class="lbl"
+                                                   tooltip="Preço Unitário Economiza Já"
+                                                   tooltip-placement="top">Preço Unit.</b>
+                                            </td>
+                                            <td class="tdCenter">
+                                                <b class="lbl"
+                                                   tooltip="Subtotal Economiza Já"
+                                                   tooltip-placement="top">Subtotal</b>
+                                            </td>
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23"><b>Obs Marca, Cor Brinde</b></td>
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23"><b>Fornecedor</b></td>
+                                            <!--<td class="tdCenter" ng-show="subtotal > 0"><b>Fornecedor</b></td>-->
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23 && pedido.StatusId != 35" style="margin:0;padding:0;text-align:center;">
+                                                <b>Aprovar</b><br />
+                                                <label class="pos-rel" ng-show="item.SubTotal !== 0 && pedido.StatusId == 23" style="margin-top:5px;">
+                                                    <input name="cbAprovarReprovarItensPedido" class="ace ace-switch" type="checkbox"
+                                                           style="margin: 0; min-height: 0;"
+                                                           ng-checked="aprovacaoTodosItensPedido"
+                                                           ng-model="aprovacaoTodosItensPedido"
+                                                           ng-change="aprovacaoReprovacaoItensPedido(pedido)"
+                                                           ng-disabled="pedido.StatusId != 23">
+                                                    <span class="lbl" data-lbl="SIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NÃO"></span>
+                                                </label>
+                                            </td>
+                                            <td class="tdCenter" ng-show="pedido.StatusId > 23 && pedido.StatusId != 35">
+                                                <b>Aprovação fornecedor</b>
+                                            </td>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in pedido.Itens |  filter:filtroItens | orderBy:'Fornecedor.NomeFantasia'">
+
+                                            <td class="tdCenter">{{item.name}}</td>
+                                            <td class="tdCenter">
+
+                                                <input type="number"
+                                                       maxlength="4" min="1"
+                                                       mask="XXXX"
+                                                       validate-on="blur"
+                                                       name="qtdProduto"
+                                                       style="height: 30px; width: 50px;" placeholder="{{item.quantity}}"
+                                                       ng-model="Quantidade"
+                                                       ng-disabled="pedido.StatusId !== 23 || !item.AprovacaoMembro" />
+
+
+                                                <a href="javascript:void(0);"
+                                                   ng-click="aumentaQuantidadeItens(item, Quantidade, pedido)"
+                                                   tooltip="Aumentar quantidade"
+                                                   tooltip-placement="bottom"
+                                                   ng-hide="pedido.StatusId !== 23">
+                                                    <i class="green fa fa-plus" aria-hidden="true" style="font-size: 15px;"></i>
+
+                                                </a>
+
+                                            </td>
+                                            <td class="tdCenter">{{item.PrecoMedioUnit | currency : "R$"}}</td>
+                                            <td class="tdCenter">{{item.PrecoNegociadoUnit | currency : "R$"}}</td>
+                                            <td class="tdCenter">{{item.SubTotal | currency : "R$"}}</td>
+
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23">
+                                                <p class="popover-info customPopover" data-content="{{item.Observacao}}"
+                                                   data-rel="popover" data-trigger="hover"
+                                                   title=""
+                                                   data-original-title="Observação fornecedor"
+                                                   data-placement="top">
+                                                    {{item.Observacao | limitTo: 9}}{{item.Observacao.length > 10 ? '...' : ''}}
+                                                </p>
+
+                                            </td>
+
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23">
+                                                {{item.SubTotal == 0 ? 'Sem estoque' : item.Fornecedor.NomeFantasia}}
+
+                                                <a href="javascript:void(0);"
+                                                   ng-hide="pedido.PedidoPromocional || pedido.StatusId > 23 || item.SubTotal == 0"
+                                                   ng-click="openModalTrocaFornecedor(item.sku, item.flgOutraMarca, item.name, item.Id);">
+                                                    <i class="fa fa-retweet fa-lg" style="color:orange;" aria-hidden="true"
+                                                       tooltip="Clique aqui para escolher outro fornecedor para este item"
+                                                       tooltip-placement="bottom"></i>
+                                                </a>
+
+
+
+                                            </td>
+                                            <!--<td ng-show="{{subtotal > 0}}" class="tdCenter">
+                                                {{item.SubTotal == 0 ? 'Sem estoque' : item.Fornecedor.NomeFantasia}}
+                                            </td>-->
+
+                                            <td class="tdCenter" ng-show="pedido.StatusId >= 23 && pedido.StatusId != 35" style="text-align:center;">
+                                                <label class="pos-rel" ng-show="item.SubTotal !== 0">
+                                                    <input name="cbAprovarItem" class="ace ace-switch" type="checkbox"
+                                                           style="margin: 0; min-height: 0;"
+                                                           ng-checked="item.AprovacaoMembro"
+                                                           ng-model="item.AprovacaoMembro"
+                                                           ng-change="aprovacaoItemPedido(item)"
+                                                           ng-disabled="pedido.StatusId != 23">
+                                                    <span class="lbl" data-lbl="SIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NÃO"></span>
+                                                </label>
+                                            </td>
+                                            <td class="tdCenter" ng-show="pedido.StatusId > 23 && pedido.StatusId != 35" ">
+
+                                                <label ng-class="{
+                                                       'label label-warning':!item.AprovacaoFornecedor && item.Ativo && item.AprovacaoMembro,
+                                                       'label label-success':item.AprovacaoFornecedor && item.Ativo && item.AprovacaoMembro,
+                                                       'label label-danger': item.AprovacaoMembro && !item.AprovacaoFornecedor}"
+                                                       ng-show="item.SubTotal !== 0"
+                                                       style="margin: 0;">
+                                                    {{ !item.AprovacaoFornecedor && item.Ativo && item.AprovacaoMembro ? 'Aguardando' : item.AprovacaoFornecedor && item.Ativo && item.AprovacaoMembro ? 'Sim': !item.AprovacaoMembro ? '' : 'Cancelado' }}
+                                                </label>
+
+                                                <a href="javascript:void(0);"
+                                                   ng-show="item.AprovacaoMembro && !item.AprovacaoFornecedor && !item.Ativo && item.SubTotal > 0"
+                                                   ng-click="openModalTrocaFornecedor(item.sku, item.flgOutraMarca, item.name, item.Id);">
+                                                    <i class="fa fa-exchange fa-2x blue" aria-hidden="true"
+                                                       tooltip="Clique aqui para escolher outro fornecedor para este item"
+                                                       tooltip-placement="bottom"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                        <!-- footer -->
+                                        <tr class="well">
+                                            <td><b>Total Itens Aprovados</b></td>
+                                            <td class="tdCenter"><b>{{quantidadeItens}}</b></td>
+                                            <td class="tdRight"><b></b></td>
+                                            <td class="tdRight"><b>Total</b></td>
+                                            <td class="tdRight"><b>{{subtotal | currency}}</b></td>
+                                            <td class="tdRight" ng-show="pedido.StatusId >= 23"></td>
+                                            <td class="tdRight" ng-show="pedido.StatusId >= 23"></td>
+                                            <td class="tdRight" ng-show="pedido.StatusId >= 23 && pedido.StatusId != 35"><b></b></td>
+                                            <td class="tdRight" ng-show="pedido.StatusId > 23 && pedido.StatusId != 35"><b></b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Linha do tempo-->
+        <div class="table-responsive">
+            <!--<ul style="margin-left: 0;" class="steps">
+                <li data-step="1" ng-class="status.Ordem <= pedido.OrdemStatus ? 'active' : ''" ng-repeat="status in StatusPedido | orderBy:'Ordem'">
+                    <span class="step">
+                        <i ng-class="status.Ordem <= pedido.OrdemStatus ? 'fa fa-check green fa-lg' : 'fa fa-hourglass-half grey'" aria-hidden="true"></i>
+                    </span>
+                    <span class="title">{{status.DescStatus}}</span>
+                </li>
+            </ul>-->
+
+            <ul style="margin-left: 0;" class="steps">
+                <li data-step="1" ng-class="status.Ordem <= pedido.OrdemStatus ? 'active' : ''" ng-repeat="status in pedido.StatusPedido">
+                    <span class="step">
+                        <i ng-class="status.Ordem <= pedido.OrdemStatus ? 'fa fa-check green fa-lg' : 'fa fa-hourglass-half grey '" aria-hidden="true"> </i>
+                    </span>
+                    <span class="title">{{status.DescStatus}}</span>
+                </li>
+            </ul>
+
+        </div>
+
+        <!--Motivo Cancelamento Itens Pedido por Fornecedor-->
+        <div class="table-responsive" style="margin-top: 20px;" ng-show="pedido.ListaHistStatusPedido.length > 0">
+            <div id="accordion" class="accordion-style1 panel-group customAccordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse"
+                               data-parent="#accordion" ng-href="#descricaoMotivo" target="_self"
+                               aria-expanded="false" tooltip="Clique aqui" tooltip-placement="bottom">
+                                <i class="red bigger-110 ace-icon fa fa-angle-right" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                <span class="red lbl bigger-100"><b>Motivo pelo qual os itens do seu pedido não foram aprovados...</b></span>
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div class="panel-collapse collapse" id="descricaoMotivo" aria-expanded="false" style="height: 0px;">
+                        <div class="panel-body">
+                            <div class="row" ng-repeat="lista in pedido.ListaHistStatusPedido" style="margin-bottom: 5px;">
+                                <div class="col-md-3">
+                                    <label style="background-color: red;color: white;opacity: 0.5;padding: 1px;font-size: 13px;">{{lista.NomeFantasia}}</label>
+                                </div>
+                                <div class="col-md-9">
+                                    {{lista.DescMotivoCancelamento}}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <button type="button" class="btn btn-success btn-block"
+                ng-click="aprovarPedido();"
+                ng-show="totalItensPedido > 0 && pedido.StatusId == 23">
+            <i class="ace-icon fa fa-check"></i>
+            Aprovar Pedido
+        </button>
+
+        <button type="button" class="btn btn-danger btn-block"
+                ng-click="cancelarPedido();"
+                ng-show="totalItensPedido < 1 && pedido.StatusId == 23">
+            <i class="ace-icon fa fa-check"></i>
+            Cancelar Pedido
+        </button>
+    </div>
+
+</div>

@@ -1,0 +1,98 @@
+﻿
+
+<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close"   >
+            X
+        </button>
+        <h4 class="modal-title">TROCAR ENDEREÇO DE ENTREGA</h4>
+
+    </div>
+ </div>
+ 
+    <div class="panel-body">
+        <h4>Endereços</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-6" ng-repeat="EnderecoPadrao in enderecos ">
+                <div class="widget-box">
+
+                    <div class="widget-header widget-header-flat widget-header-small">
+
+                        <div class="inline pos-rel">
+                            <label class="pos-rel">
+                                <input type="radio" class="ace input-md"  name="nameEndP" 
+                                       ng-checked="EnderecoPadrao.EnderecoPadrao" 
+                                       ng-click="selecionaEndereco(EnderecoPadrao);"
+                                       ng-disabled="!EnderecoPadrao.FornecedorNesteEndereco">
+                                <span class="lbl">  Trocar para Este</span>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed shortMargin">
+                                <tr>
+                                    <td class="shortPadding"><b>Destinatário:</b></td>
+                                    <td class="shortPadding"><i>{{EnderecoPadrao.Logradouro}} {{EnderecoPadrao.Endereco}} , {{EnderecoPadrao.NumEndereco}} </i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Complemento:</b></td>
+                                    <td class="shortPadding"><i>{{EnderecoPadrao.Complemento}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Bairro:</b></td>
+                                    <td class="shortPadding"><i>{{EnderecoPadrao.Bairro}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Cidade:</b></td>
+                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cidade }} </i></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="shortPadding"><b>Cep:</b></td>
+                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cep }}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Referência: </b></td>
+                                    <td class="shortPadding"><i> {{EnderecoPadrao.Referencia }}</i></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix" style="padding:0;text-align:center;">
+                        <b class="lbl red" ng-hide="EnderecoPadrao.FornecedorNesteEndereco">Nenhum fornecedor entrega neste endereço</b>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <!--Inicio Botoes-->
+        <hr />
+
+
+        <!--Fim Botoes-->
+        <!--<button type="submit" class="btn btn-success btn-sm">
+            <i class="ace-icon fa fa-check"></i>
+            Salvar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="cancel()">
+            <i class="ace-icon fa fa-times"></i>
+            Cancel
+        </button>-->
+
+
+    </div>
+
+ 
+
+

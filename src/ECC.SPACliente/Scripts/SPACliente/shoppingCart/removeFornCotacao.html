@@ -1,0 +1,75 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">REMOVER FORNECEDOR DA COTAÇÃO</h4>
+
+    </div>
+
+
+
+</div>
+
+<div class="panel-body ">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <span class="input-icon">
+                <input placeholder="Pesquisar Nome, CNPJ ..." class="nav-search-input" id="nav-search-input" ng-model="filtroFornecedor" autocomplete="off" type="text">
+                <i class="ace-icon fa fa-search nav-search-icon"></i>
+            </span>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="table-responsive center">
+
+                <table class="table table-bordered table-hover center" id="gvCarrinhoCotacao">
+                    <thead>
+                        <tr>
+                            <td><b>Fornecedor</b></td>
+                            <td><b>Formas Pagto</b></td>
+                            <td><b>Só Àvista</b></td>
+                            <td class="center"><b>Remover da cotação</b></td>
+                        </tr>
+                    </thead>
+                    <!-- cart items -->
+                    <tbody>
+
+
+ 
+                        <!--Carrinho para itens da cotação-->
+                        <tr ng-repeat="forn in fornecedoresProd | filter:filtroFornecedor " ng-show="fornecedoresProd.length > 0" ng-class='forn.FlgSomenteAvista == true ? "warning" : "" '>
+                            <td>{{forn.NomeFantasia}}</td>
+                            <td>{{forn.FormaPagtoString}}</td>
+                            <td>
+                               
+
+                                <i class="fa fa-check orange" aria-hidden="true" tooltip="Somente pagamento à vista." tooltip-placement="top"   ng-show="forn.FlgSomenteAvista" ></i>
+
+                            </td>
+                            <td class="center">
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace input-lg"
+                                           ng-model="forn.checked"
+                                           ng-click="addFornecedorRem(forn.FornecedorId, forn.checked, forn);">
+                                    <span class="lbl"></span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+    <hr />
+
+ 
+</div>

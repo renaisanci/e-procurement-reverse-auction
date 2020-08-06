@@ -1,0 +1,39 @@
+﻿
+<style>
+   .panel-body {
+       position: relative;
+       padding-top: 0;
+   }
+
+
+
+   .panel-body div {
+       background-color: #D15B47;
+       color: white; 
+       font-weight: bold;
+       font-size: 20px;
+       text-align: center;
+       border-radius: 10px;
+       padding: 8px;
+   }
+
+</style>
+
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> PORQUE SUA PROMOÇÃO NÃO FOI APROVADA?  </h4>
+    </div>
+</div>
+
+<div class="panel-body">
+    <div class="row">
+        <i class="fa fa-exclamation-circle" style="font-size: 100px;color: white"></i>
+        <div class="col-md-12">
+            <h4 style="color: white">{{novoProduto.DescMotivoCancelamento}}</h4>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,124 @@
+﻿
+<style>
+    .shortPadding {
+        text-align: left;
+    } 
+</style>
+
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> DETALHES DO PRODUTO  </h4>
+    </div>
+</div>
+
+<div class="panel-body">
+    <div class="content">
+
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <img ng-src="{{novoProduto.ImagemGrande}}" alt="Imagem Produto" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat widget-header-small">
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed shortMargin">
+                                <tr>
+                                    <td class="shortPadding"><b>Fornecedor:</b></td>
+                                    <td class="shortPadding"><i><b>{{novoProduto.Fornecedor.NomeFantasia}}</b></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Nome produto:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.DescProduto}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Categoria:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.DescCategoria}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Sub-Categoria:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.DescSubCategoria}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Marca:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.Marca}} </i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Unidade de Medida:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.UnidadeMedida}} </i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Quantidade de Produtos:</b></td>
+                                    <td class="shortPadding"><i>{{novoProduto.QtdProdutos}} </i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Preço Real:</b></td>
+                                    <td class="shortPadding"><i>R${{novoProduto.PrecoMedio}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b style="color: #d15b47">Preço Promocional</b></td>
+                                    <td class="shortPadding"><i style="color: #d15b47; font-weight: bold;">R${{novoProduto.PrecoPromocao}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Especificação do Produto:</b></td>
+                                    <td class="shortPadding"><i> {{novoProduto.Especificacao}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Validade Produto:</b></td>
+                                    <td class="shortPadding"><i> {{novoProduto.ValidadeProd | date:'dd/MM/yyyy'}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Motivo da Promoção:</b></td>
+                                    <td class="shortPadding"><i> {{novoProduto.MotivoPromocao}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Início da Promoção:</b></td>
+                                    <td class="shortPadding"><i> {{novoProduto.InicioPromocao | date:'dd/MM/yyyy'}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Fim da Promoção:</b></td>
+                                    <td class="shortPadding"><i> {{novoProduto.FimPromocao | date:'dd/MM/yyyy'}}</i></td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <div class="row">
+            <div class="col-md-12" ng-show="!novoProduto.AprovacaoFranquia">
+                <button class="btn btn-success btn-block" ng-click="salvarAprovacao()">
+                    <i class="icon fa fa-check"></i>
+                    Aprovar Promoção
+                </button>
+            </div>
+
+            <div class="col-md-12" ng-show="novoProduto.AprovacaoFranquia">
+                <button class="btn btn-danger btn-block" ng-click="cancelarPromocao()">
+                    <i class="icon fa fa-times"></i>
+                    Cancelar Promoção
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

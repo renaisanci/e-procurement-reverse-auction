@@ -1,0 +1,84 @@
+﻿<div class="panel panel-danger">
+
+
+    <div class="modal-header" style="background-color:#F2DEDE">
+        <button type="button" ng-click="cancel()" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">DETALHES DO FORNECEDOR</h4>
+
+    </div>
+
+
+    <div class="panel-body" style="padding: 30px;">
+
+        <div class="widget-box">
+
+            <div class="widget-header widget-header-flat widget-header-small">
+
+            </div>
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-condensed shortMargin">
+                        <tr>
+                            <td class="shortPadding" style="width: 20%;"><b>Nome Fantasia:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.NomeFantasia}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Razão Social:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.RazaoSocial}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Cnpj:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.Cnpj}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Data Solicitação:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.DataCriado | date:'dd/MM/yyyy HH:mm:ss'}} </i></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shortPadding"><b>Descrição:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.Descricao}}</i></td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="shortPadding"><b>Obs. Forma Pagto:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.ObservacaoFormaPagto}}</i></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shortPadding"><b>Obs. Entrega:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.ObservacaoEntrega}}</i></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shortPadding"><b>Status:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.Status}}</i></td>
+                        </tr>
+
+                        <tr>
+                            <td class="shortPadding"><b>Observação:</b></td>
+                            <td class="shortPadding"><i>{{Fornecedor.Observacao}}</i></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="panel-footer clearfix">
+
+            </div>
+        </div>
+
+
+        <hr />
+        <button class="btn btn-danger pull-right" ng-click="cancel()">Fechar</button>
+
+    </div>
+
+</div>
+
+

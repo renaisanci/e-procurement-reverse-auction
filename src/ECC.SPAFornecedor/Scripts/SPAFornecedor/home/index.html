@@ -1,0 +1,90 @@
+﻿
+
+<div ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+    <div class="page-content">
+
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-success" id="evolucaoanualCotacao">
+                    <div class="panel-heading"
+                       tooltip="Acompanhe a quantidade de cotações que você rebecebeu mensalmente"
+                       tooltip-placement="bottom" 
+                         >
+                          <h3 class="panel-title"><i class="fa fa-question-circle fa " aria-hidden="true"></i>  EVOLUÇÃO MENSAL COTAÇÕES</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-if="loadingGenres">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                        <div id="myfirstchart" style="height: 250px;"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!--<div class="col-md-4">
+                <div class="panel panel-success" id="participacaoCotacao"
+                     
+                     
+                  
+                     >
+                    <div class="panel-heading"
+                         
+                                 tooltip="Acompanhe as cotações que você fechou, apenas participou e não participou"
+                       tooltip-placement="bottom" 
+                         >
+                        <h3 class="panel-title"> <i class="fa fa-question-circle fa " aria-hidden="true"></i> PARTICIPAÇÃO EM COTAÇÕES</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-if="loadingGenres">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                        <div id="myfirstchart2" style="height: 250px;"></div>
+                    </div>
+
+                </div>
+            </div>-->
+
+
+
+            <div class="col-md-6">
+                <div class="panel panel-success" id="panelMovieGenres">
+                    <div class="panel-heading"
+                         
+                         
+                                            tooltip="Acompanhe os pedidos de cotações e promocional fechados mensalmente"
+                       tooltip-placement="bottom" 
+                         >
+                        <h3 class="panel-title"> <i class="fa fa-question-circle fa " aria-hidden="true"></i> PEDIDOS FECHADOS MENSAL</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div ng-if="loadingGenres">
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-4">
+                                <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                            </div>
+                            <div class="col-xs-4"></div>
+                        </div>
+                        <div id="myfirstchart3" style="height: 250px;"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div> 
+
+    </div>
+</div>

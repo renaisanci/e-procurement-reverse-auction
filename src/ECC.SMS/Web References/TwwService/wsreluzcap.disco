@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx?wsdl" docRef="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx" xmlns:q1="https://www.twwwireless.com.br/reluzcap/wsreluzcap" binding="q1:ReluzCap_x005F_x0020_Web_x005F_x0020_ServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx" xmlns:q2="https://www.twwwireless.com.br/reluzcap/wsreluzcap" binding="q2:ReluzCap_x005F_x0020_Web_x005F_x0020_ServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

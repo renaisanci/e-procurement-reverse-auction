@@ -1,0 +1,60 @@
+﻿<div class="panel panel-danger">
+
+
+    <div class="modal-header" style="background-color:#F2DEDE">
+        <button ng-click="cancel();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> DESCRIÇÃO DA RECUSA</h4>
+
+    </div>
+
+
+    <div class="panel-body">
+
+    <div class="row">
+            <div class="col-md-2">
+                <span class="blue lbl bigger-200"> Membro: </span>
+
+            </div>
+
+            <div class="col-md-10">
+                <label class="red lbl bigger-200">
+                    {{membro.RazaoSocial}}
+                    {{membro.Nome}}
+                </label>
+              
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-12">
+                <h3>Descreva o motivo para não aceitar o membro acima:</h3>
+            </div>
+        </div>
+
+        <form role="form" ng-submit="fornecedorNaoAceitaMembro()">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea name="txtDescRecusa" cols="5" rows="5" ng-model="recusaMembro.DescRecusa" class="form-control" placeholder="Descrição"></textarea>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success btn-block">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <hr />
+    </div>
+
+</div>
+
+

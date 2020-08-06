@@ -1,0 +1,446 @@
+﻿<div class="page-content">
+    <ul class="nav nav-tabs">
+
+        <li id="tabAbaMembro" ng-class="tabsFornecedorAceitaMembro.tabPesquisar.tabAtivar" ng-show="tabsFornecedorAceitaMembro.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabListaMembro" target="_self" ng-click="habilitaDesabilitaAbas()">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Membros Pessoa Jurídica
+            </a>
+        </li>
+        
+        <li id="tabAbaMembro" ng-class="tabsFornecedorAceitaMembro.tabPesquisarPF.tabAtivar" ng-show="tabsFornecedorAceitaMembro.tabPesquisarPF.tabhabilitar">
+            <a data-toggle="tab" href="#tabListaMembro" target="_self" ng-click="habilitaDesabilitaAbasPF()">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Membros Pessoa Física
+            </a>
+        </li>
+
+        <li id="tabCadAceitaMembro" ng-class="tabsFornecedorAceitaMembro.tabCadFornecedorAceitaMembro.tabAtivar" ng-show="tabsFornecedorAceitaMembro.tabCadFornecedorAceitaMembro.tabhabilitar">
+            <a data-toggle="tab" href="#tabContMembro" target="_self">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                Solicitações
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabListaMembro" ng-class="tabsFornecedorAceitaMembro.tabPesquisar.contentAtivar" ng-show="tabsFornecedorAceitaMembro.tabPesquisar.contentHabilitar">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Pesquisar membro PJ</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtronovomembrosolicita" placeholder="Pesquisar membro" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pull-left">
+
+                                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarNovoMembroSolicitaFornecedor(page);">
+                                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+
+                                    <th>Nome Fantasia</th>
+                                    <th>Razão Social</th>
+                                    <th>Cnpj</th>
+                                    <th>E-mail</th>
+                                    <th>Comprador</th>
+                                    <th>Contato</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="membro in Membro | filter : filtronovomembrosolicita">
+
+
+                                    <td>{{membro.NomeFantasia}}</td>
+                                    <td>{{membro.RazaoSocial}}</td>
+                                    <td>{{membro.Cnpj}}</td>
+                                    <td>{{membro.Email}}</td>
+                                    <td>{{membro.Comprador}}</td>
+                                    <td><i> {{membro.DddCel}} {{membro.Celular}} &nbsp;  {{membro.DddTelComl}} {{membro.TelefoneComl}}</i></td>
+
+                                    <td style="text-align: center;">
+
+                                        <a href="javascript:void(0);" ng-click="detalhesMembroSolicitaFornecedor(membro)" tooltip="Clique para ver os detalhes do membro" tooltip-placement="bottom">
+                                            <span class="green">
+                                                <i class="ace-icon fa fa-list bigger-160"></i>
+                                            </span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarEstoque(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="tabListaMembroPF" ng-class="tabsFornecedorAceitaMembro.tabPesquisarPF.contentAtivar" ng-show="tabsFornecedorAceitaMembro.tabPesquisarPF.contentHabilitar">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Pesquisar membro PF</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtronovomembrosolicitaPF" placeholder="Pesquisar membro" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 pull-left">
+
+                                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarNovoMembroSolicitaFornecedorPF(page);">
+                                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>CPF</th>
+                                    <th>CRO</th>
+                                    <th>E-mail</th>
+                                    <th>Contato</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="membro in MembroPF | filter : filtronovomembrosolicitaPF">
+                                    <td>{{membro.Nome}}</td>
+                                    <td>{{membro.Cpf}}</td>
+                                    <td>{{membro.Cro}}</td>
+                                    <td>{{membro.Email}}</td>
+                                    <td ><i> {{membro.DddCel}} {{membro.Celular}} &nbsp;  {{membro.DddTelComl}} {{membro.TelefoneComl}}</i></td>
+                                    <td style="text-align: center;">
+
+                                        <a href="javascript:void(0);" ng-click="detalhesMembroSolicitaFornecedorPF(membro)" tooltip="Clique para ver os detalhes do membro" tooltip-placement="bottom">
+                                            <span class="green">
+                                                <i class="ace-icon fa fa-list bigger-160"></i>
+                                            </span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarEstoque(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="tabContMembro" ng-class="tabsFornecedorAceitaMembro.tabCadFornecedorAceitaMembro.contentAtivar" ng-show="tabsFornecedorAceitaMembro.tabCadFornecedorAceitaMembro.contentHabilitar">
+            <h4>Solicitações membro querendo comprar com você</h4>
+            <hr />
+
+
+
+            <div class="widget-box">
+
+                <div class="widget-header widget-header-flat widget-header-small">
+                    Dados para Análise Financeira
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive" ng-show="tipoPessoa=='pj'">
+
+                        <table class="table table-condensed shortMargin">
+                            <tr>
+                                <td class="shortPadding" style="width: 15%;"><b>Nome Fantasia:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.NomeFantasia}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Razão Social:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.RazaoSocial}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Cnpj:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Cnpj}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>E-mail:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Email}} </i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Cep:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Cep}} </i></td>
+                            </tr>
+
+                            <tr>
+                                <td class="shortPadding"><b>Telefone:</b></td>
+                                <td class="shortPadding">
+                                    <i> {{novoAceitaMembro.DddCel}} {{novoAceitaMembro.Celular}} &nbsp;  {{novoAceitaMembro.DddTelComl}} {{novoAceitaMembro.TelefoneComl}}</i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Responsável:</b></td>
+                                <td class="shortPadding">
+                                    <i>{{novoAceitaMembro.Comprador}}</i>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+
+
+                    <div class="table-responsive" ng-show="tipoPessoa=='pf'">
+
+                        <table class="table table-condensed shortMargin">
+                            <tr>
+                                <td class="shortPadding" style="width: 15%;"><b>Nome:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Nome}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Email:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Email}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>CPF:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Cpf}}</i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>CRO:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Cro}} </i></td>
+                            </tr>
+                            <tr>
+                                <td class="shortPadding"><b>Cep:</b></td>
+                                <td class="shortPadding"><i>{{novoAceitaMembro.Cep}} </i></td>
+                            </tr>
+
+                            <tr>
+                                <td class="shortPadding"><b>Telefone:</b></td>
+                                <td class="shortPadding">
+                                    <i> {{novoAceitaMembro.DddCel}} {{novoAceitaMembro.Celular}} &nbsp;  {{novoAceitaMembro.DddTelComl}} {{novoAceitaMembro.TelefoneComl}}</i>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+              
+            </div>
+
+
+            <!--Inicio Forma de Pagamento-->
+
+            <div class="conteudo" style="margin-top:20px;">
+                <h4>Remover Forma de Pagamento para este Membro</h4>
+                <hr />
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-md-5 col-xs-5">
+                                <label class="label label-info label-important">Á Vista</label>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3" ng-repeat="formaPagto in formaPagtosAvista" style="margin-top: 10px;">
+
+
+                                <div class="row">
+                                    <label class="col-xs-6">
+                                        <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                               ng-model="formaPagto.selected" value="{{formaPagto.Id}}"
+                                               ng-checked="formaPagto.Relacionado">
+                                        <span class="lbl"> {{formaPagto.DescFormaPagto}}</span>
+                                    </label>
+
+                                    <input class="col-xs-6" type="number" min="0" maxlength="2" name="{{formaPagto.Id}}"
+                                           tooltip="Informe o valor do desconto %"
+                                           tooltip-placement="right"
+                                           placeholder="%" value="{{formaPagto.Desconto}}"
+                                           ng-model="formaPagto.Desconto" style="width: 50px;">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-md-5 col-xs-5">
+                                <label class="label label-info label-important">Parcelado</label>
+                            </div>
+                        </div>
+
+                        <div class="row"   style="overflow-y:scroll;max-height:200px;">
+
+                            <div class="col-md-12" ng-repeat="formaPagtoParcelado in formaPagtosParcelado" style="margin-top: 10px;">
+
+                                <div class="row">
+
+                                    <div class="col-md-2" style="margin-top:15px;">
+                                        <label>
+                                            <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                                   ng-model="formaPagtoParcelado.selected" value="{{formaPagtoParcelado.Id}}"
+                                                   ng-checked="formaPagtoParcelado.Relacionado">
+                                            <span class="lbl"> {{formaPagtoParcelado.DescFormaPagto}}</span>
+
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-horizontal">
+                                            <span class="lbl">Vl. Forma Pagto.</span>
+
+                                            <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                   tooltip="Valor minímo para esta forma de pagto, caso valor do pedido seja menor que este, não aparecerá para o membro"
+                                                   tooltip-placement="top"
+                                                   placeholder="Valor minímo" value="{{formaPagtoParcelado.VlFormaPagto}}"
+                                                   ng-model="formaPagtoParcelado.VlFormaPagto">
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="col-md-2">
+
+                                <div class="form-horizontal">
+                                    <span class="lbl">Quantidade</span>
+
+                                    <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}"
+                                           tooltip="Quantidade Parcelas"
+                                           tooltip-placement="top"
+                                           placeholder="Qtd. Parcelas" value="{{formaPagtoParcelado.QtdParcelas}}"
+                                           ng-model="formaPagtoParcelado.QtdParcelas">
+                                </div>
+                            </div>-->
+
+                                    <div class="col-md-2">
+                                        <div class="form-horizontal">
+                                            <span class="lbl">Valor Min. Parcela</span>
+                                            <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                   tooltip="Valor de parcela mínima para esta forma de pagamento. Ex: Em 2x e o valor da parcela deve ser R$ 200,00 "
+                                                   tooltip-placement="top"
+                                                   placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcela | currency}}"
+                                                   ng-model="formaPagtoParcelado.ValorMinParcela">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-horizontal">
+                                            <span class="lbl">Valor Min. Parcela Pedido</span>
+                                            <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                   tooltip="Valor mínimo para parcelar pedido"
+                                                   tooltip-placement="top"
+                                                   placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcelaPedido}}"
+                                                   ng-model="formaPagtoParcelado.ValorMinParcelaPedido">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--Fim Forma de Pagamento-->
+            <!--Inicio Botoes-->
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-block" ng-click="fornecedorAceitaMembro(novoAceitaMembro)">
+                        <i class="ace-icon fa fa-check"></i>
+                        Aceitar Membro
+                    </button>
+
+                </div>
+
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger btn-block" ng-click="modalMotivoRecusaMembro(novoAceitaMembro)">
+                        <i class="ace-icon fa fa-remove"></i>
+                        Recusar Membro
+                    </button>
+
+                </div>
+
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-info btn-block" ng-click="outroMembro()">
+                        <i class="ace-icon fa fa-check"></i>
+                        Outro Membro
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Fim Botoes-->
+
+        </div>
+
+    </div>
+
+</div>

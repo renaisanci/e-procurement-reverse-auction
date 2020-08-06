@@ -1,0 +1,130 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+
+            Escolha seu plano
+        </h1>
+    </div>
+
+    <div class="row" style="margin-top:60px;">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-4 ng-trans ng-trans-slide-right pricing-box" ng-repeat="plano in planosMensalidades">
+                    <div class="widget-box {{plano.Class}}">
+                        <div class="widget-header">
+                            <h5 class="widget-title bigger lighter"><strong>{{plano.Descricao | uppercase}}</strong> </h5>
+                        </div>
+
+                        <div class="widget-body" ng-style="plano.MeuPlano && {'background-color':'#ccc'}">
+                            <div class="widget-main">
+                                <ul class="list-unstyled spaced2">
+                                    <li>
+                                        <i class="ace-icon fa fa-check green"></i>
+                                        ACESSO MONITOR DA BOA COMPRA
+                                    </li>
+
+                                    <li>
+                                        <i class="ace-icon fa fa-check green"></i>
+                                        FAZER PEDIDO AUTOMATICO
+                                    </li>
+
+                                    <li ng-show="plano.Descricao=='Plano Mensal'">
+                                        <i class="ace-icon fa fa-check green"></i>
+                                        SALVAR SOMENTE 2 LISTA DE COMPRAS
+                                    </li>
+
+                                    <li ng-show="plano.Descricao=='Plano Trimestral'">
+                                        <i class="ace-icon fa fa-check green"></i>
+                                        SALVAR SOMENTE 3 LISTA DE COMPRAS
+                                    </li>
+
+                                    <li ng-show="plano.Descricao=='Plano Anual'">
+                                        <i class="ace-icon fa fa-check green"></i>
+                                        SALVAR LISTA DE COMPRAS ILIMITADO
+                                    </li>
+
+                                    <li>
+                                        <i ng-show="plano.Descricao=='Plano Mensal' || plano.Descricao=='Plano Trimestral'" class="ace-icon  fa fa-times red"></i>
+
+                                        <i ng-show="plano.Descricao=='Plano Anual'" class="ace-icon  fa fa-check green"></i>
+                                        INDICADORES DE ECONOMIA
+                                    </li>
+
+                                    <li>
+                                        <i ng-show="plano.Descricao=='Plano Mensal' || plano.Descricao=='Plano Trimestral'" class="ace-icon  fa fa-times red"></i>
+
+                                        <i ng-show="plano.Descricao=='Plano Anual'" class="ace-icon  fa fa-check green"></i>
+                                        SUPORTE 24Hrs
+                                    </li>
+
+                                    <li>
+                                        <i ng-show="plano.Descricao=='Plano Mensal' || plano.Descricao=='Plano Trimestral'" class="ace-icon  fa fa-times red"></i>
+
+                                        <i ng-show="plano.Descricao=='Plano Anual'" class="ace-icon  fa fa-check green"></i>
+                                        ACESSO EM MAIS DE 1 DISPOSITIVO
+                                    </li>
+                                </ul>
+
+                                <hr />
+                                <div class="price">
+
+                                    <label class="bigger-150 red">   {{plano.Valor | currency}}</label>
+                                    <small>/{{plano.Descricao}}</small>
+                                </div>
+                            </div>
+                          
+                                <div class="row control-group" style="padding: 0px;margin-left:10%;margin-right:10%">
+                                    <div class="col-md-6 text-center">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="form-field-radio-{{plano.Id}}" 
+                                                       type="radio" class="ace input-lg"
+                                                       ng-init="true"
+                                                       ng-checked="plano.TipoCartao"
+                                                       ng-click="atualizarTipoPagamento(1,plano)">
+                                                <span class="lbl bigger-120"> Cartão</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="form-field-radio-{{plano.Id}}" 
+                                                       type="radio" class="ace input-lg"
+                                                       ng-init="true"
+                                                       ng-checked="plano.TipoBoleto"
+                                                       ng-click="atualizarTipoPagamento(3,plano)">
+                                                <span class="lbl bigger-120"> Boleto</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                          
+                            <div>
+                                <button class="btn btn-block {{plano.ClassButton}}" ng-click="inserirPlanoMensalidade(plano)" ng-disabled="plano.MensalidadePaga">
+                                    <i class="ace-icon fa fa-shopping-cart bigger-110"></i>
+                                    <span>COMPRAR</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn-danger pull-right" ng-init="existePlanoMembro = false" ng-show="existePlanoMembro" ng-click="trocarPlano()">
+                        <i class="ace-icon fa fa-remove"></i>
+                        Trocar de Plano
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

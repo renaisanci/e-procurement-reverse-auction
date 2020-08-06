@@ -1,0 +1,77 @@
+﻿
+<style>
+    .shortPadding {
+        text-align: left;
+    }
+</style>
+
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> DETALHES DO FORNECEDOR </h4>
+    </div>
+</div>
+
+<div class="panel-body">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat widget-header-small">
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed shortMargin">
+                                <tr>
+                                    <td class="shortPadding"><b>Nome Fornecedor:</b></td>
+                                    <td class="shortPadding"><i>{{fornecedor.NomeFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Razão Social:</b></td>
+                                    <td class="shortPadding"><i>{{fornecedor.NomeRazaoSocialFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Cnpj:</b></td>
+                                    <td class="shortPadding"><i>{{fornecedor.CnpjFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Prazo de Entrega:</b></td>
+                                    <td class="shortPadding">
+                                        <div ng-show="fornecedor.PrazoEntegaFornecedor > 0">
+                                            {{fornecedor.PrazoEntegaFornecedor}} ({{fornecedor.PrazoEntegaFornecedor > 1 ? 'Dias' : 'Dia'}})
+                                        </div>
+                                        <div ng-show="fornecedor.FornecedorPrazoSemanal.length > 0">
+                                            <div ng-repeat="prazo in fornecedor.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                                <label class="label label-danger">
+                                                    {{prazo.DescDiaSemana}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding" style="vertical-align:top;"><b>Formas de Pagamento:</b></td>
+                                    <td class="shortPadding">
+                                        <div ng-repeat="pagamento in fornecedor.FormasPagamento">
+                                            <i>{{pagamento.DescFormaPagto}} </i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Descrição:</b></td>
+                                    <td class="shortPadding"><i>{{fornecedor.Descricao}} </i></td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

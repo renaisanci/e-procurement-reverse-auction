@@ -1,0 +1,173 @@
+﻿<!--Script para abrir o accordion e mudar o botão para abrir e fechar o mesmo-->
+<script>
+
+    $('#collapseDivitens > i').removeClass('fa-chevron-down');
+    $('#collapseDivitens > i').addClass('fa-chevron-up');
+
+
+    $('#collapseDivitens').click(function () {
+
+        var display = $('#divItensPedido').css('display');
+
+        if (display == "block") {
+
+            $('#divItensPedido').css('display', 'none');
+            $('#collapseDivitens > i').removeClass('fa-chevron-up');
+            $('#collapseDivitens > i').addClass('fa-chevron-down');
+
+
+        } else {
+
+            $('#divItensPedido').css('display', 'block');
+            $('#collapseDivitens > i').removeClass('fa-chevron-down');
+            $('#collapseDivitens > i').addClass('fa-chevron-up');
+
+        }
+
+
+        //console.log(display);
+
+
+    });
+
+</script>
+
+<!--Stilo para o modal caso o pedido para o fornecedor esteja abaixo do valor mínimo-->
+<style>
+    .sweet-alert {
+        background-color: red;
+    }
+
+        .sweet-alert p {
+            color: white;
+            font-weight: bold;
+        }
+
+        .sweet-alert h2 {
+            color: #F8BD86;
+        }
+
+        .sweet-alert button {
+            background-color: white !important;
+            color: black;
+        }
+</style>
+
+<style>
+
+</style>
+
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> RELATÓRIO DOS MELHORES LANCES POR FORNECEDOR  </h4>
+
+    </div>
+
+
+</div>
+
+<div class="panel-body">
+
+
+    <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{Pedido.PedidoId}}</b></span>
+
+    <div class="content">
+
+
+        <!--Itens do pedido Membro-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="widget-box ui-sortable-handle collapsed" id="widget-box-1" style="opacity: 1; margin-bottom:20px;">
+                    <div class="widget-header">
+                        <h5 class="widget-title">Itens do Pedido</h5>
+
+                        <div class="widget-toolbar">
+                            <a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                <i class="ace-icon fa fa-expand"></i>
+                            </a>
+                            &nbsp;
+                        </div>
+                    </div>
+
+                    <div class="" id="divItensPedido" style="display:block">
+                        <div class="widget-main">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="gvCarrinho">
+                                    <thead>
+                                        <tr style="background-color: #F5F5F5">
+                                            <td><b>Item</b></td>
+                                            <td class="tdCenter"><b>Preço Médio Unitário</b></td>
+
+                                            <td class="tdCenter"><b class="lbl">Fornecedor Marca Melhor preço</b></td>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in Pedido.ItemPedidosFornecedor">
+
+                                            <td class="tdCenter">{{item.ItemPedidos.name}}</td>
+                                            <td class="tdCenter">{{item.ItemPedidos.PrecoMedioUnit | currency : "R$"}}</td>
+                                            <td class="tdCenter">
+
+
+                                                <table class="table  table-bordered table-hover" style="margin-bottom:5px;margin-top:5px;background-color:beige;">
+                                                    <tbody>
+                                                        <tr ng-repeat="itemFor in item.FornecedorLance | orderBy:'valorLance'">
+
+                                                            <td class="">
+                                                                <label style="font-weight:bold;width:250px;">
+                                                                    {{itemFor.FornecedorLance.NomeFantasia}}
+
+                                                                </label>
+
+                                                            </td>
+
+                                                            <td class="">
+
+                                                           
+
+                                                                <label style="width:250px;">
+                                                                    {{itemFor.obs}}
+
+                                                                </label>
+
+
+<td>
+                                                                <label style="font-weight:bold;width:100px;">
+                                                                    {{itemFor.valorLance | currency : "R$"}}
+
+
+                                                                    <i ng-show="$index==0" class='fa fa-check green' tooltip="Esta foi a melhor oferta" tooltip-placement="bottom" aria-hidden='true'></i>
+                                                                </label>
+
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+</div>

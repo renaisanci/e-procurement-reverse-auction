@@ -1,0 +1,65 @@
+﻿<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Histórico Cotação
+        </h1>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Número da Cotação" ng-model="CotacaoId" value="" />
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-info btn-sm" ng-click="loadCotacaoFornecedor()">
+                <i class="icon fa fa-search"></i>
+                Pesquisar
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered table-hover" id="gvCotacao">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Descrição</th>
+                            <th style="text-align: center;">Marca</th>
+                            <th style="text-align: center;">Quantidade</th>
+                            <th style="text-align: center;">Preços Praticados</th>
+                          
+                        </tr>
+                    </thead>
+                    <!-- ngRepeat: prodCot in CotacaoItens -->
+                    <tbody>
+                        <tr ng-repeat="prodCot in CotacaoItens" style="text-align:center;">
+
+                            <td>{{prodCot.DescProduto}}</td>
+                            <td>{{prodCot.Marca}}</td>
+                            <td>{{prodCot.Quantidade}}</td>
+                            <td>
+                                {{prodCot.PrecoNegociadoUnit  | currency : "R$"}}
+                                <i class="green fa fa-check bigger-120" 
+                                       tooltip="Meu Preço"
+                                        tooltip-placement="top"
+                                   ng-show="prodCot.MeuPreco == 1"></i>
+                            </td>
+                           
+                        </tr>
+
+                    </tbody><!-- end ngRepeat: prodCot in CotacaoItens -->
+
+                </table>
+
+            </div>
+            <!--Fim Tabela Pesquisar-->
+        </div>
+    </div>
+</div>

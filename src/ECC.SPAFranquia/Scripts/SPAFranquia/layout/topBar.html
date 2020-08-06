@@ -1,0 +1,133 @@
+﻿<div id="navbar" class="navbar navbar-default ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" ng-if="userData.isUserLoggedIn" data-target="#sidebar">
+            <span class="sr-only">Toggle sidebar</span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+
+            <span class="icon-bar"></span>
+        </button>
+
+        <div class="navbar-header pull-left">
+            <a href="/#/" class="navbar-brand">
+                <small>
+                    <img src="/Content/images/logo.png" alt="Economiza Já" />
+                </small>
+            </a>
+        </div>
+
+        <div class="navbar-buttons navbar-header pull-right" role="navigation" ng-if="userData.isUserLoggedIn">
+            <ul class="nav ace-nav">
+
+                <li class="green">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
+                        <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+                        <span class="badge badge-important">{{TotalAvisos +0}}</span>
+                    </a>
+
+
+                    <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-exclamation-triangle"></i>
+                            {{TotalAvisos +0}} AVISOS
+                        </li>
+
+                        <li style="position: relative;" class="dropdown-content ace-scroll">
+                            <div style="display: none;" class="scroll-track">
+                                <div class="scroll-bar"></div>
+                            </div>
+                            <div style="max-height: 200px;" class="scroll-content">
+                                <ul class="dropdown-menu dropdown-navbar navbar-green">
+
+
+                                    <li ng-repeat="aviso in Avisos">
+                                        <a href="javascript:void(0);" ng-click="openDetAvisos(aviso);">
+                                            <div class="clearfix">
+                                                <span class="pull-left">
+                                                    <i class="btn btn-xs no-hover {{aviso.FontIcon}}"></i>
+                                                    {{aviso.Nome}}
+                                                </span>
+                                                <span class="pull-right badge badge-info">{{aviso.qtd}}</span>
+                                            </div>
+                                        </a>
+
+
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <!--<a href="/#">
+                                Ver Todas
+                                <i class="ace-icon fa fa-arrow-right"></i>
+                            </a>-->
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="light-blue">
+                    <a data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle">
+                        <img class="nav-user-photo" src="/Content/images/top_user.png" alt="Jason's Photo" />
+                        <span class="user-info">
+                            <small>Olá,</small>
+                            {{username}}
+                        </span>
+
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+
+                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+                        <li>
+                            <a href="/#/perfil">
+                                <i class="ace-icon fa fa-user"></i>
+                                Minha Conta
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/#/perfil/empresa">
+                                <i class="ace-icon fa fa-building-o"></i>
+                                Dados da Empresa
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" ng-click="alterarSenhaLogado()">
+                                <i class="ace-icon fa fa-key"></i>
+                                Alterar Senha
+                            </a>
+                        </li>
+
+                      
+
+                        <li>
+                            <a href="/#/perfil/configuracao">
+                                <i class="ace-icon fa fa-cog"></i>
+                                Configurações
+                            </a>
+                        </li>
+
+                        <li class="divider"></li>
+
+                        <li>
+
+                            <a href="javascript:void(0);" ng-click="logout();">
+                                <i class="ace-icon fa fa-power-off"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+        </div>
+    </div><!-- /.navbar-container -->
+</div>

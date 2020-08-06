@@ -1,0 +1,151 @@
+﻿
+<div class="page-header">
+
+    <h1>
+        <i class="fa fa-building-o" aria-hidden="true"></i>
+        Dados da Empresa
+    </h1>
+</div>
+
+<form class="form-group" role="form" novalidate angular-validator name="novaFranquia" angular-validator-submit="atualizarFranquia()">
+    <!--Inicio Dados da Franquia-->
+    <div class="row">
+        <div class="col-md-4">
+            <span class="lbl"> Razão Social</span>
+            <div class="form-horizontal">
+                <input disabled type="text" class="form-control" ng-model="novaFranquia.RazaoSocial" id="txtForneRazaoSocial" name="txtForneRazaoSocial" placeholder="Razão Social" required="" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <span class="lbl"> Nome Fantasia</span>
+                <input type="text" class="form-control" ng-model="novaFranquia.NomeFantasia" id="txtForneNomeFantasia" name="txtForneNomeFantasia" placeholder="Nome Fantasia" required="" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+
+                <span class="lbl"> Email</span>
+                <input type="email" class="form-control" ng-model="novaFranquia.Email" id="txtForneEmail" name="txtForneEmail" placeholder="Email" required="" />
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <span class="lbl"> CNPJ</span>
+                <input disabled type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                       ng-model="novaFranquia.Cnpj"
+                       validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <span class="lbl"> Inscrição Estadual</span>
+                <input disabled type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" ng-model="novaFranquia.InscEstadual" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <span class="lbl"> Responsável</span>
+                <input type="text" class="form-control" id="txtResponsavel" name="txtResponsavel" placeholder="Responsável" validate-on="blur" required required-message="'Informe o responsavel '" ng-model="novaFranquia.Responsavel" />
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="form-horizontal">
+
+                <span class="lbl">Descrição</span>
+                <textarea class="form-control" id="txtDescricao" name="txtDescricao" ng-model="novaFranquia.Descricao" placeholder="Digite uma descrição deste fornecedor, o que ele vende ?" validate-on="blur" required required-message="'Digite uma descrição deste fornecedor, o que ele vende ?'"></textarea>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <span class="lbl"> Data da Fundação</span>
+                <div class="input-group">
+                    <input disabled type="text" class="form-control" name="txtDataFundacao" 
+                           ng-model="novaFranquia.DtFundacao | date:'dd/MM/yyyy'" 
+                           placeholder="Data da Fundação" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="margin-top: 25px;">
+            <div class="form-group">
+                <label>
+                    <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbAtivo" 
+                           ng-model="novaFranquia.DataCotacao">
+                    <span class="lbl"> Data de Cotação</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!--Fim Dados do fornecedor-->
+    <!--Telefone-->
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <h4>Telefone</h4>
+            <hr />
+        </div>
+    </div>
+    <div class="">
+        <div id="Telefone" class="row">
+            <div class="col-md-1">
+                <span class="lbl"> DDD</span>
+                <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="4" ng-model="novaFranquia.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+            </div>
+            <div class="col-md-3">
+                <span class="lbl"> Telefone</span>
+                <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="10" ng-model="novaFranquia.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+            </div>
+        </div>
+    </div>
+
+    <div id="Celular" class="row">
+        <div class="col-md-1">
+            <span class="lbl"> DDD</span>
+            <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="4" ng-model="novaFranquia.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+        </div>
+        <div class="col-md-3">
+            <span class="lbl"> Celular</span>
+            <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novaFranquia.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <span class="lbl"> Contato</span>
+            <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" maxlength="100" ng-model="novaFranquia.Contato" />
+
+        </div>
+    </div>
+    <!--Fim Telefone-->
+    <!--Inicio Botoes-->
+    <hr />
+    <div class="row">
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-success btn-sm">
+                <i class="ace-icon fa fa-check"></i>
+                Salvar
+            </button>
+
+        </div>
+    </div>
+
+    <!--Fim Botoes-->
+</form>

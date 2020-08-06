@@ -1,0 +1,225 @@
+﻿<div id="sidebar" class="sidebar responsive ace-save-state menu-min" ng-if="userData.isUserLoggedIn">
+    <script type="text/javascript">
+        try { ace.settings.loadState('sidebar') } catch (e) { }
+        $(document).trigger('simularClique');
+    </script>
+    
+
+    <ul class="nav nav-list" ng-if="userData.isUserLoggedIn">
+
+        <li class="" ng-repeat="nivel1 in menuForn">
+            <a ng-href="{{nivel1.Url}}" class="{{nivel1.Feature2}}">
+                <i class="menu-icon fa {{nivel1.FontIcon}}"></i>
+                <span class="menu-text">
+
+                    {{nivel1.DescMenu}}
+                </span>
+
+                <b class="arrow fa {{nivel1.Feature1}}"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="" ng-repeat="nivel2 in nivel1.Children | orderBy : 'Ordem' ">
+
+
+                    <a ng-href="{{nivel2.Url}}" class="{{nivel2.Feature2}}">
+                        <i class="menu-icon fa {{nivel2.FontIcon}}"></i>
+                        <span class="menu-text">
+                            {{nivel2.DescMenu}}
+                        </span>
+                        <b class="arrow fa {{nivel2.Feature1}} "></b>
+                    </a>
+                    <b class="arrow"></b>
+
+
+                    <ul class="submenu">
+                        <li class="" ng-repeat="nivel3 in nivel2.Children | orderBy : 'Ordem' ">
+
+
+                            <a ng-href="{{nivel3.Url}}" class="{{nivel3.Feature2}}">
+                                <i class="menu-icon fa {{nivel3.Feature1}} "></i>
+                                {{nivel3.DescMenu}}
+                            </a>
+
+                            <b class="arrow"></b>
+
+
+
+                            <ul class="submenu">
+                                <li class="" ng-repeat="nivel4 in nivel3.Children | orderBy : 'Ordem' ">
+
+
+                                    <a ng-href="{{nivel4.Url}}" class="{{nivel4.Feature2}}">
+                                        <i class="menu-icon fa {{nivel4.Feature1}} "></i>
+                                        {{nivel4.DescMenu}}
+                                    </a>
+
+                                    <b class="arrow"></b>
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                    </ul>
+                </li>
+            </ul>
+
+        </li>
+
+
+
+     
+
+        <!--<li class="active">
+            <a ng-href="#/">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-usd"></i>
+                <span class="menu-text">
+                    Cotações
+                </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+
+                        Minhas Cotações
+
+                    </a>
+
+                </li>
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+
+                        Minhas Cotações2
+
+                    </a>
+
+                </li>
+
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+
+                        Minhas Cotações3
+
+                    </a>
+
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-list-alt"></i>
+                <span class="menu-text">
+                    Relatórios
+                </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        Meus relatórios
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-shopping-basket"></i>
+                <span class="menu-text">
+                    Pedidos
+                </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+
+            <ul class="submenu">
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+
+                        Aprovar Pedidos
+
+                    </a>
+
+                </li>
+            </ul>
+        </li>
+
+        <li class="">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-shield"></i>
+                <span class="menu-text">
+                    Acessos
+                </span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+
+            <ul class="submenu">
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-caret-right"></i>
+
+                        Usuários
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+        </li>-->
+
+    </ul><!-- /.nav-list -->
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-right ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+
+</div>

@@ -1,0 +1,93 @@
+﻿
+<div class="row areaPesquisar" id="" ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+    <!--<div class="col-md-2 infobox infobox-red pull-right" style="vertical-align: bottom;">
+
+        <a ng-href="#/shoppingCart"
+           tooltip="Ir Para o Carrinho    de     Compras"
+           tooltip-placement="bottom"
+           ng-disabled="cart.gettotalcount() < 1">
+            <div class="infobox infobox-red">
+                <i class="fa fa-shopping-cart fa-2x icon-animated-bell" style="margin-left: 15px;"></i>
+                <label class="lbl" style="font-size: 15px;">({{cart.getTotalCount()}})</label>
+            </div>
+        </a>
+    </div>-->
+</div>
+<div ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+    <div class="page-content" style="padding-bottom: 0px;">
+        <div class="panel panel-success" id="painelBoaCompra">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a href="javascript:void(0);" ng-click="openModalBoaCompra();"
+                       tooltip="Clique para saber mais"
+                       tooltip-placement="bottom">
+                        <i class="fa fa-question-circle icon-animated-bell fa-lg " aria-hidden="true"></i>
+                    </a>
+                    <!--<i class="fa fa-question-circle icon-animated-bell fa-lg " aria-hidden="true" ng-click="openModalBoaCompra();"
+                       tooltip="Abaixo você tem acesso aos produtos que estão sendo pedidos neste momento. Quanto maior a quantidade maior a ecomia caso você também peça o mesmo produto."
+                       data-toggle="tooltip"
+                       tooltip-placement="bottom"></i>-->
+                    MONITOR DA BOA COMPRA
+                </h3>
+            </div>
+            <div class="panel-body" style="border: 0;">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <div class="input-group-lg center">
+                            <select id="ddlLogradouro" class="form-control"
+                                    ng-options="pedidos.data as pedidos.title for pedidos in arrayQtdPedidosData"
+                                    ng-change="loadPedAgrupados()"
+                                    ng-model="pedidos"></select>
+                            <input type="hidden" name="LogradouroId" ng-value="pedidos.data" />
+                        </div>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <div class="input-group input-group-lg center">
+                            <input class="form-control search-query" placeholder="Pesquisar produtos que estão comprando..." type="text" ng-model="filterBoaCompra">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-inverse btn-white btn-lg" style="border-color: #ddd; border-left: white" disabled>
+                                    <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row" style="overflow-y: auto;overflow-x:hidden;min-height:100px;">
+
+                    <div class="text-center" ng-hide="prodAgrupados.length > 0">
+                        <i class="fa fa-circle-o faa-burst fa-2x animated orange" aria-hidden="false"></i> <label class="label label-primary">Listando produtos que estão sendo comprados ...</label>
+                    </div>
+                    <div class="text-center" ng-show="(prodAgrupados | filter:filterBoaCompra).length == 0 && prodAgrupados.length > 0 ">
+                        <span class="blue bolder align-center"> QUE PENA :( NINGUÉM ESTÁ COMPRANDO ESTE PRODUTO NO MOMENTO !</span>
+                    </div>
+                    <div class="col-md-3 col-sm-6  popover-info customPopover" data-content="<!--Você pode economizar até {{prod.radomPercent}}% com a quantidade abaixo.--> Pegue carona nessa compra. Junte-se aos compradores deste produto e aumente seu poder de barganha, Economiza Já."
+                         data-rel="popover" data-trigger="hover"
+                         title=""
+                         data-original-title="Peça agora."
+                         data-placement="top"
+                         ng-repeat="prod in prodAgrupados  | filter:filterBoaCompra|  orderBy: '-qtd' ">
+                        <div class="fd-tile detail clean tile-purple" style="border: 1px solid #ddd;">
+                            <div class="content" style="padding: 0;">
+                                <i class="fa fa-circle-o faa-burst fa-2x animated orange" aria-hidden="false"></i>
+                                <span class="search-promotion label label-yellow arrowed-in arrowed-in-right">Economiza Jà <!--<b>{{prod.radomPercent}}%</b>--></span>
+                                <h1 class="text-left" style="padding: 10px 10px 0;">{{prod.qtd}}</h1>
+                                <p style="padding: 0 10px 0;">Quantidade</p>
+                            </div>
+                            <div class="icon">
+                                <img ng-src="{{caminhoImg + prod.categoria + '/' +  prod.subcategoria + '/'+  prod.Imagem}}" class="media-object img-responsive" style="height: 80px; width: 80px;">
+                            </div>
+                            <a class="details" style="height: 50px;" href="javascript:void(0);" ng-click="openDetProdDialog(prod);"
+                               tooltip="{{prod.DescProduto.length > 40 ? prod.DescProduto + '&nbsp;&nbsp; >>  Clique para ver o detalhe ou Add no carrinho' :''  }}"
+                               tooltipplacement="right">
+                                {{prod.DescProduto | limitTo: 40}}{{prod.DescProduto.length > 40 ? '...' : ''}}<span>
+                                    <i class="fa fa-arrow-circle-right pull-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

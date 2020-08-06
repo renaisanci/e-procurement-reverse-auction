@@ -1,0 +1,169 @@
+﻿
+
+<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            Cotação <span class="lbl bigger-180"><b> {{CotacaoId}}</b></span>
+        </h1>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4 style="color: red;">
+                NÃO PERCA TEMPO, RESPONDA A COTAÇÃO AGORA, RESTAM <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </h4>
+
+        </div>
+
+        <div class="col-md-4 red">
+
+
+            <h4 class="align-left" style="color: red;">
+
+                <i-countdown set-date="{{DtFechamento | date: 'yyyy-MM-dd HH:mm:ss'}}" set-dateini="{{dateCotaNow | date: 'yyyy-MM-dd HH:mm:ss'}}" format-view="<label  style='color: red;' class='lbl bigger-110'> %dDia %h:%i:%s</label>" expire-message="FIM DO PERÍODO :(" b-var="tempoFinal()"> </i-countdown>
+
+            </h4>
+
+        </div>
+
+
+        <div class="col-md-2">
+            <button class="btn btn-primary pull-right"
+                    tooltip="Clique para atualizar ùltimo preço dado por outro fornecedor.Antes de clicar neste botão, salve seu preço no outro botão que fica lá embaixo."
+                    tooltip-placement="left"
+                    ng-click="refreshPrecos();">
+                <i class="fa fa-refresh  fa-2x" aria-hidden="true"></i>
+                <span class="bigger-110"> Atualizar Último Preço </span>
+            </button>
+
+            <!--<a href="" ng-click="refreshPrecos()" class="pull-right"
+               tooltip="Clique para atualizar os preços"
+               tooltip-placement="left">
+                <i class="fa fa-refresh green fa-2x" aria-hidden="true"></i>
+            </a>-->
+        </div>
+
+    </div>
+
+    <div class="row">
+
+
+        <div class="table-responsive" style="overflow-y:scroll;max-height:500px;">
+
+
+
+            <table class="table table-bordered table-hover" id="gvCotacao" >
+                <thead>
+                    <tr>
+
+                        <th>PRODUTO</th>
+                        <th>QUANTIDADE</th>
+                        <th>OBS</th>
+                        <th style="width: 30px;">PREÇO MÉDIO</th>
+                        <th style="width: 30px;">PREÇO UNITÁRIO</th>
+                        <th>
+                            ÚLTIMO PREÇO
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <!-- ngRepeat: prodCot in cotacaoPeds -->
+                <tbody>
+                    <tr ng-repeat="prodCot in cotacaoPeds | filter:{indIndisponivelPermanente:false}">
+
+                        <td style="font-size: 15px">
+                            <div class="popover-info customPopover" data-content="{{prodCot.Especificacao}}"
+                                 data-rel="popover" data-trigger="hover"
+                                 title=""
+                                 data-original-title="Detalhes do produto."
+                                 data-placement="right">
+                                <b>{{prodCot.DescProduto}}<br /></b>
+                                <p style="color: red;">
+                                    <b>Marca: </b>
+                                    {{prodCot.DescMarca}}
+                                    <span ng-show="prodCot.FlgOutraMarca"> <b>Ou</b> Outra Marca</span>
+                                </p>
+                            </div>
+                        </td>
+                        <td style="font-size: 25px">{{prodCot.qtd}}</td>
+
+                        <td>
+                            <input type="text" class="input-small" maxlength="100"
+                                   style="font-size: 20px; color: black; width: 200px;"
+                                   tooltip="CASO SEJA OUTRA MARCA,COR ou BRINDE DIGITE AQUI."
+                                   tooltip-placement="left"
+                                   id="txtObs" name="txtObs"
+                                   ng-model="prodCot.Observacao"
+                                   placeholder="Marca, Cor, brinde..."
+                                   ng-disabled="prodCot.indProdutoIndisponivel || !prodCot.FlgOutraMarca" />
+                        </td>
+
+                        <td>
+                            <input type="text" ng-model="prodCot.PrecoMedio"
+                                   class="input-small"                                  
+                                   style="font-size: 20px; color: black; width: 150px;"
+                                   tooltip="PREÇO MÉDIO" tooltip-placement="left"
+                                   id="txtPrecoMedio"
+                                   name="txtPrecoMedio" money-mask
+                                   ng-disabled="true" />
+                        </td>
+
+                        <td>
+                            <input type="text" ng-model="prodCot.PrecoNegociadoUnit"
+                                   class="input-small" maxlength="20"
+                                   ng-init="prodCot.indProdutoIndisponivel && 0 || prodCot.PrecoNegociadoUnit"
+                                   style="font-size: 20px; color: black; width: 150px;"
+                                   tooltip="DÊ SEU PREÇO" tooltip-placement="left"
+                                   id="txtPrecoFornecedor"
+                                   name="txtPrecoFornecedor" money-mask
+                                   ng-disabled="prodCot.indProdutoIndisponivel"
+                                    ng-blur="verificaPreco(prodCot);"
+                                   />
+                        </td>
+
+                        <td style="font-size: 20px; color: red;"
+                            tooltip="ESTE VALOR REFERE-SE A MENOR PREÇO DADO PELO ÚLTIMO FORNECEDOR"
+                            tooltip-placement="left">
+                            <label style="font-size: 20px; color: red;" ng-hide="prodCot.indProdutoIndisponivel">
+                                {{prodCot.menorPreco  | currency : "R$"}}
+                            </label>
+                            <label ng-hide="!prodCot.indProdutoIndisponivel">
+                                Indisponível <br />até {{prodCot.dtProdutoIndisponivel | date : 'dd/MM/yyyy'}}
+                            </label>
+
+                            <!--<i ng-show="prodCot.indPrecoIgual == '1' &&  prodCot.indMaisPrecoIgual=='1' && prodCot.menorPreco > 0" class='fa fa-exclamation orange' tooltip="Mesmo preço foi dado." tooltip-placement="top" aria-hidden='true'></i>
+        <i ng-show="prodCot.indPrecoIgual == '1' &&  prodCot.indMaisPrecoIgual=='0' && prodCot.menorPreco > 0" class='fa fa-check green' tooltip="O melhor preço é seu." tooltip-placement="top" aria-hidden='true'></i>-->
+                        </td>
+
+                    </tr>
+
+                </tbody><!-- end ngRepeat: prodCot in cotacaoPeds -->
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <button class="btn btn-block btn-primary"
+
+                 tooltip="Clique para salvar seu preço. Altere e salve seu preço quantas vezes quiser enquanto a cotação estiver aberta."
+                    tooltip-placement="top"
+
+                ng-click="gravarOferta();" ng-disabled="BloquearBotaoEnviarOferta">
+            <i class="fa fa-usd fa-2x" aria-hidden="true"> </i>
+            <span class="bigger-180" ng-hide="exibirEnviar">  SALVAR PREÇO </span>
+
+            <span class="bigger-180" ng-show="exibirEnviar">  SALVANDO PREÇO AGUARDE ... </span>
+        </button>
+
+
+    </div>
+</div>

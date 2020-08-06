@@ -1,0 +1,163 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">
+            Veja como seu anúncio ficará disponível
+        </h4>
+
+    </div>
+</div>
+
+<div class="panel-body">
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10 ng-trans ng-trans-slide-right">
+            <div class="thumbnail search-thumbnail">
+                <span class="search-promotion label label-warning arrowed-in arrowed-in-right"
+                      style="font-weight: bold;">
+                    Oferta Economiza Jà
+                </span>
+
+
+                <a href="javascript:;" class="blue">
+                    <img ng-src="{{detalhesPromocao.Imagem}}"
+                         class="media-object img-responsive" alt=""
+                         style="height: 200px; width: 200px;">
+                </a>
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="number" mask="XXXX" maxlength="4"
+                                   ng-model="QtdProduto" min='1' name="txtQtdProd"
+                                   style="height: 30px; width: 60px; float: left; " placeholder="Qtd.." value="{{QtdProduto}}">
+
+                            <button type="button" class="btn btn-success btn-mini pull-left"
+                                    style="height: 30px;"
+                                    name=" btninserir"
+                                    id="btnInserir"
+                                    data-toggle="tooltip"
+                                    ng-click="addQuantidadePromocao(detalhesPromocao.Id, detalhesPromocao.DescProduto, detalhesPromocao.PrecoPromocao, QtdProduto, this, detalhesPromocao.Imagem);"
+                                    tooltip="Informe a Quantidade e clique aqui para colocar na cesta"
+                                    tooltip-placement="right">
+                                Add
+                                <i class=" ace-icon fa fa-cart-plus fa-lg">
+                                </i>
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3" style="text-align: center;">
+                                <label>
+                                    Disponível:
+                                </label>
+                            </div>
+                            <div class="col-xs-3 col-sm-3">
+                                <label class="label label-default arrowed-in arrowed-in-right">
+                                    {{detalhesPromocao.QtdProdutos}}
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <h5 class="search-title">
+                                <a href="javascript:;" class="blue">
+                                    {{detalhesPromocao.DescProduto | limitTo: 60}}{{detalhesPromocao.DescProduto.length > 60 ? '...' : ''}}
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-xs-6 col-sm-5">
+                            <label>
+                                Validade Produto:
+                            </label>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                            <label class="label label-info arrowed-in arrowed-in-right">
+                                {{detalhesPromocao.ValidadeProd | date:'dd/MM/yyyy'}}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-5">
+                            <label>
+                                <i class="fa fa-clock-o" aria-hidden="true" style="color: red;"></i>
+                                Finaliza em:
+                            </label>
+                        </div>
+                        <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                            <label class="label label-danger arrowed-in arrowed-in-right" style="margin-top: 1px;">
+                                <i-countdown set-date="{{detalhesPromocao.FimPromocao | date: 'yyyy-MM-dd HH:mm:ss'}}" format-view="<label  style='color: white;' class='lbl bigger-110'> %dDia %h:%i:%s</label>" expire-message="FIM DO PERÍODO :(" b-var="doIt('')"> </i-countdown>
+
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-5">
+                            <label>
+                                Qtd. Mínima:
+                            </label>
+                        </div>
+                        <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                            <label class="label label-default arrowed-in arrowed-in-right">
+                                {{detalhesPromocao.QtdMinVenda}}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+
+                        <div class="col-xs-6" style="padding: 0; height: 40px;">
+                            <b style="font-size: 25px;">De:</b>
+                            <div class="price">
+                                <span class="label label-lg label-warning arrowed-in arrowed-in-right" style="font-size: 25px; height: 40px; font-weight: bold; color: white;text-decoration: line-through;">
+                                    R${{detalhesPromocao.PrecoMedio}}
+                                    <small></small>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6" style="padding: 0; height: 40px;">
+                            <b style="font-size: 25px;">Por:</b>
+                            <div class="price">
+                                <span class="label label-lg label-danger arrowed-in arrowed-in-right" style="font-size: 25px; height: 40px; font-weight: bold; color: yellow;">
+                                    R${{detalhesPromocao.PrecoPromocao}}
+                                    <small></small>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 50px;">
+                        <div class="col-xs-4">
+                            <div style="text-align: center;">
+                                Und. {{detalhesPromocao.UnidadeMedida}}
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div style="text-align: center;">
+                                Marca: {{detalhesPromocao.Marca}}
+                            </div>
+
+                        </div>
+                        <div class="col-xs-4">
+                            <div style="text-align: center;">
+                                Cat. {{detalhesPromocao.DescCategoria}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

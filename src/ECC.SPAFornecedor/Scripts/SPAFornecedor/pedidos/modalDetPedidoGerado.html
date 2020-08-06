@@ -1,0 +1,500 @@
+﻿<!--Script para abrir o accordion e mudar o botão para abrir e fechar o mesmo-->
+<script>
+
+    $('#collapseDivitens > i').removeClass('fa-chevron-down');
+    $('#collapseDivitens > i').addClass('fa-chevron-up');
+
+
+    $('#collapseDivitens').click(function () {
+
+        var display = $('#divItensPedido').css('display');
+
+        if (display == "block") {
+
+            $('#divItensPedido').css('display', 'none');
+            $('#collapseDivitens > i').removeClass('fa-chevron-up');
+            $('#collapseDivitens > i').addClass('fa-chevron-down');
+
+
+        } else {
+
+            $('#divItensPedido').css('display', 'block');
+            $('#collapseDivitens > i').removeClass('fa-chevron-down');
+            $('#collapseDivitens > i').addClass('fa-chevron-up');
+
+        }
+        //console.log(display);
+    });
+
+</script>
+
+<style>
+    .table tbody tr td {
+        text-align: left;
+    }
+</style>
+
+<div class="panel-container">
+    <div class="panel-header">
+        <div class="modal-header">
+            <button ng-click="close();" type="button" class="bootbox-close-button close">
+                X
+            </button>
+            <h4 class="modal-title"> DETALHES DO PEDIDO</h4>
+
+        </div>
+    </div>
+
+    <div class="panel-body" style="background-color:white;">
+
+        <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{detahePedidoGerado.PedidoId}}</b></span>
+
+
+        <p style="float:right;">
+            <a href="javascript:void(0);" ng-click="printPedido('divPrintPedido');" tooltip="Imprimir Pedido" tooltip-placement="left">
+                <i class="ace-icon fa fa-print fa-2x"></i>
+            </a>
+        </p>
+
+        <p style="margin-top: 20px;">
+            <b class="red bigger-125">Membro: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.NomeFantasia}}  {{detahePedidoGerado.Membro.Nome}}</span>
+        </p>
+
+
+        <p ng-show="detahePedidoGerado.Membro.TipoPessoa==2">
+
+            <b class="red bigger-125">CRO: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.Cro}} </span>
+
+        </p>
+        <p>
+            <b class="red bigger-125">CPF/CNPJ: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.Cpf}}  {{detahePedidoGerado.Membro.Cnpj}}</span>
+
+        </p>
+        <div class="content">
+            <!--Endereço de Entrega Membro-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="widget-box ui-sortable-handle collapsed" id="widget-box-1" style="margin-bottom: 20px;">
+                        <div class="widget-header">
+                            <h5 class="widget-title">Detalhes do Endereço</h5>
+
+                            <div class="widget-toolbar">
+
+
+                                <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                    <i class="ace-icon fa fa-expand"></i>
+                                </a>-->
+
+                                <a href="javascript:void(0);" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-down"></i>
+                                </a>
+
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body" style="display: none;">
+                            <div class="widget-main">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <td class="shortPadding"><b>Destinatário:</b></td>
+                                        <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Logradouro}} {{detahePedidoGerado.Endereco.Endereco}} , {{detahePedidoGerado.Endereco.NumEndereco}} </i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Complemento:</b></td>
+                                        <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Complemento}}</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Bairro:</b></td>
+                                        <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Bairro}}</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Cidade:</b></td>
+                                        <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Cidade }} </i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Cep:</b></td>
+                                        <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Cep }}</i></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Referência: </b></td>
+                                        <td class="shortPadding"><i> {{detahePedidoGerado.Endereco.Referencia }}</i></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Telefones: </b></td>
+                                        <td class="shortPadding"><i> {{detahePedidoGerado.Membro.DddCel}} {{detahePedidoGerado.Membro.Celular}} &nbsp;  {{detahePedidoGerado.Membro.DddTelComl}} {{detahePedidoGerado.Membro.TelefoneComl}}</i></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="shortPadding"><b>E-Mail: </b></td>
+                                        <td class="shortPadding"><i> {{detahePedidoGerado.Membro.Email}}</i></td>
+                                    </tr>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Formas de Pagamento dos Fornecedores-->
+            <div class="row" style="margin-bottom:20px;">
+                <div class="col-md-12">
+
+                    <div class="widget-box ui-sortable-handle collapsed" id="widget-box-2" style="opacity: 1; margin-bottom:20px;">
+                        <div class="widget-header">
+                            <h5 class="widget-title">Forma de Pagamento</h5>
+
+                            <div class="widget-toolbar">
+
+                                <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                    <i class="ace-icon fa fa-expand"></i>
+                                </a>-->
+
+                                <a href="javascript:void(0);" data-action="collapse">
+                                    <i class="ace-icon fa fa-chevron-down"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                        <div class="widget-body" style="display: none;">
+                            <div class="widget-main">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed" style="padding:0;width:100%;">
+                                        <tbody>
+
+                                            <tr>
+                                                <td class="shortPadding"><b>Forma de Pagamento:</b></td>
+                                                <td class="shortPadding"><b>Prazo Entrega:</b></td>
+                                                <td class="shortPadding" ng-show="detahePedidoGerado.ValorPedidoMinimo > 0">
+                                                    <b>Valor. Ped. Min.:</b>
+                                                </td>
+                                                <!--<td class="shortPadding"><b>Subtotal:</b></td>-->
+                                                <td class="shortPadding"><b>SubTotal:</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="shortPadding tdCenter">
+                                                    <div class="row">
+                                                        <div class="control-group">
+                                                            <div class="col-md-12" style="margin-left: 5px;">
+                                                                <label>
+                                                                    <input name="{{detahePedidoGerado.FornecedorId}}" class="ace" type="radio" value="{{pag.Id}}"
+                                                                           ng-checked="true" ng-disabled="true">
+                                                                    <span class="lbl">
+                                                                        {{pagamento.descFormaPagamento}}
+                                                                    </span>
+                                                                </label>
+                                                                <span class="badge badge-danger" ng-show="{{pagamento.desconto > 0}}"><b>-</b>{{pagamento.desconto}}<b>%</b></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div ng-show="{{detahePedidoGerado.PrazoEntrega > 0}}" style="padding: 5px;">
+                                                        {{detahePedidoGerado.PrazoEntrega}} dia(s)
+
+                                                    </div>
+                                                    <div ng-show="{{detahePedidoGerado.FornecedorPrazoSemanal.length > 0}}">
+                                                        <div ng-repeat="prazo in detahePedidoGerado.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                                            <label class="label label-danger">
+                                                                {{prazo.DescSemana}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="shortPadding tdCenter" ng-show="detahePedidoGerado.ValorPedidoMinimo > 0">
+                                                    <div style="padding:5px;">
+                                                        <label class="label label-info" style="font-weight:bold;">
+                                                            {{detahePedidoGerado.ValorPedidoMinimo | currency}}
+
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <!--<td class="shortPadding tdCenter">
+                                                    <div style="padding: 5px;">
+                                                        <label class="label label-success" style="font-weight: bold;">
+                                                            {{detahePedidoGerado.ValorTotal | currency}}
+                                                        </label>
+                                                    </div>
+                                                </td>-->
+
+                                                <td class="shortPadding tdCenter">
+                                                    <div style="padding:5px;">
+                                                        <label class="label label-success" style="font-weight:bold;">
+                                                            {{detahePedidoGerado.Quantidade.ValorTotalAvista | currency}}
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!--Itens do pedido Membro-->
+            <div class="row"  >
+                <div class="col-md-12">
+                    <div class="widget-box ui-sortable-handle collapsed" id="widget-box-3" style="opacity: 1; margin-bottom:20px;">
+                        <div class="widget-header">
+                            <h5 class="widget-title">Itens do Pedido</h5>
+
+                            <div class="widget-toolbar">
+
+                                <!--<a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                    <i class="ace-icon fa fa-expand"></i>
+                                </a>-->
+
+
+
+                                <a href="javascript:void(0);" data-action=" " id="collapseDivitens">
+                                    <i class="ace-icon fa fa-chevron-down" style="color:#AAA;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div class="widget-main">
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr style="background-color: #F5F5F5">
+                                            <td><b>Item</b></td>
+                                            <td><b>Obs, Marca, Cor, Brinde...</b></td>
+                                            <td class="tdCenter"><b>Quantidade</b></td>
+                                            <!--<td class="tdCenter"><b>Preço Médio Unitário</b></td>-->
+                                            <td class="tdCenter"><b class="lbl">Preço Unitário</b><b class="red lbl"> <br />Economiza Já</b></td>
+                                            <td class="tdCenter"><b class="lbl">Subtotal</b><b class="red lbl"> <br />Economiza Já</b></td>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr ng-repeat="item in detahePedidoGerado.Itens">
+
+                                            <td class="tdCenter">{{item.name}}</td>
+                                            <td class="tdCenter">{{item.Observacao}}</td>
+                                            <td class="tdCenter">{{item.quantity}}</td>
+                                            <!--<td class="tdCenter">{{item.PrecoMedioUnit | currency : "R$"}}</td>-->
+
+                                            <td class="tdCenter">{{item.PrecoNegociadoUnit | currency : "R$"}}</td>
+                                            <td class="tdCenter">{{item.SubTotal | currency : "R$"}}</td>
+
+                                        </tr>
+
+                                        <!-- footer -->
+                                        <tr class="well">
+                                            <td><b>Total Itens</b></td>
+                                            <td></td>
+                                            <td class="tdCenter"><b>{{detahePedidoGerado.QtdItem}}</b></td>
+                                            <!--<td class="tdRight"><b></b></td>-->
+                                            <td class="tdRight"><b>Total</b></td>
+                                            <td class="tdRight"><b>{{detahePedidoGerado.ValorTotal | currency}}</b></td>
+                                            <td class="tdRight" ng-show="subtotal > 0"></td>
+                                        </tr>
+                                        <tr class="well" ng-show="pagamento.Avista && detahePedidoGerado.Quantidade.ValorTotalAvista < detahePedidoGerado.ValorTotal">
+                                            <td colspan="2"></td>
+                                            <td></td>
+                                            <td class="tdRight"><b>Total á Vista</b></td>
+                                            <td class="tdRight"><b style="color: red;">{{detahePedidoGerado.Quantidade.ValorTotalAvista | currency}}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!--div para imprimir o pedido-->
+<div class="" id="divPrintPedido" style="display:none;">
+    <div class="table-responsive">
+        <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{detahePedidoGerado.PedidoId}}</b></span>
+        <p style="margin-top: 20px;">
+            <b class="red bigger-125">Membro: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.NomeFantasia}}  {{detahePedidoGerado.Membro.Nome}}</span>
+        </p>
+
+        <p ng-show="detahePedidoGerado.Membro.TipoPessoa==2">
+
+            <b class="red bigger-125">CRO: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.Cro}} </span>
+
+        </p>
+        <p>
+            <b class="red bigger-125">CPF/CNPJ: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoGerado.Membro.Cpf}}  {{detahePedidoGerado.Membro.Cnpj}}</span>
+
+        </p>
+        <table class="table table-condensed">
+            <tr>
+                <td class="shortPadding"><b>Destinatário:</b></td>
+                <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Logradouro}} {{detahePedidoGerado.Endereco.Endereco}} , {{detahePedidoGerado.Endereco.NumEndereco}} </i></td>
+            </tr>
+            <tr>
+                <td class="shortPadding"><b>Complemento:</b></td>
+                <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Complemento}}</i></td>
+            </tr>
+            <tr>
+                <td class="shortPadding"><b>Bairro:</b></td>
+                <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Bairro}}</i></td>
+            </tr>
+            <tr>
+                <td class="shortPadding"><b>Cidade:</b></td>
+                <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Cidade }} </i></td>
+            </tr>
+            <tr>
+                <td class="shortPadding"><b>Cep:</b></td>
+                <td class="shortPadding"><i>{{detahePedidoGerado.Endereco.Cep }}</i></td>
+            </tr>
+
+            <tr>
+                <td class="shortPadding"><b>Referência: </b></td>
+                <td class="shortPadding"><i> {{detahePedidoGerado.Endereco.Referencia }}</i></td>
+            </tr>
+
+
+            <tr>
+                <td class="shortPadding"><b>Telefones: </b></td>
+                <td class="shortPadding"><i> {{detahePedidoGerado.Membro.DddCel}} {{detahePedidoGerado.Membro.Celular}} &nbsp;  {{detahePedidoGerado.Membro.DddTelComl}} {{detahePedidoGerado.Membro.TelefoneComl}}</i></td>
+            </tr>
+
+            <tr>
+                <td class="shortPadding"><b>E-Mail: </b></td>
+                <td class="shortPadding"><i> {{detahePedidoGerado.Membro.Email}}</i></td>
+            </tr>
+
+
+        </table>
+
+        <table class="table table-condensed" style="padding:0;width:100%;">
+            <tbody>
+
+                <tr>
+                    <td class="shortPadding"><b>Forma de Pagamento:</b></td>
+                    <td class="shortPadding"><b>Prazo Entrega:</b></td>
+                    <td class="shortPadding" ng-show="detahePedidoGerado.ValorPedidoMinimo > 0">
+                        <b>Valor. Ped. Min.:</b>
+                    </td>
+                    <!--<td class="shortPadding"><b>Subtotal:</b></td>-->
+                    <td class="shortPadding"><b>SubTotal:</b></td>
+                </tr>
+                <tr>
+                    <td class="shortPadding tdCenter">
+                        <div class="row">
+                            <div class="control-group">
+                                <div class="col-md-12" style="margin-left: 5px;">
+                                    <label>
+                                        <input name="{{detahePedidoGerado.FornecedorId}}" class="ace" type="radio" value="{{pag.Id}}"
+                                               ng-checked="true" ng-disabled="true">
+                                        <span class="lbl">
+                                            {{pagamento.descFormaPagamento}}
+                                        </span>
+                                    </label>
+                                    <span class="badge badge-danger" ng-show="{{pagamento.desconto > 0}}"><b>-</b>{{pagamento.desconto}}<b>%</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-show="{{detahePedidoGerado.PrazoEntrega > 0}}" style="padding: 5px;">
+                            {{detahePedidoGerado.PrazoEntrega}} dia(s)
+
+                        </div>
+                        <div ng-show="{{detahePedidoGerado.FornecedorPrazoSemanal.length > 0}}">
+                            <div ng-repeat="prazo in detahePedidoGerado.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                <label class="label label-danger">
+                                    {{prazo.DescSemana}}
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="shortPadding tdCenter" ng-show="detahePedidoGerado.ValorPedidoMinimo > 0">
+                        <div style="padding:5px;">
+                            <label class="label label-info" style="font-weight:bold;">
+                                {{detahePedidoGerado.ValorPedidoMinimo | currency}}
+
+                            </label>
+                        </div>
+                    </td>
+                    <!--<td class="shortPadding tdCenter">
+                        <div style="padding: 5px;">
+                            <label class="label label-success" style="font-weight: bold;">
+                                {{detahePedidoGerado.ValorTotal | currency}}
+                            </label>
+                        </div>
+                    </td>-->
+                    <td class="shortPadding tdCenter">
+                        <div style="padding:5px;">
+                            <label class="label label-success" style="font-weight:bold;">
+                                {{detahePedidoGerado.Quantidade.ValorTotalAvista | currency}}
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr style="background-color: #F5F5F5">
+                    <td><b>Item</b></td>
+                    <td><b>Obs, Marca, Cor, Brinde...</b></td>
+                    <td class="tdCenter"><b>QTD.</b></td>
+                    <!--<td class="tdCenter"><b>Preço Médio Unitário</b></td>-->
+                    <td class="tdCenter"><b class="lbl">Preço Unitário</b> </td>
+                    <td class="tdCenter"><b class="lbl">Subtotal</b> </td>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in detahePedidoGerado.Itens">
+
+                    <td class="tdCenter">{{item.name}}</td>
+                    <td class="tdCenter">{{item.Observacao}}</td>
+                    <td class="tdCenter">{{item.quantity}}</td>
+                    <!--<td class="tdCenter">{{item.PrecoMedioUnit | currency : "R$"}}</td>-->
+                    <td class="tdCenter">{{item.PrecoNegociadoUnit | currency : "R$"}}</td>
+                    <td class="tdCenter">{{item.SubTotal | currency : "R$"}}</td>
+
+                </tr>
+
+                <!-- footer -->
+                <tr class="well">
+                    <td><b>Total Itens</b></td>
+                    <td></td>
+                    <td class="tdCenter"><b>{{detahePedidoGerado.QtdItem}}</b></td>
+                    <!--<td class="tdRight"><b></b></td>-->
+                    <td class="tdRight"><b>Total</b></td>
+                    <td class="tdRight"><b>{{detahePedidoGerado.ValorTotal | currency}}</b></td>
+                    <td class="tdRight" ng-show="subtotal > 0"></td>
+                </tr>
+                <tr class="well" ng-show="pagamento.Avista && detahePedidoGerado.Quantidade.ValorTotalAvista < detahePedidoGerado.ValorTotal">
+                    <td colspan="2"></td>
+                    <td></td>
+                    <td class="tdRight"><b>Total á Vista</b></td>
+                    <td class="tdRight"><b style="color: red;">{{detahePedidoGerado.Quantidade.ValorTotalAvista | currency}}</b></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

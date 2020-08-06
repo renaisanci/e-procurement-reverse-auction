@@ -1,0 +1,345 @@
+﻿.panel-body h4 {
+    color: #a55400;
+}
+
+.panel-heading {
+    padding: 5px 5px;
+}
+
+.panel, .panel-body {
+    border: 0;
+}
+
+.panel-heading div {
+    text-align: right;
+    margin-top: 0px;
+}
+
+.panel-heading h5 {
+    width: 100px;
+}
+
+.user-info {
+    max-width: 200px;
+}
+
+div .row {
+    margin-bottom: 5px;
+}
+
+div .label {
+    margin-bottom: 20px;
+}
+
+.panel-primary > .panel-heading {
+    background-color: #F2F2F2;
+    border-color: #F2F2F2;
+}
+
+.panel-primary {
+    border-color: #F2F2F2;
+}
+
+
+
+    .panel-primary > .panel-heading {
+        background-image: -webkit-linear-gradient(top, #68217A 0%, #68217A 100%);
+        background-image: -o-linear-gradient(top, #68217A 0%, #68217A 100%);
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#68217A), to(#68217A));
+        background-image: linear-gradient(to bottom, #68217A 0%, #68217A 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2e6da4', GradientType=0);
+        background-repeat: repeat-x;
+    }
+
+
+div .form-inline pull-right {
+    text-align: inherit;
+}
+
+.media-body {
+    text-align: left;
+}
+
+.modal-lg-ecc {
+    width: 75% !important;
+}
+
+.modal-termouso {
+    overflow: auto;
+}
+
+.modal-header {
+    color: #808080;
+    background-color: #478FCA;
+    border-color: #F2F2F2;
+    color: #ffffff;
+}
+
+.modal-content {
+    height: 100%;
+}
+
+.modal-lg-mapa {
+    width: 90%;
+    height: 90%;
+}
+
+.panel-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.panel-header {
+    position: relative;
+    z-index: 10000;
+}
+
+#map_canvas {
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    padding-top: 60px;
+    height: 100%;
+    width: 100%;
+}
+
+.angular-google-map {
+    height: 100%;
+}
+
+.angular-google-map-container {
+    height: 100%;
+}
+
+.marker-labels {
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.login-box .toolbar {
+    background-color: grey;
+    border-top: 2px solid #68217A;
+}
+
+.login-box .forgot-password-link {
+    color: lavender;
+}
+
+.forgot-box .back-to-login-link, .signup-box .back-to-login-link {
+    color: lavender;
+}
+
+.login-layout .login-box .widget-main {
+    padding-bottom: 0;
+}
+
+.login-layout .widget-box {
+    background-color: #68217A;
+}
+
+.areaPesquisar {
+    background-color: #F5F5F5;
+    padding: 5px;
+    margin-right: 0;
+}
+
+.produto {
+    border: 2px solid #F5F5F5;
+    margin: 2px 0 2px 0;
+    min-height: 150px;
+}
+
+
+.infobox > .infobox-data {
+    border-width: 0;
+    display: inline-block;
+    font-size: 10px;
+    line-height: 20px;
+    min-width: 30px;
+    padding-left: 0;
+    position: relative;
+    text-align: left;
+    top: 0;
+}
+
+.infobox > .infobox-icon {
+    display: inline-block;
+    vertical-align: top;
+    width: 38px;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 3;
+    color: #fff;
+    background-color: #68217A;
+    border-color: #68217A;
+    cursor: pointer;
+}
+
+.pager > li > a:hover, .pagination > li > a:hover {
+    color: #68217A;
+    background-color: #eaeff2;
+    border-color: #c1d1d7;
+    z-index: 1;
+}
+
+.pager > li > a, .pagination > li > a {
+    color: white;
+    background-color: #c1d1d7;
+    border-color: #eaeff2;
+    z-index: 1;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.infobox > .infobox-icon > .ace-icon {
+    box-shadow: none;
+}
+
+    .infobox > .infobox-icon > .ace-icon::before {
+        color: #68217A;
+    }
+
+.infobox-red > .infobox-icon > .ace-icon {
+    background-color: inherit;
+}
+
+.infobox > .infobox-data > .infobox-data-number {
+    font-size: 16px;
+}
+
+.infobox {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: inherit;
+    border-color: inherit;
+    border-style: none;
+    border-width: 0;
+    height: 35px;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+    width: 90px;
+}
+
+
+/*Ajuste Rômulo 22/06/2016*/
+.login-layout {
+    background-image: url('../images/bgSystem02.jpg') !Important;
+    height: 92vh !important;
+    background-position: center center !important;
+}
+
+.footer {
+    height: 25px !important;
+}
+
+
+.footer {
+    padding-top: 10px;
+}
+
+
+
+.circle {
+    margin: 2px;
+    display: inline-block;
+    padding: 5px;
+    text-align: center;
+    width: 70PX;
+    height: 70px;
+    border-radius: 20%;
+    border-width: 20px;
+}
+
+    .circle::before,
+    .circle::after {
+        position: absolute;
+        z-index: -1;
+        display: block;
+        content: '';
+    }
+
+    .circle,
+    .circle::before,
+    .circle::after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+
+.circle {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    color: #5c5eae;
+    line-height: 50px;
+    overflow: hidden;
+}
+
+    .circle:hover {
+        color: #fff;
+    }
+
+    .circle::after {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 20%;
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+    }
+
+    .circle:hover::after {
+        background: #00ff00;
+        border-radius: 50%;
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
+    }
+
+
+
+    .circle a {
+        text-decoration: none;
+        color: #1d2087;
+    }
+
+    .circle h2 {
+        font-size: 15px;
+    }
+
+        .circle h2 small {
+            color: #1d2087;
+        }
+
+    .circle p {
+        font-size: 15px;
+    }
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > td .table > thead > tr > th,
+div .label {
+    padding: 2px;
+    vertical-align: bottom;
+    line-height: 1.42857143;
+    margin-bottom: 0;
+}
+
+table tbody td,
+table thead th {
+    text-align: center;
+}

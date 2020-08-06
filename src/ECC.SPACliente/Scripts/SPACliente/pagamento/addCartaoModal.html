@@ -1,0 +1,128 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">FORMA DE PAGAMENTO</h4>
+    </div>
+
+    <div class="panel-body">
+        <form class="form-group"
+              role="form"              
+              angular-validator             
+              name="cardForm">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="lbl"> Identificação</span>
+                                <div class="form-horizontal">
+                                    <input type="text" class="form-control" ng-disabled="true" ng-model="formaPagamento.Id" id="txtIdentificacao" name="txtIdentificacao" placeholder="Identificação do cartão" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="lbl"> Nome</span>
+                                <div class="form-horizontal">
+                                    <input type="text" class="form-control" ng-model="formaPagamento.Nome" id="txtNome" name="txtNome" placeholder="Nome completo como no cartão" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="lbl"> Número do Cartão</span>
+                                <div class="form-horizontal">
+                                    <input type="text" class="form-control" ng-for="txtBandeira" ng-model="formaPagamento.Numero" id="txtNumero" name="txtNumero" placeholder="Número do cartão" required ng-card-validator />
+                                    <input type="hidden" id="txtBandeira" name="txtBandeira" ng-model="formaPagamento.CartaoBandeira" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span class="lbl"> Validade</span>
+                                <div class="form-horizontal">
+                                    <input type="text" class="form-control" ng-model="formaPagamento.DataVencimento" id="txtValidade" name="txtValidade" placeholder="MM/YYYY" required />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <span class="lbl"> Código de Segurança</span>
+                                <div class="form-horizontal">
+                                    <input type="text" class="form-control" ng-model="formaPagamento.Cvc" id="txtCVC" name="txtCVC" placeholder="Código de Segurança" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="card-wrapper" class="col-md-6"></div>
+                </div>
+                <div class="row" ng-show="exibirLoadCadastroCartao">
+                    <div class="col-md-12 text-center">
+                        <h3>
+                            <i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>
+                           Processando cadastro
+                        </h3>
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="align-left">
+                <label>
+                    <input id="chkPrincipal" name="chkPrincipal" type="checkbox" ng-model="formaPagamento.Padrao" />
+                    Colocar este cartão como principal.
+                </label>
+            </div>
+            <div class="class="col-md-12 pull-right">
+                <button type="button" class="btn btn-primary" ng-click="salvarFormaPagamento()">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        var card = new Card({
+            // a selector or DOM element for the form where users will
+            // be entering their information
+            form: 'form', // *required*
+            // a selector or DOM element for the container
+            // where you want the card to appear
+            container: 'div#card-wrapper', // *required*
+
+            formSelectors: {
+                numberInput: 'input#txtNumero', // optional — default input[name="number"]
+                expiryInput: 'input#txtValidade', // optional — default input[name="expiry"]
+                cvcInput: 'input#txtCVC', // optional — default input[name="cvc"]
+                nameInput: 'input#txtNome' // optional - defaults input[name="name"]
+            },
+
+            //width: 300, // optional — default 350px
+            //formatting: true, // optional - default true
+
+            // Strings for translation - optional
+            messages: {
+                validDate: 'valid\ndate', // optional - default 'valid\nthru'
+                monthYear: 'mm/yyyy' // optional - default 'month/year'
+            },
+
+            // Default placeholders for rendered fields - optional
+            placeholders: {
+                number: '•••• •••• •••• ••••',
+                name: 'NOME IMPRESSO NO CARTÃO',
+                expiry: '••/••',
+                cvc: '•••'
+            },
+
+            masks: {
+                cardNumber: '•' // optional - mask card number
+            },
+
+            // if true, will log helpful messages for setting up Card
+            debug: false // optional - default false
+        });
+
+    </script>
+</div>

@@ -1,0 +1,208 @@
+﻿<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsusuarioAdm.tabPesquisar.tabAtivar" ng-show="tabsusuarioAdm.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadusuarioAdm" ng-class="tabsusuarioAdm.tabCadusuarioAdm.tabAtivar" ng-show="tabsusuarioAdm.tabCadusuarioAdm.tabhabilitar">
+            <a data-toggle="tab" href="#tabContusuarioAdm" target="_self" ng-click="habilitaDesabilitaAbaCadastro();">
+                <i class="blue ace-icon fa fa-user bigger-120"></i>
+                Usuário Administração
+            </a>
+        </li>
+
+
+
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabsusuarioAdm.tabPesquisar.contentAtivar" ng-show="tabsusuarioAdm.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtrousuarioAdm" placeholder="Pesquisar Descrição" />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarusuarioAdm();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisausuarioAdm">
+                            <thead>
+                                <tr>
+                                    <th>Apelido</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="usuarioAdmPesq in usuarioAdm | filter:filtrousuarioAdm">
+                                    <td>{{usuarioAdmPesq.UsuarioNome}}</td>
+                                    <td>
+                                        <span ng-class="usuarioAdmPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{usuarioAdmPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarusuarioAdm(usuarioAdmPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarusuarioAdm(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContusuarioAdm" ng-class="tabsusuarioAdm.tabCadusuarioAdm.contentAtivar" ng-show="tabsusuarioAdm.tabCadusuarioAdm.contentHabilitar">
+            <h4>Usuário Administração</h4>
+            <hr />
+
+
+            <form class="form-group" role="form" novalidate angular-validator name="novousuarioAdm" angular-validator-submit="inserirusuarioAdm()">
+                <!--Inicio Dados -->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Apelido</span>
+                            <input type="text" class="form-control" ng-model="novousuarioAdm.UsuarioNome" id="txtUsuNome"
+                                   name="txtUsuNome" placeholder="Nome"
+                                   validate-on="blur" required required-message="'Nome é de preenchimento obrigatório.'" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Email</span>
+                            <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                                   ng-model="novousuarioAdm.UsuarioEmail" required required-message="'Email é de preenchimento obrigatório.'" />
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Senha</span>
+                            <input type="password" class="form-control" ng-model="novousuarioAdm.Senha" id="txtSenha"
+                                   name="txtSenha" placeholder="Senha" value="" maxlength="8" ng-disabled="booSenha" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Confirmação de Senha</span>
+                            <input type="password" class="form-control" id="txtConfirmaSenha" ng-model="novousuarioAdm.ConfirmSenha"
+                                   name="txtConfirmaSenha" placeholder="Confirma Senha" maxlength="8" ng-disabled="booSenha" />
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label no-padding-top" for="duallist"> Grupos </label>
+
+                        <div class="col-sm-5">
+                            <select id="sleGruposUsuario" ng-multiple="true" multiple="true" size="8" ng-model="gruposUsuarioAdmSel" class="form-control black" ng-options="option.GrupoId as option.DescGrupo for option in gruposUsuarioAdm" required></select>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6" style="top: 5px;">
+                        <div class="form-horizontal">
+                            <input type="checkbox" class="ace input-lg" ng-model="novousuarioAdm.FlgMaster" name="ckbUsurMaster" id="ckbUsurMaster" checked="checked">
+                            <span class="lbl">Usuário Master</span>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6" style="top: 5px;">
+
+                        <label>
+
+                            <input type="checkbox" name="ckbAtivo" class="ace input-lg" id="ckbAtivo" ng-model="novousuarioAdm.Ativo" checked="checked">
+                            <span class="lbl">Ativo</span>
+                        </label>
+                    </div>
+
+                </div>
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+
+    </div>
+</div>

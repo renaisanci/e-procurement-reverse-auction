@@ -1,0 +1,157 @@
+﻿<div class="tabbable">
+    <div class="row">
+
+    </div>
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsWorkflowStatus.tabPesquisar.tabAtivar" ng-show="tabsWorkflowStatus.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadWorkflowStatus" ng-class="tabsWorkflowStatus.tabCadWorkflowStatus.tabAtivar" ng-show="tabsWorkflowStatus.tabCadWorkflowStatus.tabhabilitar">
+            <a data-toggle="tab" href="#tabContWorkflowStatus" target="_self">
+                <i class="red ace-icon fa fa-th bigger-120"></i>
+                Worlflow Status Sistema
+            </a>
+        </li>
+
+ 
+
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabsWorkflowStatus.tabPesquisar.contentAtivar" ng-show="tabsWorkflowStatus.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroWorkflowStatus" placeholder="Pesquisar Descrição" />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarWorkflowStatus();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaWorkflowStatus">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="workflowstatusPesq in WorkflowStatus | filter:filtroWorkflowStatus">
+                                    <td>{{workflowstatusPesq.DescWorkslowStatus}}</td>                                    
+                                    <td>
+                                        <span ng-class="workflowstatusPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{workflowstatusPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarWorkflowStatus(workflowstatusPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarWorkflowStatus(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContWorkflowStatus" ng-class="tabsWorkflowStatus.tabCadWorkflowStatus.contentAtivar" ng-show="tabsWorkflowStatus.tabCadWorkflowStatus.contentHabilitar">
+            <h4>Workflow</h4>
+            <hr />
+
+
+            <form class="form-group" role="form" novalidate angular-validator name="novoWorkFlowStatusSistema" angular-validator-submit="inserirWorkStatusSistema()">
+                <!--Inicio Dados -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <input type="text" class="form-control" ng-model="novoWorkFlowStatusSistema.DescWorkslowStatus"
+                                   id="txtDescWorkslowStatus" name="txtDescWorkslowStatus" placeholder="Descrição Status"
+                                   validate-on="blur" required required-message="'Descrição é de preenchimento obrigatório.'" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="top: 5px;">
+
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" checked="checked" id="ckbAtivo" ng-model="novoWorkFlowStatusSistema.Ativo">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+
+
+
+                    </div>
+                </div>
+              
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+ 
+    </div>
+</div>

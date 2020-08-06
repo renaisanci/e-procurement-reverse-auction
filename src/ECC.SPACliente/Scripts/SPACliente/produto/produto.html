@@ -1,0 +1,191 @@
+﻿<div class="row areaPesquisar" id="" ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+    <div class="col-md-3 pull-left" style="padding-right: 5px;">
+        <div class="inline dropdown-hover btn-group pull-right">
+            <button class="btn btn-white btn-lg">
+                &nbsp; &nbsp; &nbsp; &nbsp; Refinar Busca &nbsp; &nbsp; &nbsp; &nbsp;
+                <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+            </button>
+            <ul role="menu" class="dropdown-menu">
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="lbl"> Marca</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="marca in marcasGroup">
+                    <a href="javascript:void(0);">
+                        <label>
+                            <input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" ng-model="useMarcas[marca]">
+                            <span class="lbl"> {{marca}}</span>
+                        </label>
+
+                        <span class="infobox-data-number"><b>({{ ( Produtos | filter:ignoreAccents:filtroProdutos | filter:count('Marca', marca)).length }})</b></span>
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="lbl"> Uni. Medida</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="unidadeMedida in UnidadeMedidasGroup">
+                    <a href="javascript:void(0);">
+                        <label>
+                            <input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" ng-model="useUnidadeMedidas[unidadeMedida]">
+                            <span class="lbl"> {{unidadeMedida}}</span>
+                        </label>
+
+                        <span class="infobox-data-number"><b>({{ ( Produtos | filter:ignoreAccents:filtroProdutos | filter:count('UnidadeMedida', unidadeMedida)).length }})</b></span>
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                    <a href="javascript:void(0);">
+                        <span class="lbl">Categoria</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="categoriaGroup in CategoriasGroup">
+                    <a href="javascript:void(0);">
+                        <label>
+                            <input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" ng-model="useCategorias[categoriaGroup]">
+                            <span class="lbl"> {{categoriaGroup}}</span>
+                        </label>
+
+                        <span class="infobox-data-number"><b>({{ ( Produtos | filter:ignoreAccents:filtroProdutos | filter:count('DescCategoria', categoriaGroup)).length }})</b></span>
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-md-8 pull-left" style="padding-left: 0px; padding-right: 0px;">
+
+        <div>
+            <div class="input-group" style="width:340px;">
+
+                <div angucomplete-alt id="members" 
+                     style="width: 300px; margin-left: 10px;" name="keywords"
+                     ng-keyup="$event.keyCode == 13 && pesquisarProduto()"
+                     placeholder="Pesquisar Categoria, Marca, Produto..."
+                     pause="200"
+                     selected-object="selectCustomer"
+                     input-changed="inputText"
+                     remote-url="{{ambiente}}/api/produto/produto?filter="
+                     remote-url-data-field=""
+                     title-field="DescProduto"
+                     description-field=""
+                     input-class="form-control search-query"
+                     match-class="red"
+                     minlength="1"
+                     text-searching="Procurando produto.."
+                     text-no-results="Não há produto com está descrição">
+
+                </div>
+
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary no-border btn-sm" style="height: 38px; margin-bottom: 5px;" ng-click="pesquisarProduto()">
+                        <span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+                    </button>
+                </span>
+            </div>
+            <!--<span class="input-icon">
+                <input placeholder="Pesquisar por Categoria, Descrição ..." class="nav-search-input" ng-model="filtroProdutos" id="nav-search-input" type="text" style="height: 38px; width: 300px;">
+
+            </span>
+            <i class="ace-icon fa fa-search red fa-2x nav-search-icon" style="cursor: pointer;" ng-click="pesquisarProduto()"></i>-->
+        </div>
+
+    </div>
+
+</div>
+<div class="page-content">
+    <div>
+        <div>
+            <div class="row">
+
+                <div class="text-center" ng-show="(Produtos | filter:ignoreAccents:filtroProdutos).length == 0 && Produtos.length > 0 ">
+                    <span class="blue bolder align-center"> QUE PENA, PRODUTO NÃO ENCONTRADO, SOLICITE O CADASTRO PARA SUPORTE PELO CHAT !</span>
+                </div>
+
+
+                <div class="text-center" ng-show="Produtos == 0">
+
+
+                    <span class="blue bolder align-center"> QUE PENA, PRODUTO NÃO ENCONTRADO, SOLICITE O CADASTRO PARA SUPORTE PELO CHAT !</span>
+                </div>
+
+                <div class="col-xs-6 col-sm-4 col-md-3 ng-trans ng-trans-slide-right" ng-repeat="produtoPesq in Produtos |  filter:ignoreAccents:filtroProdutos">
+                    <div class="thumbnail search-thumbnail">
+                        <span class="search-promotion label label-success arrowed-in arrowed-in-right">Economiza Jà</span>
+
+                        <a href="javascript:void(0);" class="blue" ng-click="openDetProdDialog(produtoPesq);">
+                            <img ng-src="{{produtoPesq.Imagem}}" class="media-object img-responsive" alt="" style="height: 200px; width: 200px;">
+                        </a>
+                        <p style="font-size:70%;text-align:right;">Imagem meramente ilustrativa</p>
+                        <div class="caption">
+                            <div class="clearfix">
+
+                                <input type="text" maxlength="4" mask="XXXX" ng-model="QtdProduto" min='1' name="txtQtdProd" style="height: 30px; width: 60px; float: left; " placeholder="Qtd.." value="{{QtdProduto}}">
+
+                                <button type="button" class="btn btn-success btn-mini pull-left" style="height: 30px;" name="btninserir" id="btnInserir" data-toggle="tooltip"
+                                        ng-click="addQuantidade(produtoPesq.Id, produtoPesq.DescProduto, produtoPesq.Preco, QtdProduto,this,produtoPesq.Imagem);"
+                                        tooltip="Informe a Quantidade e clique aqui para colocar na cesta"
+                                        tooltip-placement="right">
+                                    Add
+                                    <i class="ace-icon fa fa-cart-plus fa-lg">
+                                    </i>
+                                </button>
+
+                                <div class="pull-right bigger-110">
+
+                                    <div class="media-bottom">
+                                        <span component-rating="{{produtoPesq.Ranking}}"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <h5 class="popover-info customPopover" data-content="{{produtoPesq.DescProduto}}"
+                                data-rel="popover" data-trigger="hover"
+                                title=""
+                                data-original-title="Descrição completa."
+                                data-placement="top"
+                                class="search-title" style="height: 30px; ">
+                                <a href="javascript:void(0);" class="blue" ng-click="openDetProdDialog(produtoPesq);">{{produtoPesq.DescProduto | limitTo: 60}}{{produtoPesq.DescProduto.length > 60 ? '...' : ''}}</a>
+                            </h5>
+
+                            <p style="margin-top: 40px;padding-top: 10px;">
+
+                                Und. {{produtoPesq.UnidadeMedida}}
+                                <br />
+                                Marca {{produtoPesq.Marca}}
+                                <br />
+                                Cat. {{produtoPesq.DescCategoria}}
+                                <br />
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="text-center">
+            <custom-pager ng-hide="(Produtos | filter:ignoreAccents:filtroProdutos).length == 0 && Produtos.length > 0 " page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProdutoPaginacao(page,filtroProdutosPaginacao)" ng-show="PaginadorUrl.Pagina.Ativar"></custom-pager>
+
+        </div>
+
+    </div>
+</div>

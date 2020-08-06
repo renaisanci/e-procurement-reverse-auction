@@ -1,0 +1,1165 @@
+﻿<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabPesquisar" ng-class="tabsMembro.tabPesquisar.tabAtivar" ng-show="tabsMembro.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar  Pessoa Juridica
+            </a>
+        </li>
+
+
+        <li id="tabPesquisarPF" ng-class="tabsMembro.tabPesquisarPF.tabAtivar" ng-show="tabsMembro.tabPesquisarPF.tabhabilitar">
+            <a data-toggle="tab" href="#tabPesquisarPF" target="_self" ng-click="habilitaDesabilitaAbaPesquisaPF();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar Pessoa Fisica
+            </a>
+        </li>
+
+        <li id="tabCadMembro" ng-class="tabsMembro.tabCadMembro.tabAtivar" ng-show="tabsMembro.tabCadMembro.tabhabilitar" ng-click="habilitaDesabilitaAbaMembro();">
+            <a data-toggle="tab" href="#tabContMembro" target="_self">
+                <i class="red ace-icon fa fa-users bigger-120"></i>
+                Membro
+            </a>
+        </li>
+
+        <li id="tabCadEndMembro" ng-class="tabsMembro.tabCadEndMembro.tabAtivar" ng-show="tabsMembro.tabCadEndMembro.tabhabilitar" ng-click="habilitaDesabilitaAbaEndereco();">
+            <a data-toggle="tab" href="#tabContEndMembro" target="_self">
+                <i class="red ace-icon fa fa-map-marker bigger-120"></i>
+                Endereço
+            </a>
+        </li>
+
+        <li id="tabRelProduto" ng-class="tabsMembro.tabRelProduto.tabAtivar" ng-show="tabsMembro.tabRelProduto.tabhabilitar" ng-click="habilitaDesabilitaAbaRelatProduto();">
+            <a data-toggle="tab" href="#tabContRelProduto" target="_self">
+                <i class="blue ace-icon fa fa-exchange bigger-120"></i>
+                Relacionar Categoria
+            </a>
+        </li>
+
+        <li id="tabRelFornecedor" ng-class="tabsMembro.tabRelFornecedor.tabAtivar" ng-show="tabsMembro.tabRelFornecedor.tabhabilitar" ng-click="habilitaDesabilitaAbaRelatForn();">
+            <a data-toggle="tab" href="#tabContRelFornecedor" target="_self">
+                <i class="green ace-icon fa fa-exchange bigger-120"></i>
+                Relacionar Fornecedor
+            </a>
+        </li>
+
+        <li id="tabMembroDemanda" ng-class="tabsMembro.tabMembroDemanda.tabAtivar" ng-show="tabsMembro.tabMembroDemanda.tabhabilitar" ng-click="habilitaDesabilitaAbaMembroDemanda();">
+            <a data-toggle="tab" href="#tabContRelMembroDemanda" target="_self">
+                <i class="red ace-icon fa fa-exchange bigger-120"></i>
+                Dados Demanda
+            </a>
+        </li>
+
+        <li id="tabUsuMembro" ng-class="tabsMembro.tabUsuMembro.tabAtivar" ng-show="tabsMembro.tabUsuMembro.tabhabilitar" ng-click="habilitaDesabilitaAbaUsuMembro();">
+            <a data-toggle="tab" href="#tabContUsuMembro" target="_self">
+                <i class="black ace-icon fa fa-user bigger-120"></i>
+
+                Usuário Membro
+            </a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+
+
+
+        <!--Tab Pesquisar membro PF.-->
+        <div id="tabContPesquisarPF" ng-class="tabsMembro.tabPesquisarPF.contentAtivar" ng-show="tabsMembro.tabPesquisarPF.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Cliente</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroMembrosPF" placeholder="Pesquisar Nome, CPF ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarMembro();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-hover " id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>CPF</th>
+                                    <th>Completo</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="ng-trans ng-trans-scale-up" ng-repeat="membroPesqPF in MembrosPf | filter:filtroMembrosPF">
+                                    <td>{{membroPesqPF.Nome}}</td>
+
+                                    <td>{{membroPesqPF.Email}}</td>
+                                    <td>{{membroPesqPF.Cpf}}</td>
+                                    <td>{{membroPesqPF.Completo}}</td>
+                                    <td>
+                                        <span ng-class="membroPesqPF.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{membroPesqPF.DescAtivo}}</span>
+                                    </td>
+                                 
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarMembro(membroPesqPF,'pf');">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarMembro(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--Tab Pesquisar membro.-->
+        <div id="tabContPesquisar" ng-class="tabsMembro.tabPesquisar.contentAtivar" ng-show="tabsMembro.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Cliente</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroMembros" placeholder="Pesquisar Nome Fantasia, CNPJ ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarMembro();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-hover " id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+                                    <th>Razão Social</th>
+                                    <th>Comprador</th>
+                                    <th>Email</th>
+                                    <th>CNPJ</th>
+                                    <th>Vip</th>
+                                    <th>Completo</th>
+                                    <th>Franquia</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="ng-trans ng-trans-scale-up" ng-repeat="membroPesq in Membros | filter:filtroMembros">
+                                    <td>{{membroPesq.RazaoSocial}}</td>
+                                    <td>{{membroPesq.Comprador}}</td>
+                                    <td>{{membroPesq.Email}}</td>
+                                    <td>{{membroPesq.Cnpj}}</td>
+                                    <td>{{membroPesq.Vip?'Sim':'Não'}}</td>
+                                    <td>{{membroPesq.Completo}}</td>
+                                    <td>
+                                        <label ng-class="membroPesq.Franquia !== null ? 'label label-warning' : 'label label-danger'">
+                                            {{membroPesq.Franquia !== null ? membroPesq.Franquia.NomeFantasia : 'Não'}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <span ng-class="membroPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">
+                                            {{membroPesq.DescAtivo}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarMembro(membroPesq,'pj');">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarMembro(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--Cadastro de novo Membro e Atualiza tbm.-->
+        <div id="tabContMembro" ng-class="tabsMembro.tabCadMembro.contentAtivar" ng-show="tabsMembro.tabCadMembro.contentHabilitar">
+
+            <h4 style="margin-top: 20px;">Tipo Pessoa</h4>
+            <hr />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="inline pos-rel">
+                        <label class="pos-rel">
+                            <input type="radio" class="ace input-lg" ng-model="tipoPessoa" value="pj" ng-click="mostraDadosTipoPessoa('pj');">
+                            <span class="lbl">Pessoa Jurídica</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="inline pos-rel">
+                        <label class="pos-rel">
+                            <input type="radio" class="ace input-lg" ng-model="tipoPessoa" value="pf" ng-click="mostraDadosTipoPessoa('pf');">
+                            <span class="lbl">Pessoa Fisica</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Dados</h4>
+            <hr />
+            <form class="form-group" role="form" name="novoMembro">
+
+                <div ng-show="tipoPessoa=='pj' ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Razão Social</span>
+                                <input type="text" class="form-control" id="txtRzSocial" name="txtRzSocial" placeholder="Razão Social"
+                                       ng-model="novoMembro.RazaoSocial"
+                                       validate-on="blur" required required-message="'Razao Social preenchimento obrigatório.'"
+                                       maxlength="100" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Nome Fantasia</span>
+                                <input type="text" class="form-control" id="txtNomeFantasia" name="txtNomeFantasia" placeholder="Nome Fantasia"
+                                       ng-model="novoMembro.NomeFantasia"
+                                       validate-on="blur" required required-message="'Nome Fantasia preenchimento obrigatório.'" maxlength="100" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> E-mail</span>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                                       ng-model="novoMembro.Email" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CNPJ</span>
+                                <input type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                                       ng-model="novoMembro.Cnpj"
+                                       validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+
+                                <span class="lbl"> Inscrição Estadual</span>
+                                <input type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" maxlength="15" ng-model="novoMembro.InscEstadual" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Comprador</span>
+                                <input type="text" class="form-control" id="txtComprador" name="txtComprador" placeholder="Comprador" ng-model="novoMembro.Comprador" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <span class="lbl"> Data da Fundação</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control date-picker" disabled="disabled" name="txtDataFundacao"
+                                           datepicker-popup="{{format}}" ng-model="novoMembro.DtFundacao" is-open="datepicker.opened"
+                                           datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                           placeholder="Data da Fundação" />
+
+                                    <span class="input-group-addon">
+                                        <a href="javascript:void(0);" ng-click="openDatePicker($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <span class="lbl"> Fim Período Gratuito</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control date-picker" disabled="disabled" name="txtFimPeriodoGratuito"
+                                           datepicker-popup="{{formatFimGratuidade}}" ng-model="novoMembro.DataFimPeriodoGratuito" is-open="datepickerFimGratuidade.opened"
+                                           datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                           placeholder="Data da Fundação" />
+
+                                    <span class="input-group-addon">
+                                        <a href="javascript:void(0);" ng-click="openDatePickerFimGratuidade($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <span class="lbl"> Franquia</span>
+                            <select class="form-control" id="form-field-select-1" ng-model="novoMembro.FranquiaId" ng-options="franquia.FranquiaId as franquia.RazaoSocial for franquia in FranquiaMembro">
+                                <option value="">Selecione uma franquia...</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbAtivo"
+                                       ng-model="novoMembro.Ativo" ng-init="novoMembro.Ativo=true">
+                                <span class="lbl"> Ativo</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbVip"
+                                       ng-model="novoMembro.Vip" ng-init="novoMembro.Vip=false">
+                                <span class="lbl"> Vip</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+                <div ng-show="tipoPessoa=='pf'">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Nome</span>
+                                <input type="text" class="form-control" id="txtNome" name="txtNome" placeholder="Nome"
+                                       ng-model="novoMembro.Nome"
+                                       validate-on="blur" required required-message="'Nome preenchimento obrigatório.'" maxlength="100" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> E-mail</span>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                                       ng-model="novoMembro.Email" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CPF</span>
+                                <input type="text" class="form-control" id="txtCpf" name="txtCpf" placeholder="CPF" mask="XXX.XXX.XXX-XX"
+                                       ng-model="novoMembro.Cpf"
+                                       validate-on="blur" required required-message="'Cpf preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CRO</span>
+                                <input type="text" class="form-control" id="txtCro" name="txtCro" placeholder="CRO" mask="XXXXXX"
+                                       ng-model="novoMembro.Cro"
+                                       validate-on="blur" required required-message="'CRO preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> RG</span>
+                                <input type="text" class="form-control" id="txtCro" name="txtCro" placeholder="RG" mask="XXXXXXXXXX"
+                                       ng-model="novoMembro.Rg"
+                                       validate-on="blur" required required-message="'RG preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <span class="lbl"> Data de Nascimento</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control date-picker" disabled="disabled" name="txtDtNascimento"
+                                           datepicker-popup="{{formatNascimento}}" ng-model="novoMembro.DtNascimento" is-open="datepickerNascimento.opened"
+                                           datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                           placeholder="Data de Nascimento" />
+
+                                    <span class="input-group-addon">
+                                        <a href="javascript:void(0);" ng-click="openDatePickerNascimento($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Sexo</span>
+                                <select id="ddlSexo" ng-model="novoMembro.Sexo" class="form-control black" ng-options="option.Id as option.DescSexo for option in sexos"></select>
+                                <input type="hidden" name="sexo" ng-value="novoMembro.Sexo" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbAtivo"
+                                       ng-model="novoMembro.Ativo" ng-init="novoMembro.Ativo=true">
+                                <span class="lbl"> Ativo</span>
+                            </label>
+                        </div>
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbVip"
+                                       ng-model="novoMembro.Vip" ng-init="novoMembro.Vip=false">
+                                <span class="lbl"> Vip</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Telefone-->
+                <h4 style="margin-top: 20px;">Telefone</h4>
+                <hr />
+                <div class="conteudo">
+                    <div id="Telefone" class="row">
+                        <div class="col-md-1">
+                            <span class="lbl"> DDD</span>
+                            <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="5" ng-model="novoMembro.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                        <div class="col-md-3">
+                            <span class="lbl"> Telefone</span>
+                            <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="11" ng-model="novoMembro.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                    </div>
+                </div>
+                <div id="Celular" class="row">
+                    <div class="col-md-1">
+                        <span class="lbl"> DDD</span>
+                        <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="4" ng-model="novoMembro.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+                    <div class="col-md-3">
+                        <span class="lbl"> Celular</span>
+                        <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novoMembro.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="lbl"> Contato</span>
+                        <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" ng-model="novoMembro.Contato" />
+
+                    </div>
+                </div>
+
+                <!--Fim Telefone-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="button" ng-click="inserirMembro();" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--Endereços membro.-->
+        <div id="tabContEndMembro" ng-class="tabsMembro.tabCadEndMembro.contentAtivar" ng-show="tabsMembro.tabCadEndMembro.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Novo Endereço</h4>
+                    <hr />
+                </div>
+            </div>
+            <form class="form-group" role="form" novalidate name="novoEndereco">
+
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> CEP</span>
+                            <input type="text" class="form-control" id="txtCep" name="txtcep" placeholder="CEP"
+                                   ng-model="novoEndereco.Cep"
+                                   validate-on="blur" required required-message="'Cep obrigatório.'" maxlength="8" mask="XXXXXXXX" ng-change="loadEnderecoCep(novoEndereco.Cep);" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Logradouro</span>
+                            <select id="ddlLogradouro" ng-model="novoEndereco.LogradouroId" class="form-control black" ng-options="option.Id as option.DescLogradouro for option in logradouros"></select>
+                            <input type="hidden" name="LogradouroId" ng-value="novoEndereco.LogradouroId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Endereço</span>
+                            <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" maxlength="100" placeholder="Endereço"
+                                   ng-model="novoEndereco.Endereco" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Número Endereço</span>
+                            <input type="text" class="form-control" id="txtNumEndereco" name="txtNumEndereco" placeholder="Número"
+                                   ng-model="novoEndereco.NumEndereco" mask="XXXXXXXXX" maxlength="9" />
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Complemento</span>
+                            <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento"
+                                   ng-model="novoEndereco.Complemento" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Estado</span>
+                            <select id="ddlEstado" ng-change="loadCidadeChange(novoEndereco.EstadoId)" ng-model="novoEndereco.EstadoId" class="form-control black" ng-options="option.Id as option.DescEstado for option in estados"></select>
+                            <input type="hidden" name="EstadoId" ng-value="novoEndereco.EstadoId" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Cidade</span>
+
+                            <select id="ddlCidade" ng-change="loadBairroChange(novoEndereco.CidadeId)" ng-model="novoEndereco.CidadeId" ng-disabled="habilitaddlCidade" class="form-control black" ng-options="option.Id as option.DescCidade for option in cidades">
+                                <option value="" selected>Cidade...</option>
+                            </select>
+                            <input type="hidden" name="CidadeId" ng-value="novoEndereco.CidadeId" />
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-4" ng-show="mostraBairroDll">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Bairro</span>
+                            <select id="ddlBairro" ng-model="novoEndereco.BairroId" class="form-control black" disabled="" ng-disabled="habilitaddlBairro" ng-options="option.Id as option.DescBairro for option in bairros">
+                                <option value="" selected>Bairro...</option>
+                            </select>
+                            <input type="hidden" name="BairroID" ng-value="novoEndereco.Endereco.BairroId" />
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4" ng-show="mostraBairroInput">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Bairro</span>
+                            <input type="text" class="form-control" name="bairroDesc" ng-model="novoEndereco.BairroDescNew" placeholder="Bairro" ng-init="novoFornecedor.Endereco.BairroDescNew=''" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Referência</span>
+                            <input type="text" class="form-control" id="txtReferencia" name="txtComplemento" placeholder="Ponto de Referencia"
+                                   ng-model="novoEndereco.Referencia" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="lbl">Período de Entrega</span>
+                        <select id="sleEntregaMembro" name="sleEntregaMembro"
+                                multiple="true" size="4" ng-model="novoEndereco.PeriodoEntrega" ng-checked="novoEndereco.PeriodoEntrega"
+                                class="form-control black" ng-options="option.DescPeriodoEntrega for option in HorarioEntrega track by option.Id"></select>
+                    </div>
+                    <div class="col-md-4" ng-show="novoEndereco.PeriodoEntrega.length > 0">
+                        <span class="lbl">Observação para entrega</span>
+                        <textarea class="form-control" id="txtDescHorarioEntrega" name="txtDescHorarioEntrega" rows="4" ng-model="novoEndereco.DescHorarioEntrega"></textarea>
+                    </div>
+                    <div class="col-md-4" style="line-height: 5;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbEndAtivo"
+                                   ng-model="novoEndereco.Ativo"
+                                   ng-init="novoEndereco.Ativo = true">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+                    </div>
+                </div>
+                <hr />
+                <div class="row" style="margin-top:20px;">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="gvEnderecoMembro">
+                                <thead>
+                                    <tr>
+                                        <th>Logradouro</th>
+                                        <th>Endereço</th>
+                                        <th>Bairro</th>
+                                        <th>Cidade</th>
+                                        <th>Estado</th>
+                                        <th>Horário Entrega</th>
+                                        <th>End.Padrão </th>
+                                        <th>Ativo</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr ng-repeat="enderecoPesq in Enderecos | filter:filtroEndereco">
+                                        <td>{{enderecoPesq.Logradouro}} </td>
+                                        <td>{{enderecoPesq.Endereco}} </td>
+                                        <td> {{enderecoPesq.Bairro}} </td>
+                                        <td>{{enderecoPesq.Cidade}} </td>
+                                        <td>{{enderecoPesq.Estado}}</td>
+
+                                        <td>
+                                            <div class="text-center">
+                                                <div ng-repeat="periodo in enderecoPesq.PeriodoEntrega" style="float: left; margin-left: 2px;">
+                                                    <label class="label label-warning">
+                                                        {{periodo.DescPeriodoEntrega}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <div class="">
+                                                <div class="inline pos-rel">
+                                                    <label class="pos-rel">
+                                                        <input type="radio" class="ace input-lg" ng-model="enderecoPesq.EnderecoPadrao" name="nameEndP" ng-checked="(enderecoPesq.EnderecoPadrao==true)" ng-click="atualizaParaEndPadrao(enderecoPesq);">
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td><span ng-class="enderecoPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{enderecoPesq.DescAtivo}}</span></td>
+                                        <td>
+                                            <div class="">
+                                                <div class="inline pos-rel">
+                                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                        <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close" style="">
+
+                                                        <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                            <a href="javascript:void(0);" ng-click="editarEndereco(enderecoPesq);">
+                                                                <span class="green">
+                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                                </span>
+                                                            </a>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="inserirEndereco()">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDadosEndereco()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <!--Relacionar Produtos com membro.-->
+        <div id="tabContRelProduto" ng-class="tabsMembro.tabRelProduto.contentAtivar" ng-show="tabsMembro.tabRelProduto.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Relacionar Categoria de Produto</h4>
+                    <hr />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    Segmento
+                    <select id="ddlSegmento" ng-model="filtroCategoriaSegmento" class="form-control black" ng-change="loadCategoriaPorSegmento(filtroCategoriaSegmento)">
+                        <option value="0" selected="selected">Todos</option>
+                        <option ng-repeat="option in segmentos" value="{{option.Id}}">{{option.DescSegmento}}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    Categoria
+                    <input type="text" ng-model="filtroCategoria" class="form-control" placeholder="Pesquisar Categoria ..." />
+                    &nbsp;
+                </div>
+            </div>
+
+            <p>
+                <b class="red bigger-125">Membro: </b><span class="lbl bigger-125"> {{novoMembro.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="tbRelatProduto">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>
+
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="chkAllCat" ng-click="checkAll(categorias, chkAllCat )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="categoriaPesq in categorias | filter:filtroCategoria | filter :{visivel : true}">
+                                    <td>{{categoriaPesq.DescCategoria}}</td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="categoriaPesq.selected" value="{{categoriaPesq.Id}}" ng-checked="categoriaPesq.Relacionado">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirMembroCategoriasProduto();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Relacionar membro com fornecedores.-->
+        <div id="tabContRelFornecedor" ng-class="tabsMembro.tabRelFornecedor.contentAtivar" ng-show="tabsMembro.tabRelFornecedor.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Relacionar Membro Fornecedor</h4>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" ng-model="filtroFornecedor" class="form-control" placeholder="Pesquisar Fornecedor ..." />
+                    &nbsp;
+                </div>
+                <button type="button" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+            </div>
+            <p>
+                <b class="red bigger-125">Membro: </b><span class="lbl bigger-125"> {{novoMembro.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="tbRelatFornecedor">
+
+                            <thead class="headerTamanho">
+                                <tr>
+                                    <th>Nome Fantasia</th>
+                                    <!--<th>Região</th>-->
+                                    <th>Vl. Ped Mínimo</th>
+
+                                    <th>
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="chkAllForn" ng-click="checkAll(fornecedoresRegiao, chkAllForn )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="fornecedorPesq in fornecedoresRegiao | filter:filtroFornecedor">
+                                    <td>{{fornecedorPesq.NomeFantasia}}</td>
+                                    <!--<td><ul class="list-group"><li style="list-style: none;" ng-repeate="fornecedorReg in fornecedorPesq.FornecedorRegiao" ng-bind-html-unsafe="fornecedorReg.DescRegiao">{{fornecedorReg.DescRegiao}}</li></ul></td>-->
+                                    <td> R${{fornecedorPesq.VlPedidoMin}}</td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="fornecedorPesq.selected" value="{{fornecedorPesq.Id}}" ng-checked="fornecedorPesq.Relacionado">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirMembroFornecedors();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Relacionar Demanda com membro.-->
+        <div id="tabContRelMembroDemanda" ng-class="tabsMembro.tabMembroDemanda.contentAtivar" ng-show="tabsMembro.tabMembroDemanda.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Relacionar Demanda de Produto</h4>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-horizontal">
+                        <select id="ddlCategoria" ng-change="loadMembroCategoriaId(membroCategoria.Id);" ng-model="membroCategoria.Id" class="form-control black" ng-options="option.Id as option.DescCategoria for option in categorias" required></select>
+                        <input type="hidden" name="membroCategoriaId" ng-value="membroCategoria.Id" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-horizontal">
+                        <input type="text" class="col-md-4 form-control" ng-model="filtroSubCategoria" placeholder="Pesquisar Sub-Categoria" />
+                    </div>
+                </div>
+                &nbsp;
+                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarMembroDemanda();">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+            </div>
+            <p>
+                <b class="red bigger-125">Membro: </b><span class="lbl bigger-125"> {{novoMembro.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaSubCategoria">
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescCategoria';  reverse = (predicate === predicate) ? !reverse : false;">Categoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescCategoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescSubCategoria';  reverse = (predicate === predicate) ? !reverse : false;">Sub-Categoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescSubCategoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescPeriodicidade';  reverse = (predicate === predicate) ? !reverse : false;">Periodicidade</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescPeriodicidade'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Quantidade';  reverse = (predicate === predicate) ? !reverse : false;">Quantidade</a>
+                                        <span class="sortorder" ng-show="predicate === 'Quantidade'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescUnidadeMedida';  reverse = (predicate === predicate) ? !reverse : false;">Unidade de Medida</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescUnidadeMedida'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Observacao';  reverse = (predicate === predicate) ? !reverse : false;">Observação</a>
+                                        <span class="sortorder" ng-show="predicate === 'Observacao'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Ativo';  reverse = (predicate === predicate) ? !reverse : false;">Ativo</a>
+                                        <span class="sortorder" ng-show="predicate === 'Ativo'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!--<tr ng-repeat="pesqMembroDemanda in demandas | filter: filtroSubCategoria || novoMembroDemanda.SubCategoriaId  | orderBy:predicate:reverse">-->
+                                <tr ng-repeat="pesqMembroDemanda in demandas | filter: filtroSubCategoria | orderBy:predicate:reverse">
+                                    <td>{{pesqMembroDemanda.DescCategoria}}</td>
+                                    <td>{{pesqMembroDemanda.DescSubCategoria}}</td>
+                                    <td>{{pesqMembroDemanda.DescPeriodicidade}}</td>
+                                    <td>{{pesqMembroDemanda.Quantidade}}</td>
+                                    <td>{{pesqMembroDemanda.DescUnidadeMedida}}</td>
+                                    <td>{{pesqMembroDemanda.Observacao}}</td>
+                                    <td>
+                                        <span ng-class="pesqMembroDemanda.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pesqMembroDemanda.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar Membro Demanda">
+                                                        <a href="javascript:void(0);" ng-click="openEditDialogMembroDemanda(pesqMembroDemanda);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarMembroDemanda(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-default btn-sm" ng-click="openEditDialogMembroDemanda({});">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                Novo
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Manutenção de Usuários do Membro.-->
+        <div id="tabContUsuMembro" ng-class="tabsMembro.tabUsuMembro.contentAtivar" ng-show="tabsMembro.tabUsuMembro.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Usuário </h4>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+
+
+
+                <div class="col-md-4">
+                    <input type="text" ng-model="filtroUsuario" class="form-control" placeholder="Pesquisar Usuário ..." />
+                    &nbsp;
+                </div>
+
+                <button type="button" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+
+            </div>
+
+            <p>
+                <b class="red bigger-125">Membro: </b><span class="lbl bigger-125"> {{novoMembro.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" style="height: 350px;">
+                        <table class="table  table-bordered table-hover" id="tbUsuarioMembro">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Master</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="usuarioMembro in usuariosMembro | filter:filtroUsuario">
+                                    <td>{{usuarioMembro.UsuarioNome}}</td>
+                                    <td>{{usuarioMembro.UsuarioEmail}}</td>
+
+                                    <td> <span ng-class="usuarioMembro.FlgMaster ? 'label label-sm label-success' : 'label label-sm label-danger'">{{usuarioMembro.DescFlgMaster}}</span></td>
+                                    <td> <span ng-class="usuarioMembro.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{usuarioMembro.DescAtivo}}</span></td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar Usuário">
+                                                        <a href="javascript:void(0);" ng-click="openEditDialog(usuarioMembro);">
+                                                            <span class="green">
+                                                                <i class="ace-icon  fa fa-user bigger-120"></i>
+
+
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

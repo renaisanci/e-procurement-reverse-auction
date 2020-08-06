@@ -1,0 +1,431 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-building-o" aria-hidden="true"></i>
+            Dados da Empresa
+        </h1>
+    </div>
+
+    <form role="form" angular-validator name="novoFornecedor" angular-validator-submit="atualizarFornecedor()">
+        <!--Inicio Dados do fornecedor-->
+        <div class="row">
+            <div class="col-md-4">
+                <span class="lbl"> Razão Social</span>
+                <div class="form-horizontal">
+                    <input disabled type="text" class="form-control" ng-model="novoFornecedor.RazaoSocial" id="txtForneRazaoSocial" name="txtForneRazaoSocial" placeholder="Razão Social" required="" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Nome Fantasia</span>
+                    <input type="text" class="form-control" ng-model="novoFornecedor.NomeFantasia" id="txtForneNomeFantasia" name="txtForneNomeFantasia" placeholder="Nome Fantasia" required="" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl"> Email</span>
+                    <input type="email" class="form-control" ng-model="novoFornecedor.Email" id="txtForneEmail" name="txtForneEmail" placeholder="Email" required validate-on="blur" required-message="'Campo obrigatório.'" />
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+
+                    <span class="lbl"> CNPJ</span>
+                    <input disabled type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                           ng-model="novoFornecedor.Cnpj"
+                           validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+
+
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Inscrição Estadual</span>
+                    <input disabled type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" ng-model="novoFornecedor.InscEstadual" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Responsável</span>
+                    <input type="text" class="form-control" id="txtResponsavel" name="txtResponsavel" placeholder="Responsável" validate-on="blur" required required-message="'Informe o responsavel '" ng-model="novoFornecedor.Responsavel" />
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl">Descrição</span>
+                    <textarea class="form-control" id="txtDescricao" name="txtDescricao" ng-model="novoFornecedor.Descricao" placeholder="Digite uma descrição deste fornecedor, o que ele vende ?" validate-on="blur" required required-message="'Digite uma descrição deste fornecedor, o que ele vende ?'"></textarea>
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl">Palavras Chaves</span>
+                    <textarea class="form-control" id="txtPalavrasChaves" name="txtPalavrasChaves" ng-model="novoFornecedor.PalavrasChaves" placeholder="Digite algumas palavras chaves sobre este fornecedor'" validate-on="blur" required required-message="'Digite algumas palavras chaves sobre este fornecedor'"></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl">Obs. Forma Pagto</span>
+                    <textarea class="form-control" id="txtObservacao" name="txtObservacao" ng-model="novoFornecedor.Observacao" placeholder="Digite qualquer observação necessária, sobre forma pagamento, taxa de entrega e etc..'"></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:20px;">
+
+
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl">Obs. Prazo Entrega</span>
+                    <textarea class="form-control" id="txtPrazoEntrega" name="txtPrazoEntrega" ng-model="novoFornecedor.ObservacaoEntrega" placeholder="Digite qualquer observação necessária sobre o prazo de entrega.'"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+
+                    <span class="lbl"> Data da Fundação</span>
+                    <div class="input-group">
+
+
+                        <input disabled type="text" class="form-control date-picker" name="txtDataFundacao" datepicker-popup="{{format}}" ng-model="novoFornecedor.DtFundacao" is-open="datepicker.opened" datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close" placeholder="Data da Fundação" />
+
+                        <!--<span class="input-group-addon">
+                            <a href="javascript:void(0);" ng-click="openDatePicker($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                        </span>-->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="form-horizontal">
+
+                    <span class="lbl"> Valor de Pedido Minímo</span>
+                    <input type="text" class="form-control" id="txtForneVlPedMinimo" ng-model="novoFornecedor.VlPedidoMin" money-mask name="txtForneVlPedMinimo" placeholder="Valor de Pedido Minímo" required="" />
+
+                </div>
+            </div>
+
+
+            <div class="col-md-2" style="top: 27px;">
+
+                <label>
+                    <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbPrimeiraAvista" ng-model="novoFornecedor.PrimeiraAvista">
+                    <span class="lbl"> Primeira compra Á Vista</span>
+                </label>
+
+            </div>
+
+
+            <div class="col-md-2" style="top: 27px;">
+
+                <label>
+                    <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbAtivo" ng-model="novoFornecedor.Ativo" ng-init="novoFornecedor.Ativo=true">
+                    <span class="lbl"> Ativo</span>
+                </label>
+
+
+            </div>
+
+        </div>
+        <!--Fim Dados do fornecedor-->
+        <!--Inicio Endereco-->
+
+        <div class="row" style="margin-top:20px;">
+            <div class="col-md-12">
+                <h4>Endereço</h4>
+                <hr />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-horizontal">
+                    <span class="lbl"> CEP</span>
+                    <input type="text" class="form-control" id="txtCep" name="txtcep" placeholder="CEP"
+                           ng-model="novoFornecedor.Endereco.Cep"
+                           validate-on="blur" required required-message="'Cep obrigatório.'" maxlength="8" mask="XXXXXXXX" ng-change="loadEnderecoCep(novoFornecedor.Endereco.Cep);" />
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-horizontal">
+                    <span class="lbl"> Logradouro</span>
+                    <select id="ddlLogradouro" ng-model="novoFornecedor.Endereco.LogradouroId" class="form-control black" ng-options="option.Id as option.DescLogradouro for option in logradouros" required></select>
+                    <input type="hidden" name="LogradouroId" ng-value="novoFornecedor.Endereco.LogradouroId" />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Endereço</span>
+                    <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" maxlength="100" placeholder="Endereço"
+                           ng-model="novoFornecedor.Endereco.Endereco" required required-message="'Endereço obrigatório.'" />
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-horizontal">
+                    <span class="lbl"> Número Endereço</span>
+                    <input type="text" class="form-control" id="txtNumEndereco" name="txtNumEndereco" placeholder="Número"
+                           ng-model="novoFornecedor.Endereco.NumEndereco" mask="XXXXXXXX" maxlength="8" required required-message="'Número obrigatório.'" />
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Complemento</span>
+                    <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento"
+                           ng-model="novoFornecedor.Endereco.Complemento" />
+
+                </div>
+
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-horizontal">
+                    <span class="lbl"> Estado</span>
+                    <select id="ddlEstado" ng-change="loadCidadeChange(novoFornecedor.Endereco.EstadoId)" ng-model="novoFornecedor.Endereco.EstadoId" class="form-control black" ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                    <input type="hidden" name="EstadoId" ng-value="novoFornecedor.Endereco.EstadoId" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl"> Cidade</span>
+                    <select id="ddlCidade" ng-change="loadBairroChange(novoFornecedor.Endereco.CidadeId)" ng-model="novoFornecedor.Endereco.CidadeId" class="form-control black" ng-options="option.Id as option.DescCidade for option in cidades" required>
+                        <option value="" selected>Cidade...</option>
+                    </select>
+                    <input type="hidden" name="CidadeId" ng-value="novoEndereco.CidadeId" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Bairro</span>
+                    <select id="ddlBairro" ng-model="novoFornecedor.Endereco.BairroId" class="form-control black" ng-options="option.Id as option.DescBairro for option in bairros">
+                        <option value="" selected>Bairro...</option>
+                    </select>
+                    <input type="hidden" name="BairroId" ng-value="novoEndereco.Endereco.BairroId" />
+                </div>
+            </div>
+        </div>
+
+        <!--Fim Endereco-->
+        <!--Inicio Forma de Pagamento-->
+
+        <div class="conteudo" style="margin-top:20px;">
+            <h4>Forma de Pagamento</h4>
+            <hr />
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-5">
+                            <label class="label label-info label-important">Á Vista</label>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3" ng-repeat="formaPagto in formaPagtosAvista" style="margin-top: 10px;">
+
+
+                            <div class="row">
+                                <label class="col-xs-6">
+                                    <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                           ng-model="formaPagto.selected" value="{{formaPagto.Id}}"
+                                           ng-checked="formaPagto.Relacionado">
+                                    <span class="lbl"> {{formaPagto.DescFormaPagto}}</span>
+                                </label>
+
+                                <input class="col-xs-6" type="number" min="0" maxlength="2" name="{{formaPagto.Id}}"
+                                       tooltip="Informe o valor do desconto %"
+                                       tooltip-placement="right"
+                                       placeholder="%" value="{{formaPagto.Desconto}}"
+                                       ng-model="formaPagto.Desconto" style="width: 50px;">
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-md-5 col-xs-5">
+                            <label class="label label-info label-important">Parcelado</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12" ng-repeat="formaPagtoParcelado in formaPagtosParcelado" style="margin-top: 10px;">
+
+                            <div class="row">
+
+                                <div class="col-md-2" style="margin-top:15px;">
+                                    <label>
+                                        <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                               ng-model="formaPagtoParcelado.selected" value="{{formaPagtoParcelado.Id}}"
+                                               ng-checked="formaPagtoParcelado.Relacionado">
+                                        <span class="lbl"> {{formaPagtoParcelado.DescFormaPagto}}</span>
+
+                                    </label>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-horizontal">
+                                        <span class="lbl">Vl. Forma Pagto.</span>
+
+                                        <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                               tooltip="Valor minímo para esta forma de pagto, caso valor do pedido seja menor que este, não aparecerá para o membro"
+                                               tooltip-placement="top"
+                                               placeholder="Valor minímo" value="{{formaPagtoParcelado.VlFormaPagto}}"
+                                               ng-model="formaPagtoParcelado.VlFormaPagto">
+                                    </div>
+                                </div>
+
+                                <!--<div class="col-md-2">
+
+                                    <div class="form-horizontal">
+                                        <span class="lbl">Quantidade</span>
+
+                                        <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}"
+                                               tooltip="Quantidade Parcelas"
+                                               tooltip-placement="top"
+                                               placeholder="Qtd. Parcelas" value="{{formaPagtoParcelado.QtdParcelas}}"
+                                               ng-model="formaPagtoParcelado.QtdParcelas">
+                                    </div>
+                                </div>-->
+
+                                <div class="col-md-2">
+                                    <div class="form-horizontal">
+                                        <span class="lbl">Valor Min. Parcela</span>
+                                        <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                               tooltip="Valor de parcela mínima para esta forma de pagamento. Ex: Em 2x e o valor da parcela deve ser R$ 200,00 "
+                                               tooltip-placement="top"
+                                               placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcela | currency}}"
+                                               ng-model="formaPagtoParcelado.ValorMinParcela">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-horizontal">
+                                        <span class="lbl">Valor Min. Parcela Pedido</span>
+                                        <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                               tooltip="Valor mínimo para parcelar pedido"
+                                               tooltip-placement="top"
+                                               placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcelaPedido}}"
+                                               ng-model="formaPagtoParcelado.ValorMinParcelaPedido">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Fim Forma de Pagamento-->
+        <!--Telefone-->
+        <h4>Telefone</h4>
+        <hr />
+        <div class="conteudo">
+            <div id="Telefone" class="row">
+                <div class="col-md-1">
+                    <span class="lbl"> DDD</span>
+                    <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoFornecedor.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                </div>
+                <div class="col-md-3">
+                    <span class="lbl"> Telefone</span>
+                    <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="10" ng-model="novoFornecedor.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                </div>
+            </div>
+        </div>
+
+        <div id="Celular" class="row">
+            <div class="col-md-1">
+                <span class="lbl"> DDD</span>
+                <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoFornecedor.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+            </div>
+            <div class="col-md-3">
+                <span class="lbl"> Celular</span>
+                <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novoFornecedor.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <span class="lbl"> Contato</span>
+                <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" maxlength="100" ng-model="novoFornecedor.Contato" />
+
+            </div>
+        </div>
+        <!--Fim Telefone-->
+        <!--Inicio Botoes-->
+        <hr />
+        <div class="row">
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="ace-icon fa fa-check"></i>
+                    Salvar
+                </button>
+
+            </div>
+        </div>
+
+        <!--Fim Botoes-->
+    </form>
+</div>

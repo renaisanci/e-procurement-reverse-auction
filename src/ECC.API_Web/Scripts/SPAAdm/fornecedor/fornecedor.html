@@ -1,0 +1,1149 @@
+﻿
+<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabPesquisar" ng-class="tabsFornecedores.tabPesquisar.tabAtivar" ng-show="tabsFornecedores.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadFornecedor" ng-class="tabsFornecedores.tabCadFornecedor.tabAtivar" ng-show="tabsFornecedores.tabCadFornecedor.tabhabilitar" ng-click="habilitaDesabilitaAbaFornecedor();">
+            <a data-toggle="tab" href="#tabContFornecedor" target="_self">
+                <i class="green ace-icon fa fa-users bigger-120"></i>
+                Fornecedor
+            </a>
+        </li>
+
+        <li id="tabRelProduto" ng-class="tabsFornecedores.tabRelProduto.tabAtivar" ng-show="tabsFornecedores.tabRelProduto.tabhabilitar" ng-click="habilitaDesabilitaAbaRelaCategoria();">
+            <a data-toggle="tab" href="#tabContRelProduto" target="_self">
+                <i class="blue ace-icon fa fa-exchange bigger-120"></i>
+                Relacionar Categoria
+            </a>
+        </li>
+
+        <li id="tabUsuForn" ng-class="tabsFornecedores.tabUsuForn.tabAtivar" ng-show="tabsFornecedores.tabUsuForn.tabhabilitar" ng-click="habilitaDesabilitaAbaUsuForn();">
+            <a data-toggle="tab" href="#tabContUsuForn" target="_self">
+                <i class="black ace-icon fa fa-user bigger-120"></i>
+                Usuário Fornecedor
+            </a>
+        </li>
+
+        <li id="tabRegForn" ng-class="tabsFornecedores.tabRegForn.tabAtivar" ng-show="tabsFornecedores.tabRegForn.tabhabilitar" ng-click="habilitaDesabilitaAbaRegForn();">
+            <a data-toggle="tab" href="#tabContRegForn" target="_self">
+                <i class="red ace-icon fa fa-map-marker bigger-120"></i>
+                Região Fornecedor
+            </a>
+        </li>
+
+        <li id="tabPrazForn" ng-class="tabsFornecedores.tabPrazForn.tabAtivar" ng-show="tabsFornecedores.tabPrazForn.tabhabilitar" ng-click="habilitaDesabilitaAbaPrazForn();">
+            <a data-toggle="tab" href="#tabContPrazForn" target="_self">
+                <i class="pink ace-icon fa fa-rocket bigger-120"></i>
+                Prazo Entrega
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <!--Pesquisa de Fornecedores-->
+        <div id="tabContPesquisar" ng-class="tabsFornecedores.tabPesquisar.contentAtivar" ng-show="tabsFornecedores.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Fornecedor</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroFornecedor" placeholder="Pesquisar Nome Fantasia, CNPJ ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarFornecedor();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+                        <!--Inicio Tabela Pesquisar-->
+                        <table class="table table-bordered table-hover" id="gvPesquisaFornecedor">
+                            <thead>
+                                <tr>
+                                    <th>Razão Social</th>
+                                    <th>Responsável</th>
+                                    <th>Email</th>
+                                    <th>CNPJ</th>
+                                    <th>Completo</th>
+                                    <th>Primeira Compra</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="fornecedorPesq in Fornecedores | filter:filtroFornecedor">
+                                    <td>{{fornecedorPesq.RazaoSocial}}</td>
+                                    <td>{{fornecedorPesq.Responsavel}}</td>
+                                    <td>{{fornecedorPesq.Email}}</td>
+                                    <td>{{fornecedorPesq.Cnpj}}</td>
+                                    <td>{{fornecedorPesq.Completo}}</td>
+                                    <td><span class="label label-info">{{fornecedorPesq.PrimeiraAvista == true ? 'Á Vista' : 'Sem restrição'}}</span></td>
+                                    <td>
+                                        <span ng-class="fornecedorPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{fornecedorPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarFornecedor(fornecedorPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarFornecedor(page)"></custom-pager>
+                        </div>
+
+
+                        <!--Fim Tabela Pesquisar-->
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+                </div>
+
+            </div>
+        </div>
+
+        <!--Cadastro do Fornecedor-->
+        <div id="tabContFornecedor" ng-class="tabsFornecedores.tabCadFornecedor.contentAtivar" ng-show="tabsFornecedores.tabCadFornecedor.contentHabilitar">
+            <h4>Dados Fornecedor</h4>
+            <hr />
+            <form class="form-group" role="form" novalidate angular-validator name="novoFornecedor" angular-validator-submit="inserirFornecedor()">
+                <!--Inicio Dados do fornecedor-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="lbl"> Razão Social</span>
+                        <div class="form-horizontal">
+                            <input type="text" class="form-control" ng-model="novoFornecedor.RazaoSocial" id="txtForneRazaoSocial" name="txtForneRazaoSocial" placeholder="Razão Social" required="" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Nome Fantasia</span>
+                            <input type="text" class="form-control" ng-model="novoFornecedor.NomeFantasia" id="txtForneNomeFantasia" name="txtForneNomeFantasia" placeholder="Nome Fantasia" required="" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl"> Email</span>
+                            <input type="email" class="form-control" ng-model="novoFornecedor.Email" id="txtForneEmail" name="txtForneEmail" placeholder="Email" required="" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+
+                            <span class="lbl"> CNPJ</span>
+                            <input type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                                   ng-model="novoFornecedor.Cnpj"
+                                   validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Inscrição Estadual</span>
+                            <input type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" ng-model="novoFornecedor.InscEstadual" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Responsável</span>
+                            <input type="text" class="form-control" id="txtForneComprador" name="txtForneComprador" placeholder="Responsável" validate-on="blur" required required-message="'Informe o responsavel '" ng-model="novoFornecedor.Responsavel" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl">Descrição</span>
+                            <textarea class="form-control" id="txtDescricao" name="txtDescricao" ng-model="novoFornecedor.Descricao" placeholder="Digite uma descrição deste fornecedor, o que ele vende ?" validate-on="blur" required required-message="'Digite uma descrição deste fornecedor, o que ele vende ?'"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl">Palavras Chaves</span>
+                            <textarea class="form-control" id="txtPalavrasChaves" name="txtPalavrasChaves" ng-model="novoFornecedor.PalavrasChaves" placeholder="Digite algumas palavras chaves sobre este fornecedor'" validate-on="blur" required required-message="'Digite algumas palavras chaves sobre este fornecedor'"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl">Obs. Forma Pagto</span>
+                            <textarea class="form-control" id="txtObservacao" name="txtObservacao" ng-model="novoFornecedor.Observacao" placeholder="Digite qualquer observação necessária sobre a forma pagamento.'" validate-on="blur" required required-message="'Digite qualquer observação necessária, sobre forma pagamento, taxa de entrega e etc..'"></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl">Obs. Prazo Entrega</span>
+                            <textarea class="form-control" id="txtPrazoEntrega" name="txtPrazoEntrega" ng-model="novoFornecedor.ObservacaoEntrega" placeholder="Digite qualquer observação necessária sobre o prazo de entrega.'" validate-on="blur" required required-message="'Digite qualquer observação necessária, sobre forma pagamento, taxa de entrega e etc..'"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <span class="lbl"> Data da Fundação</span>
+                            <div class="input-group">
+
+
+                                <input type="text" class="form-control date-picker" name="txtDataFundacao" datepicker-popup="{{format}}" ng-model="novoFornecedor.DtFundacao" is-open="datepicker.opened" datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close" placeholder="Data da Fundação" />
+
+                                <span class="input-group-addon">
+                                    <a href="javascript:void(0);" ng-click="openDatePicker($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+
+                            <span class="lbl"> Valor de Pedido Minímo</span>
+                            <input type="text" class="form-control" id="txtForneVlPedMinimo" ng-model="novoFornecedor.VlPedidoMin" money-mask name="txtForneVlPedMinimo" placeholder="Valor de Pedido Minímo" required="" />
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2" style="top: 27px;">
+
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbPrimeiraAvista" ng-model="novoFornecedor.PrimeiraAvista">
+                            <span class="lbl"> Primeira compra Á Vista</span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="col-md-2" style="top: 27px;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbAtivo" ng-model="novoFornecedor.Ativo" ng-init="novoFornecedor.Ativo=true">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+                    </div>
+
+                </div>
+                <!--Fim Dados do fornecedor-->
+                <!--Inicio Endereco-->
+
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <h4>Endereço</h4>
+                        <hr />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> CEP</span>
+                            <input type="text" class="form-control" id="txtCep" name="txtcep" placeholder="CEP"
+                                   ng-model="novoFornecedor.Endereco.Cep"
+                                   validate-on="blur" required required-message="'Cep obrigatório.'" maxlength="8" mask="XXXXXXXX" ng-change="loadEnderecoCep(novoFornecedor.Endereco.Cep);" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Logradouro</span>
+                            <select id="ddlLogradouro" ng-model="novoFornecedor.Endereco.LogradouroId" class="form-control black" ng-options="option.Id as option.DescLogradouro for option in logradouros" required></select>
+                            <input type="hidden" name="LogradouroId" ng-value="novoFornecedor.Endereco.LogradouroId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Endereço</span>
+                            <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" maxlength="100" placeholder="Endereço"
+                                   ng-model="novoFornecedor.Endereco.Endereco" required required-message="'Endereço obrigatório.'" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Número Endereço</span>
+                            <input type="text" class="form-control" id="txtNumEndereco" name="txtNumEndereco" placeholder="Número"
+                                   ng-model="novoFornecedor.Endereco.NumEndereco" mask="XXXXXXXX" maxlength="8" required required-message="'Número obrigatório.'" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Complemento</span>
+                            <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento"
+                                   ng-model="novoFornecedor.Endereco.Complemento" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Estado</span>
+                            <select id="ddlEstado" ng-change="loadCidadeChange(novoFornecedor.Endereco.EstadoId)" ng-model="novoFornecedor.Endereco.EstadoId" class="form-control black" ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                            <input type="hidden" name="EstadoId" ng-value="novoFornecedor.Endereco.EstadoId" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+
+                            <span class="lbl"> Cidade</span>
+                            <select id="ddlCidade" ng-change="loadBairroChange(novoFornecedor.Endereco.CidadeId)" ng-model="novoFornecedor.Endereco.CidadeId" ng-disabled="habilitaddlCidade" class="form-control black" ng-options="option.Id as option.DescCidade for option in cidades" required>
+                                <option value="" selected>Cidade...</option>
+                            </select>
+                            <input type="hidden" name="CidadeId" ng-value="novoEndereco.CidadeId" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4" ng-show="mostraBairroDll">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Bairro</span>
+                            <select id="ddlBairro" ng-model="novoFornecedor.Endereco.BairroId" class="form-control black" disabled="" ng-disabled="habilitaddlBairro" ng-options="option.Id as option.DescBairro for option in bairros">
+                                <option value="" selected>Bairro...</option>
+                            </select>
+                            <input type="hidden" name="BairroID" ng-value="novoEndereco.Endereco.BairroId" />
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4" ng-show="mostraBairroInput">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Bairro</span>
+                            <input type="text" class="form-control" name="bairroDesc" ng-model="novoFornecedor.Endereco.BairroDescNew" placeholder="Bairro" ng-init="novoFornecedor.Endereco.BairroDescNew=''" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Fim Endereco-->
+                <!--Inicio Forma de Pagamento-->
+
+                <div class="conteudo" style="margin-top:20px;">
+                    <h4>Forma de Pagamento</h4>
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-md-5 col-xs-5">
+                                    <label class="label label-info label-important">Á Vista</label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3" ng-repeat="formaPagto in formaPagtosAvista" style="margin-top: 10px;">
+
+
+                                    <div class="row">
+                                        <label class="col-xs-6">
+                                            <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                                   ng-model="formaPagto.selected" value="{{formaPagto.Id}}"
+                                                   ng-checked="formaPagto.Relacionado">
+                                            <span class="lbl"> {{formaPagto.DescFormaPagto}}</span>
+                                        </label>
+
+                                        <input class="col-xs-6" type="number" min="0" maxlength="2" name="{{formaPagto.Id}}"
+                                               tooltip="Informe o valor do desconto %"
+                                               tooltip-placement="right"
+                                               placeholder="%" value="{{formaPagto.Desconto}}"
+                                               ng-model="formaPagto.Desconto" style="width: 50px;">
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-md-5 col-xs-5">
+                                    <label class="label label-info label-important">Parcelado</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12" ng-repeat="formaPagtoParcelado in formaPagtosParcelados" style="margin-top: 10px;">
+
+                                    <div class="row">
+
+                                        <div class="col-md-2" style="margin-top:15px;">
+                                            <label>
+                                                <input type="checkbox" class="ace input-lg" name="form-field-checkbox"
+                                                       ng-model="formaPagtoParcelado.selected" value="{{formaPagtoParcelado.Id}}"
+                                                       ng-checked="formaPagtoParcelado.Relacionado">
+                                                <span class="lbl"> {{formaPagtoParcelado.DescFormaPagto}}</span>
+
+                                            </label>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-horizontal">
+                                                <span class="lbl">Vl. Forma Pagto.</span>
+
+                                                <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                       tooltip="Valor minímo para esta forma de pagto, caso valor do pedido seja menor que este, não aparecerá para o membro"
+                                                       tooltip-placement="top"
+                                                       placeholder="Valor minímo" value="{{formaPagtoParcelado.VlFormaPagto}}"
+                                                       ng-model="formaPagtoParcelado.VlFormaPagto">
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="col-md-2">
+
+                                            <div class="form-horizontal">
+                                                <span class="lbl">Quantidade</span>
+
+                                                <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}"
+                                                       tooltip="Quantidade Parcelas"
+                                                       tooltip-placement="top"
+                                                       placeholder="Qtd. Parcelas" value="{{formaPagtoParcelado.QtdParcelas}}"
+                                                       ng-model="formaPagtoParcelado.QtdParcelas">
+                                            </div>
+                                        </div>-->
+
+                                        <div class="col-md-2">
+                                            <div class="form-horizontal">
+                                                <span class="lbl">Valor Min. Parcela</span>
+                                                <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                       tooltip="Valor de parcela mínima para pedido"
+                                                       tooltip-placement="top"
+                                                       placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcela | currency}}"
+                                                       ng-model="formaPagtoParcelado.ValorMinParcela">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-horizontal">
+                                                <span class="lbl">Valor Min. Parcela Pedido</span>
+                                                <input class="col-md-12" type="text" id="{{formaPagtoParcelado.Id}}" maxlength="10" name="{{formaPagtoParcelado.Id}}" money-mask
+                                                       tooltip="Valor mínimo para parcelar pedido"
+                                                       tooltip-placement="top"
+                                                       placeholder="Valor minímo" value="{{formaPagtoParcelado.ValorMinParcelaPedido}}"
+                                                       ng-model="formaPagtoParcelado.ValorMinParcelaPedido">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!--Fim Forma de Pagamento-->
+                <!--Telefone-->
+                <h4>Telefone</h4>
+                <hr />
+                <div class="conteudo">
+                    <div id="Telefone" class="row">
+                        <div class="col-md-1">
+                            <span class="lbl"> DDD</span>
+                            <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoFornecedor.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                        <div class="col-md-3">
+                            <span class="lbl"> Telefone</span>
+                            <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="10" ng-model="novoFornecedor.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Celular" class="row">
+                    <div class="col-md-1">
+                        <span class="lbl"> DDD</span>
+                        <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoFornecedor.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+                    <div class="col-md-3">
+                        <span class="lbl"> Celular</span>
+                        <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novoFornecedor.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="lbl"> Contato</span>
+                        <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" maxlength="100" ng-model="novoFornecedor.Contato" />
+
+                    </div>
+                </div>
+                <!--Fim Telefone-->
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()" ng-show="novoFornecedor.Id  > 0">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+        <!--Relacionar Produtos com Fornecedor-->
+        <div id="tabContRelProduto" ng-class="tabsFornecedores.tabRelProduto.contentAtivar" ng-show="tabsFornecedores.tabRelProduto.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Relacionar Categoria de Produto</h4>
+                    <hr />
+
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    Segmento
+                    <select id="ddlSegmento" ng-model="filtroCategoriaSegmento" class="form-control black" ng-change="loadCategoriaPorSegmento(filtroCategoriaSegmento)">
+                        <option value="0" selected>Todos</option>
+                        <option ng-repeat="option in segmentos" value="{{option.Id}}">{{option.DescSegmento}}</option>
+                    </select>
+                </div>
+
+
+
+                <div class="col-md-4">
+                    Categoria
+                    <!--<select id="ddlCategoriaSegmento" ng-model="filtroCategoria" class="form-control black" ng-disabled="habilitaCategoria" ng-options="categoria.Id as categoria.DescCategoria for categoria in categoriasSeg" ng-change="">
+                        <option value="" selected>Selecione uma Categoria...</option>
+                    </select>-->
+                    <input type="text" ng-model="filtroCategoria" class="form-control" placeholder="Pesquisar Categoria ..." />
+                </div>
+
+            </div>
+
+            <p>
+                <b class="red bigger-125">Fornecedor: </b><span class="lbl bigger-125"> {{novoFornecedor.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered table-hover" id="tbRelatProduto">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="chkAllCat" ng-click="checkAll(categorias, chkAllCat )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!-- {id: player_id, name:player_name, age:ageFilter}
+                                    <tr ng-repeat="categoriaPesq in categorias | filter:filtroCategoria">
+                                    -->
+                                <tr ng-repeat="categoriaPesq in categorias | filter:filtroCategoria | filter :{visivel : true}">
+                                    <td>{{categoriaPesq.DescCategoria}}</td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="categoriaPesq.selected" value="{{categoriaPesq.Id}}" ng-checked="categoriaPesq.Relacionado">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirFornecedorCategoriasProduto();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Manutenção de Usuários do Fornecedor-->
+        <div id="tabContUsuForn" ng-class="tabsFornecedores.tabUsuForn.contentAtivar" ng-show="tabsFornecedores.tabUsuForn.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Usuário </h4>
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <input type="text" ng-model="filtroUsuario" class="form-control" placeholder="Pesquisar Usuário ..." />
+                    &nbsp;
+                </div>
+
+                <button type="button" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+
+            </div>
+
+            <p>
+                <b class="red bigger-125">Fornecedor: </b><span class="lbl bigger-125"> {{novoFornecedor.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" style="height: 350px;">
+                        <table class="table  table-bordered table-hover" id="tbUsuarioMembro">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Master</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <tr ng-repeat="usuarioForn in usuariosForn | filter:filtroUsuario">
+                                    <td>{{usuarioForn.UsuarioNome}}</td>
+                                    <td>{{usuarioForn.UsuarioEmail}}</td>
+
+                                    <td> <span ng-class="usuarioForn.FlgMaster ? 'label label-sm label-success' : 'label label-sm label-danger'">{{usuarioForn.DescFlgMaster}}</span></td>
+                                    <td> <span ng-class="usuarioForn.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{usuarioForn.DescAtivo}}</span></td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+
+
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar Usuário">
+                                                        <a href="javascript:void(0);" ng-click="openEditDialog(usuarioForn);">
+                                                            <span class="green">
+                                                                <i class="ace-icon  fa fa-user bigger-120"></i>
+
+
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Manutenção de Região do Fornecedor-->
+        <div id="tabContRegForn" ng-class="tabsFornecedores.tabRegForn.contentAtivar" ng-show="tabsFornecedores.tabRegForn.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Região </h4>
+                    <hr />
+                </div>
+            </div>
+            <p>
+                <b class="red bigger-125">Fornecedor: </b><span class="lbl bigger-125"> {{novoFornecedor.RazaoSocial}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <span class="lbl"> Estado</span>
+                        <select id="ddlEstadoreg" ng-change="loadRegiaoChange(novaRegiaoForn.EstadoId)"
+                                ng-model="novaRegiaoForn.EstadoId" class="form-control black"
+                                ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                        <input type="hidden" name="EstadoId" ng-value="novaRegiaoForn.EstadoId" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <span class="lbl"> Região</span>
+                        <select id="ddlRegiaoRe"
+                                ng-change="loadCidadePorRegiaoChange(page, novaRegiaoForn.EstadoId, novaRegiaoForn.RegiaoId)"
+                                ng-model="novaRegiaoForn.RegiaoId" class="form-control black"
+                                ng-options="option.Id as option.DescRegiao for option in regioes" required>
+                            <option value="" selected>Região...</option>
+                        </select>
+                        <input type="hidden" name="RegiaoId" ng-value="novaRegiaoForn.RegiaoId" />
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <span class="lbl"> Cidade</span>
+                        <input type="text" ng-model="filtroRegiao" class="form-control" placeholder="Pesquisar Cidade ..." />
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-horizontal">
+                        <button class="btn btn-info btn-sm"
+                                ng-click="loadCidadePorRegiaoChange(0,novaRegiaoForn.EstadoId,novaRegiaoForn.RegiaoId)"
+                                ng-disabled="novaRegiaoForn.EstadoId == undefined"
+                                style="margin-top:20px;">
+                            <i class="icon fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" style="height: 300px;">
+                        <table class="table  table-bordered table-hover" id="tbRegiaoForn" style="margin-bottom:10px;">
+                            <thead>
+                                <tr>
+                                    <th>Cidade</th>
+                                    <th>Valor Ped. Mín.</th>
+                                    <th>Tipo do Prazo</th>
+                                    <th>Cif</th>
+                                    <th>Taxa de Entrega</th>
+                                    <th>
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="allReg" ng-checked="allReg" ng-click="checkAll(fornCidades, allReg )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="regiaoForn in fornCidades | filter:filtroRegiao">
+                                    <td>{{regiaoForn.DescCidade}}</td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <input type="text"
+                                                       ng-model="regiaoForn.VlPedMinRegiao"
+                                                       ng-disabled="regiaoForn.selected"
+                                                       money-mask class="form-control"
+                                                       value="" placeholder="Valor Ped. Mín." name="txtVlPedMinRegiao"
+                                                       style="margin: 0; text-align: center; font-weight: bold;" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-horizontal">
+                                            <select id="ddlFornecedorRegiao" class="form-control" ng-model="regiaoForn.TipoPrazo" style="margin-bottom: 0;">
+                                                <option value="0">Selecione...</option>
+                                                <option value="1">Dias da Semana</option>
+                                                <option value="2">Dias</option>
+                                            </select>
+                                            <input type="hidden" name="RegiaoFornecedorId" ng-value="{{regiaoForn.TipoPrazo}}" />
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg"
+                                                           ng-model="regiaoForn.Cif"
+                                                           value="{{regiaoForn.Id}}" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <input type="text"
+                                                       ng-model="regiaoForn.TaxaEntrega"
+                                                       ng-disabled="regiaoForn.Cif"
+                                                       money-mask class="form-control"
+                                                       value="" placeholder="Taxa Entrega" name="txtTaxaEntrega"
+                                                       style="margin: 0; text-align: center; font-weight: bold;" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg"
+                                                           ng-model="regiaoForn.selected"
+                                                           value="{{regiaoForn.Id}}" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadCidadePorRegiaoChange(page,novaRegiaoForn.EstadoId,novaRegiaoForn.RegiaoId)" style="margin:0;"></custom-pager>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirDeletarRegiaoFornecedor();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+        <!--Manutenção de Prazo de Entrega do Fornecedor-->
+        <div id="tabContPrazForn" ng-class="tabsFornecedores.tabPrazForn.contentAtivar" ng-show="tabsFornecedores.tabPrazForn.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Prazo de Entrega</h4>
+
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <div class="col-md-6">
+                        <div class="radio">
+                            <label>
+                                <input name="form-field-radio" class="ace input-lg" type="radio"
+                                       ng-click="habilitaDesabilitaComboPrazoSemana()"
+                                       ng-checked="escolhaPrazo.DiasSemana">
+                                <span class="lbl bigger-120"> Prazo de Entrega por dias da semana</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="radio">
+                            <label>
+                                <input name="form-field-radio" class="ace input-lg" type="radio"
+                                       ng-click="habilitaDesabilitaComboPrazoCorrido()"
+                                       ng-checked="escolhaPrazo.DiasCorridos">
+                                <span class="lbl bigger-120"> Prazo de Entrega por dias corridos</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+
+            <p style="margin-top: 20px;">
+                <b class="red bigger-125">Fornecedor: </b>
+                <span class="lbl bigger-125"> {{novoFornecedor.RazaoSocial}}</span>
+            </p>
+            <!--Cadastro de Prazo de Entrega Dias da Semana-->
+            <div ng-show="escolhaPrazo.DiasSemana">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Estado</span>
+                            <select id="ddlSemanaEstado" ng-change="loadRegiaoChange(novoPrazoFornSemanal.EstadoId)"
+                                    ng-model="novoPrazoFornSemanal.EstadoId" class="form-control black"
+                                    ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                            <input type="hidden" name="EstadoId" ng-value="loadCidadePorRegiao" />
+                            <input type="hidden" name="EstadoId" ng-value="novoPrazoFornSemanal.EstadoId" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Região</span>
+                            <select id="ddlSemanaRegiao" class="form-control black"
+                                    ng-model="novoPrazoFornSemanal.RegiaoId"
+                                    ng-options="option.Id as option.DescRegiao for option in regioes"
+                                    ng-change="loadCidadePorRegiaoFornecedorSemanal(novoPrazoFornSemanal.EstadoId,novoPrazoFornSemanal.RegiaoId)"
+                                    ng-disabled="regioes.length == 0"
+                                    required>
+                                <option value="" selected>Região...</option>
+                            </select>
+                            <input type="hidden" name="RegiaoId" ng-value="novoPrazoFornSemanal.RegiaoId" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Cidade</span>
+                            <select id="ddlSemanaPrazoCidade" ng-model="novoPrazoFornSemanal.CidadeId" class="form-control black"
+                                    ng-options="option.Id as option.DescCidade for option in fornRegiaoCidadesSemanal"
+                                    ng-change="limpaArrayPrazoSemanaChanged()"
+                                    ng-disabled="fornRegiaoCidadesSemanal.length == 0" required>
+                                <option value="" selected>Cidade...</option>
+                            </select>
+                            <input type="hidden" name="CidadePrazoId" ng-value="novoPrazoForn.CidadeId" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-md-12">
+                        <div ng-repeat="semana in arrayDiasSemana" style="float: left; margin-right: 20px; width: 100px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="{{semana.Id}}"
+                                       ng-model="checado"
+                                       ng-click="inserirPrazoDiasSemana(semana.Id,checado)">
+                                <span class="lbl">{{semana.DescDiaSemana}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="tbSemanaPrazoEntrega">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Região</th>
+                                        <th>Dias da Semana</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="reg in CidadesCorridosSemanal | orderBy:'NomeCidade' | filter:novoPrazoFornSemanal.CidadeId">
+                                        <td>{{reg.DescCidade}}</td>
+                                        <td style="text-align: center!important;">
+                                            <div ng-repeat="dias in arrayFornecedorPrazoSemanal | orderBy:'DiaSemana'" style="width: 70px; float: left;" ng-show="{{reg.Id == dias.CidadeId}}">
+                                                <label class="label label-danger">
+                                                    {{reg.Id == dias.CidadeId ? dias.DescDiaSemana : ''}}
+                                                </label>
+
+                                                <!--<i class="fa fa-times" aria-hidden="true" ng-show="{{reg.Id !== dias.CidadeId}}" style="color: red;"></i>-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Cadastro de Prazo de Entrega Dias Corridos-->
+            <div ng-show="escolhaPrazo.DiasCorridos">
+
+                <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Estado</span>
+                            <select id="ddlEstadop" ng-change="loadRegiaoChange(novoPrazoForn.EstadoId)"
+                                    ng-model="novoPrazoForn.EstadoId" class="form-control black"
+                                    ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                            <input type="hidden" name="EstadoId" ng-value="loadCidadePorRegiao" />
+                            <input type="hidden" name="EstadoId" ng-value="novoPrazoForn.EstadoId" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Região</span>
+                            <select id="ddlRegiao"
+                                    ng-model="novoPrazoForn.RegiaoId" class="form-control black"
+                                    ng-options="option.Id as option.DescRegiao for option in regioes"
+                                    ng-change="loadCidadePorRegiaoFornecedorChange(novoPrazoForn.EstadoId,novoPrazoForn.RegiaoId)"
+                                    ng-disabled="regioes.length == 0"
+                                    required>
+                                <option value="" selected>Região...</option>
+                            </select>
+                            <input type="hidden" name="RegiaoId" ng-value="novoPrazoForn.RegiaoId" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Cidade</span>
+                            <select id="ddlPrazoCidade"
+                                    ng-model="novoPrazoForn.CidadeId"
+                                    class="form-control black"
+                                    ng-options="option.Id as option.DescCidade for option in fornRegiaoCidades"
+                                    ng-disabled="fornRegiaoCidades.length == 0" required>
+                                <option value="" selected>Cidade...</option>
+                            </select>
+                            <input type="hidden" name="CidadePrazoId" ng-value="novoPrazoForn.CidadeId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Prazo dias</span>
+                            <input type="text"
+                                   ng-model="novoPrazoForn.Prazo"
+                                   ng-value="novoPrazoForn.Prazo"
+                                   ng-disabled="fornRegiaoCidades.length == 0"
+                                   class="form-control" placeholder="Prazo ..."
+                                   mask="XX" style="width: 50px;" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table  table-bordered table-hover" id="tbPrazoEntrega">
+                                <thead>
+                                    <tr>
+                                        <th style="width:50%;">Região</th>
+                                        <th>Prazo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cidades in CidadesCorridosSemanal | orderBy:'DescCidade' | filter:novoPrazoForn.CidadeId">
+                                        <td>
+                                            {{cidades.DescCidade}}
+                                        </td>
+                                        <td>
+                                            <div ng-repeat="reg in regioesForn">
+                                                <label ng-show="{{cidades.Id == reg.CidadeId}}">
+                                                    {{cidades.Id == reg.CidadeId ? reg.Prazo : '0'}} ({{reg.Prazo > 1 ? 'Dias':'Dia'}})
+                                                </label>
+
+                                                <!--<i class="fa fa-times" aria-hidden="true" ng-show="{{cidades.Id !== reg.CidadeId}}" style="color: red;"></i>-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Botão Salvar-->
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success btn-sm"
+                            ng-click="atualizaPrazoFornecedor(escolhaPrazo.DiasSemana,escolhaPrazo.DiasCorridos);">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

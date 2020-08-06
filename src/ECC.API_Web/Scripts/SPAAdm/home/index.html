@@ -1,0 +1,104 @@
+﻿
+
+<div ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-success" id="paneFornecedores">
+                <div class="panel-heading">
+                    <h3 class="panel-title">EVOLUÇÃO FORNECEDORES</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="loadingGenres">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                    <div id="myfirstchart" style="height: 250px;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-success" id="panelCotacoes">
+                <div class="panel-heading">
+                    <h3 class="panel-title">EVOLUÇÃO COTAÇÕES</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="loadingGenres">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                    <div id="myfirstchart2" style="height: 250px;"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-success" id="panelPedidos">
+                <div class="panel-heading">
+                    <h3 class="panel-title">EVOLUÇÃO PEDIDOS</h3>
+                </div>
+                <div class="panel-body">
+                    <div ng-if="loadingGenres">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-4">
+                            <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Genres..</label>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                    <div id="myfirstchart3" style="height: 250px;"></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+
+        <div class="col-md-4">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Quantidade de SMS Disponível</h3>
+                </div>
+                <div class="panel-body">
+
+
+
+
+                    <div class="infobox infobox-green">
+                        <div class="infobox-icon">
+                            <i class="ace-icon fa fa-comments"></i>
+                        </div>
+                        <div class="infobox-data">
+                            <span class="infobox-data-number">{{sms.Creditos}}</span>
+                            <div class="infobox-content">Validade: {{sms.Validade | date: "dd/MM/yyyy"}}</div>
+                        </div>
+                       
+                    </div>
+
+                 
+
+
+ 
+                </div>
+            </div>
+        </div>
+
+    </div> 
+</div>
+
+
+
+
+

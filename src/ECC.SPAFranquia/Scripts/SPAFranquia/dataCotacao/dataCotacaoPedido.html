@@ -1,0 +1,51 @@
+﻿<div class="page-content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="page-header">
+                <h1>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    Definir Data de Cotação Pedido
+                </h1>
+            </div>
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-12">
+                    <div ng-repeat="semana in arrayDiasSemana" style="float: left; margin-right: 20px; width: 100px;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="{{semana.Id}}"
+                                   ng-model="semana.selected"
+                                   ng-checked="semana.checado">
+                            <span class="lbl">{{semana.DescDiaSemana}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-md-12">
+
+                    <label tooltip="Selecionando esta opção o franqueado só terá opção de selecionar as datas correspondente aos dias da semanada que você definiu acima."
+                           tooltip-placement="bottom">
+                        <input name="form-field-checkbox" class="ace input-lg" type="checkbox" ng-model="pedidoDataObrigatorio">
+                        <span class="lbl">Pedido Data Obrigatório </span>
+                    </label>
+
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success btn-sm"
+                            ng-click="inserirSemana();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

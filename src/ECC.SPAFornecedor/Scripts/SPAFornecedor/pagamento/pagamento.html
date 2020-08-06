@@ -1,0 +1,173 @@
+﻿<style>
+    .marca-dagua {
+        background-image: none !important
+    }
+</style>
+<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-credit-card" aria-hidden="true"></i>
+            Fatura
+        </h1>
+    </div>
+    <div ng-show="FaturaAnterior != null || FaturaAtual != undefined">
+
+        <ul class="nav nav-tabs">
+            <li id="tabAnterior" ng-class="tabsFatura.tabAnterior.tabAtivar" ng-show="tabsFatura.tabAnterior.tabHabilitar">
+                <a data-toggle="tab" href="#tabContAnterior" target="_self" ng-click="habilitaAnterior();">
+                    <i class="fa fa-history"></i>
+                    Anterior
+                </a>
+            </li>
+
+            <li id="tabAtual" ng-class="tabsFatura.tabAtual.tabAtivar" ng-show="tabsFatura.tabAtual.tabHabilitar">
+                <a data-toggle="tab" href="#tabContAtual" target="_self" ng-click="habilitaAtual();">
+                    <i class="fa fa-clock-o"></i>
+                    Atual ({{FaturaAtual.Status}})
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!--Tab Anterior-->
+            <div id="tabContAnterior" ng-class="tabsFatura.tabAnterior.contAtivar" ng-show="tabsFatura.tabAnterior.contHabilitar">
+                <div class="row">
+                    <div class="col-md-3 h4">
+                        Fechamento:
+                        <span class="label label-xlg label-warning label-white middle">
+                            {{Fatura.DtFechamento | date : 'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+                    <div class="col-md-3 h4">
+                        Vencimento:
+                        <span class="label label-xlg label-warning label-white middle">
+                            {{Fatura.DtVencimento | date : 'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+                    <div class="col-md-2 h4">
+                        Comissão: 
+                        <span class="label label-xlg label-info label-white middle">
+                           0.8 %
+                        </span>
+                    </div>
+
+                    <div class="col-md-4 align-right">
+                        <!--<button type="button" ng-click="gerarBoleto(Fatura)" class="btn btn-primary" ng-show="gerarBoletoShow">
+                            GERAR BOLETO
+                        </button>-->
+
+                        <a class="btn btn-success" target="_blank" ng-href="{{Fatura.UrlBoleto}}" ng-show="imprimirBoletoShow">
+                            <i class="icon fa fa-print"></i>
+                            IMPRIMIR BOLETO
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover" id="gvComissoesAnterior">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>N. Pedido</th>
+                                    <th>Valor do Pedido</th>
+                                    <th>Valor Comissão</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="comissao in Fatura.Comissoes">
+                                <tr>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{comissao.DtCriacao | date : 'dd/MM/yyyy'}}</td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{comissao.PedidoId}}</td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{comissao.PedidoTotal | currency : ''}}</span>
+                                    </td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{comissao.Valor | currency : ''}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" class="align-right" style="padding-right: 10pt; padding-left: 10pt;">Total ({{Fatura.Status}})</th>
+                                    <th style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{Fatura.TotalVendas | currency : ''}}</span>
+                                    </th>
+                                    <th style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{Fatura.TotalComissoes | currency : ''}}</span>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tab Atual-->
+            <div id="tabContAtual" ng-class="tabsFatura.tabAtual.contAtivar" ng-show="tabsFatura.tabAtual.contHabilitar">
+                <div class="row">
+                    <div class="col-md-4 h4">
+                        Fechamento:
+                        <span class="label label-xlg label-warning label-white middle">
+                            {{Fatura.DtFechamento | date : 'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+                    <div class="col-md-4 h4">
+                        Vencimento:
+                        <span class="label label-xlg label-warning label-white middle">
+                            {{Fatura.DtVencimento | date : 'dd/MM/yyyy'}}
+                        </span>
+                    </div>
+                    <div class="col-md-4 align-right">
+                        <button type="button" ng-click="gerarBoleto(Fatura)" class="btn btn-primary" ng-show="gerarBoletoShow">
+                            GERAR BOLETO
+                        </button>
+
+                        <a class="btn btn-success" target="_blank" ng-href="{{FaturaAnterior.UrlBoleto}}" ng-show="imprimirBoletoShow">
+                            <i class="icon fa fa-print"></i>
+                            IMPRIMIR BOLETO
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover" id="gvComissoes">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>N. Pedido</th>
+                                    <th>Valor do Pedido</th>
+                                    <th>Comissão</th>
+                                </tr>
+                            </thead>
+                            <tbody ng-repeat="comissao in Fatura.Comissoes">
+                                <tr>
+                                    <td class="col-md-2">{{comissao.DtCriacao | date : 'dd/MM/yyyy'}}</td>
+                                    <td class="col-md-2">{{comissao.PedidoId}}</td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{comissao.PedidoTotal | currency : ''}}</span>
+                                    </td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{comissao.Valor | currency : ''}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2" class="align-right" style="padding-right: 10pt; padding-left: 10pt;">Total ({{Fatura.Status}})</th>
+                                    <th style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{Fatura.TotalVendas | currency : ''}}</span>
+                                    </th>
+                                    <th style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{Fatura.TotalComissoes | currency : ''}}</span>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                      
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">LISTA DE COMPRAS</h4>
+
+    </div>
+
+
+
+</div>
+
+<div class="panel-body ">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <input type="text" class="form-control" ng-model="NomeListaCompras" id="txtNomeListaCompras" maxlength="25"
+                   name="txtNomeListaCompras" placeholder="Digite o nome desta lista de compras ..."
+                   validate-on="blur" required required-message="'Nome da lista é de preenchimento obrigatório.'" />
+
+      
+
+        </div>
+    </div>
+
+
+    <hr />
+    <button type="button" class="btn btn-success btn-block"
+            ng-click="salvaListaCompras();">
+        <i class="ace-icon fa fa-check"></i>
+        Salvar
+    </button>
+
+</div>

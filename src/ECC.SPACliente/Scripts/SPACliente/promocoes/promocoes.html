@@ -1,0 +1,260 @@
+﻿
+<div class="row areaPesquisar" id="" ng-style="{'visibility': userData.isUserLoggedIn?'visible':'hidden'}">
+    <div class="col-md-3 pull-left" style="padding-right: 5px;">
+        <div class="inline dropdown-hover btn-group pull-right">
+            <button class="btn btn-white btn-lg">
+                &nbsp; &nbsp; &nbsp; &nbsp; Refinar Busca &nbsp; &nbsp; &nbsp; &nbsp;
+                <i class="ace-icon fa fa-angle-down icon-on-right bigger-110"></i>
+            </button>
+            <ul role="menu" class="dropdown-menu">
+                <li>
+                    <a href="javascript:;">
+                        <span class="lbl"> Marca</span>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="marca in marcasGroup">
+                    <a href="javascript:;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace ace-checkbox-2" type="checkbox" ng-model="useMarcas[marca]">
+                            <span class="lbl"> {{marca}}</span>
+                        </label>
+
+                        <span class="infobox-data-number"><b>({{ ( Produtos | filter:filtroProdutos | filter:count('Marca', marca)).length }})</b></span>
+                    </a>
+                </li>
+
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-md-8 pull-left" style="padding-left: 0; padding-right: 0;">
+
+        <!--<form class="form-inline" role="form">
+
+            <span class="input-icon">
+                <input placeholder="Pesquisar por Categoria, Descrição ..." class="nav-search-input"
+                       ng-model="filtroProdutos" id="nav-search-input" type="text" style="height: 38px; width: 300px;">
+            </span>
+            <i class="ace-icon fa fa-search red fa-2x nav-search-icon" style="cursor: pointer;"
+               ng-click="pesquisarProdutoInput()"></i>
+        </form>-->
+
+
+        <form class="form-inline" role="form">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="filtroProdutos" ng-keyup="$event.keyCode == 13 && pesquisarProduto()" name="keywords" style="height: 38px; width: 280px; margin-bottom: 5px;    margin-left: 10px;" placeholder="Pesquisar Categoria, Marca, Produto...">
+
+                <div class="input-group-btn" style="display: inline-flex;">
+                    <button type="button" class="btn btn-primary no-border btn-sm" style="height: 38px; margin-bottom: 5px;" ng-click="pesquisarProdutoInput()">
+                        <i class="ace-icon  white fa fa-search fa-3x icon-on-right bigger-110"></i>
+                    </button>
+                </div>
+            </div>
+ 
+        </form>
+
+    </div>
+
+  
+</div>
+<div class="page-content">
+    <div>
+        <div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3 ng-trans ng-trans-slide-right" ng-repeat="produtoPesq in Produtos | filter:filtroProdutos">
+                    <div class="thumbnail search-thumbnail">
+                        <span class="search-promotion label label-warning arrowed-in arrowed-in-right"
+                              style="font-weight: bold;">
+                            Oferta Economiza Jà
+                        </span>
+
+
+                        <a href="javascript:;" class="blue" ng-click="openDetProdDialog(produtoPesq);">
+                            <img ng-src="{{produtoPesq.Imagem}}" class="media-object img-responsive" alt="" style="height: 200px; width: 200px;">
+                        </a>
+                        <div class="caption">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="4"
+                                           ng-model="QtdProduto" min='1' name="txtQtdProd" mask="XXXX"
+                                           style="height: 30px; width: 50px; float: left; " placeholder="Qtd.." value="{{QtdProduto}}">
+
+                                    <button type="button" class="btn btn-success btn-mini pull-left"
+                                            style="height: 30px; padding: 1px;"
+                                            name="btninserir"
+                                            id="btnInserir"
+                                            data-toggle="tooltip"
+                                            ng-click="addQuantidadePromocao(produtoPesq.Id, produtoPesq.DescProduto, produtoPesq.PrecoPromocao, QtdProduto, this, produtoPesq.Imagem, produtoPesq.ObsFrete ,produtoPesq.QtdMinVenda,produtoPesq.QtdProdutos);"
+                                            tooltip="Informe a Quantidade e clique aqui para colocar na cesta"
+                                            tooltip-placement="right">
+                                        Add
+                                        <i class=" ace-icon fa fa-cart-plus fa-lg">
+                                        </i>
+                                    </button>
+                                </div>
+
+                                <div class="row" tooltip="Quantidade disponível em estoque" tooltip-placement="top">
+                                    <div class="col-xs-3 col-sm-3" style="text-align: center;">
+                                        <label>
+                                            Disponível:
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3" style="padding-right: 0;">
+                                        <label class="label label-default ">
+                                            {{produtoPesq.QtdProdutos}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--<div class="pull-right bigger-110">
+
+            <div class="media-bottom">
+                <span component-rating="{{produtoPesq.Ranking}}"></span>
+            </div>
+
+        </div>-->
+                            </div>
+
+                            <div class="row text-center">
+                                <div class="col-md-12">
+                                    <h5 class="popover-info customPopover search-title" data-content="{{produtoPesq.DescProduto}}"
+                                        data-rel="popover" data-trigger="hover"
+                                        title=""
+                                        data-original-title="Descrição completa."
+                                        data-placement="top">
+                                        <a href="javascript:;" class="blue" ng-click="openDetProdDialog(produtoPesq);">
+                                            {{produtoPesq.DescProduto | limitTo: 20}}{{produtoPesq.DescProduto.length > 60 ? '...' : ''}}
+                                        </a>
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-xs-6 col-sm-5">
+                                    <label>
+                                        Vencimento:
+                                    </label>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                                    <label class="label label-info">
+                                        {{produtoPesq.ValidadeProd | date:'dd/MM/yyyy'}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-5">
+                                    <label>
+                                        <i class="fa fa-clock-o" aria-hidden="true" style="color: red;"></i>
+                                        Finaliza:
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                                    <label class="label label-danger" style="margin-top: 1px;">
+                                        <i-countdown set-date="{{produtoPesq.FimPromocao | date: 'yyyy-MM-dd HH:mm:ss'}}" format-view="<label  style='color: white;' class='lbl bigger-110'> %dDia(s) %h:%i:%s</label>" expire-message="FIM DO PERÍODO :(" b-var="doIt('')"> </i-countdown>
+
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-5" style="padding-right: 0">
+                                    <label>
+                                        Qtd. Mínima:
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                                    <label class="label label-default">
+                                        {{produtoPesq.QtdMinVenda}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-5" style="padding-right: 0">
+                                    <label>
+                                        Frete Grátis:
+                                    </label>
+                                </div>
+                                <div class="col-xs-6 col-sm-5" style="padding: 0; height: 20px;">
+                                    <label class="label label-default">
+                                        {{produtoPesq.FreteGratis == true ? 'Sim' : 'Não'}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+
+                                <div class="col-xs-6" style="padding: 0; height: 40px;">
+                                    <b style="font-size: 25px;">De:</b>
+                                    <div class="price">
+                                        <span class="label label-lg label-warning arrowed-in arrowed-in-right"
+                                              style="font-size: 25px; height: 40px;
+                                                     font-weight: bold; color: white;text-decoration: line-through; font-size: 15px;">
+                                            R${{produtoPesq.PrecoMedio}}
+
+                                            <small></small>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6" style="padding: 0; height: 40px;">
+                                    <b style="font-size: 25px;">Por:</b>
+                                    <div class="price">
+                                        <span class="label label-lg label-danger arrowed-in arrowed-in-right"
+                                              style="font-size: 25px; height: 40px; font-weight: bold; color: yellow;font-size: 15px;">
+                                            R${{produtoPesq.PrecoPromocao}}
+
+                                            <small></small>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 40px;padding-top: 10px;">
+
+                                Und. {{produtoPesq.UnidadeMedida}}
+                                <br />
+                                Marca {{produtoPesq.Marca}}
+                                <br />
+                                Cat. {{produtoPesq.DescCategoria}}
+                                <br />
+
+                            </p>
+
+                            <!--<div class="row" style="margin-top: 50px;">
+                                <div class="col-xs-4">
+                                    <div style="text-align: center;">
+                                        Und. Med. {{produtoPesq.UnidadeMedida}}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div style="text-align: center;">
+                                        Marca: {{produtoPesq.Marca}}
+                                    </div>
+
+                                </div>
+                                <div class="col-xs-4">
+                                    <div style="text-align: center;">
+                                        Cat. {{produtoPesq.DescCategoria}}
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <custom-pager page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProduto(page)" ng-show="PaginadorUrl.Pagina.Ativar"></custom-pager>
+            <custom-pager page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProdutoInput(page)" ng-show="PaginadorInput.Pagina.Ativar"></custom-pager>
+        </div>
+
+    </div>
+</div>

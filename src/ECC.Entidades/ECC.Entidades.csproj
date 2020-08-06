@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78D2B661-DF88-4C1F-9C55-23EB9E8F5C1B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ECC</RootNamespace>
+    <AssemblyName>ECC.Entidades</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DiaSemana.cs" />
+    <Compile Include="EntidadeArquivo\TermoUso.cs" />
+    <Compile Include="EntidadeArquivo\TermoUsoMode.cs" />
+    <Compile Include="EntidadeComum\CotacaoUsuarios.cs" />
+    <Compile Include="EntidadeComum\ResultadoPrecoCotacaoFornecedor.cs" />
+    <Compile Include="EntidadeFornecedor\FornecedorFormaPagtoMembro.cs" />
+    <Compile Include="EntidadeListaCompras\ListaComprasItem.cs" />
+    <Compile Include="EntidadeListaCompras\ListaCompras.cs" />
+    <Compile Include="EntidadeListaCompras\ListaComprasRemoveForn.cs" />
+    <Compile Include="EntidadePedido\CalendarioFeriado.cs" />
+    <Compile Include="EntidadeRecebimento\CartaoCredito.cs" />
+    <Compile Include="EntidadeRecebimento\CartaoBandeira.cs" />
+    <Compile Include="EntidadeRecebimento\PlanoSegmento.cs" />
+    <Compile Include="EntidadeRecebimento\PlanoMensalidade.cs" />
+    <Compile Include="EntidadeRobos\ExecucaoRobo.cs" />
+    <Compile Include="EntidadeAtendimento\Atendimento.cs" />
+    <Compile Include="EntidadeAvisos\Notificacao.cs" />
+    <Compile Include="EntidadeAvisos\TipoAlerta.cs" />
+    <Compile Include="EntidadeAvisos\Avisos.cs" />
+    <Compile Include="EntidadeAvisos\TipoAvisos.cs" />
+    <Compile Include="EntidadeAvisos\UsuarioNotificacao.cs" />
+    <Compile Include="EntidadeBase.cs" />
+    <Compile Include="EntidadeComum\Periodicidade.cs" />
+    <Compile Include="EntidadeFranquia\DataCotacaoFranquia.cs" />
+    <Compile Include="EntidadeFrete\Transportadora.cs" />
+    <Compile Include="EntidadeFrete\FretePedidoFornecedor.cs" />
+    <Compile Include="EntidadeParametroSistema\ParametroSistema.cs" />
+    <Compile Include="EntidadePedido\RemoveFornPedido.cs" />
+    <Compile Include="EntidadePessoa\FornecedorPrazoSemanal.cs" />
+    <Compile Include="EntidadePessoa\Franquia.cs" />
+    <Compile Include="EntidadePessoa\FranquiaFornecedor.cs" />
+    <Compile Include="EntidadePessoa\TipoPagamento.cs" />
+    <Compile Include="EntidadeProduto\FornecedorProduto.cs" />
+    <Compile Include="EntidadeProduto\FornecedorProdutoQuantidade.cs" />
+    <Compile Include="EntidadeProduto\FranquiaProduto.cs" />
+    <Compile Include="EntidadeProduto\Produto.cs" />
+    <Compile Include="EntidadeRecebimento\MensalidadeDetalhe.cs" />
+    <Compile Include="EntidadeRecebimento\ParametrosRecebimento.cs" />
+    <Compile Include="EntidadeRecebimento\StatusFatura.cs" />
+    <Compile Include="EntidadeRecebimento\Comissao.cs" />
+    <Compile Include="EntidadeRecebimento\Fatura.cs" />
+    <Compile Include="EntidadeRecebimento\Mensalidade.cs" />
+    <Compile Include="EntidadeCotacao\Cotacao.cs" />
+    <Compile Include="EntidadeCotacao\CotacaoPedidos.cs" />
+    <Compile Include="EntidadeCotacao\HistStatusCotacao.cs" />
+    <Compile Include="EntidadeCotacao\ResultadoCotacao.cs" />
+    <Compile Include="EntidadeEmail\Emails.cs" />
+    <Compile Include="EntidadeEmail\Origem.cs" />
+    <Compile Include="EntidadeEmail\Status.cs" />
+    <Compile Include="EntidadeEndereco\HorasEntregaMembro.cs" />
+    <Compile Include="EntidadeEndereco\PeriodoEntrega.cs" />
+    <Compile Include="EntidadeEstoque\Estoque.cs" />
+    <Compile Include="EntidadeFormaPagto\PromocaoFormaPagto.cs" />
+    <Compile Include="EntidadePedido\HistStatusPedido.cs" />
+    <Compile Include="EntidadePedido\AvaliacaoFornecedor.cs" />
+    <Compile Include="EntidadePessoa\Cargo.cs" />
+    <Compile Include="EntidadePessoa\Funcionario.cs" />
+    <Compile Include="EntidadePessoa\PessoaFisica.cs" />
+    <Compile Include="EntidadePessoa\SolicitacaoMembroFornecedor.cs" />
+    <Compile Include="EntidadeProduto\Marca.cs" />
+    <Compile Include="EntidadeProduto\MembroDemanda.cs" />
+    <Compile Include="EntidadeProduto\HistoricoPromocao.cs" />
+    <Compile Include="EntidadeProduto\ProdutoPromocional.cs" />
+    <Compile Include="EntidadeProduto\Ranking.cs" />
+    <Compile Include="EntidadeProduto\Segmento.cs" />
+    <Compile Include="EntidadeProduto\SegmentoCategoria.cs" />
+    <Compile Include="EntidadeEntrega\Entrega.cs" />
+    <Compile Include="EntidadeRecebimento\StatusMensalidade.cs" />
+    <Compile Include="EntidadeRecebimento\TipoMovimentacao.cs" />
+    <Compile Include="EntidadeRelatorio\PedidoFornecedoresPorITem.cs" />
+    <Compile Include="EntidadeSms\Sms.cs" />
+    <Compile Include="EntidadeSms\StatusSms.cs" />
+    <Compile Include="EntidadeSms\TemplateSms.cs" />
+    <Compile Include="EntidadeEmail\TemplateEmail.cs" />
+    <Compile Include="EntidadeEndereco\Bairro.cs" />
+    <Compile Include="EntidadeEndereco\CepEndereco.cs" />
+    <Compile Include="EntidadeEndereco\Cidade.cs" />
+    <Compile Include="EntidadeEndereco\Endereco.cs" />
+    <Compile Include="EntidadeEndereco\Regiao.cs" />
+    <Compile Include="EntidadeFormaPagto\FornecedorFormaPagto.cs" />
+    <Compile Include="EntidadeMenu\Menu.cs" />
+    <Compile Include="EntidadeMenu\Modulo.cs" />
+    <Compile Include="EntidadePedido\ItemPedido.cs" />
+    <Compile Include="EntidadePedido\Pedido.cs" />
+    <Compile Include="EntidadeFormaPagto\FormaPagto.cs" />
+    <Compile Include="EntidadePessoa\Fornecedor.cs" />
+    <Compile Include="EntidadePessoa\FornecedorRegiao.cs" />
+    <Compile Include="EntidadePessoa\Membro.cs" />
+    <Compile Include="EntidadeEndereco\Estado.cs" />
+    <Compile Include="EntidadeUsuario\UsuarioCancelado.cs" />
+    <Compile Include="IEntidadeBase.cs" />
+    <Compile Include="EntidadeEndereco\Logradouro.cs" />
+    <Compile Include="EntidadePessoa\MembroFornecedor.cs" />
+    <Compile Include="EntidadePessoa\Telefone.cs" />
+    <Compile Include="EntidadeProduto\Categoria.cs" />
+    <Compile Include="EntidadeProduto\Fabricante.cs" />
+    <Compile Include="EntidadeProduto\FornecedorCategoria.cs" />
+    <Compile Include="EntidadeProduto\Imagem.cs" />
+    <Compile Include="EntidadeProduto\MembroCategoria.cs" />
+    <Compile Include="EntidadeProduto\IndisponibilidadeProduto.cs" />
+    <Compile Include="EntidadeProduto\SubCategoria.cs" />
+    <Compile Include="EntidadeProduto\UnidadeMedida.cs" />
+    <Compile Include="EntidadeSms\TipoOrigemSms.cs" />
+    <Compile Include="EntidadeStatus\StatusSistema.cs" />
+    <Compile Include="EntidadeStatus\WorkflowStatus.cs" />
+    <Compile Include="EntidadeUsuario\Grupo.cs" />
+    <Compile Include="EntidadeUsuario\Perfil.cs" />
+    <Compile Include="EntidadePessoa\Pessoa.cs" />
+    <Compile Include="EntidadePessoa\PessoaJuridica.cs" />
+    <Compile Include="EntidadeUsuario\PermissaoGrupo.cs" />
+    <Compile Include="EntidadeUsuario\RecuperaSenha.cs" />
+    <Compile Include="EntidadeUsuario\UsuarioGrupo.cs" />
+    <Compile Include="Erro.cs" />
+    <Compile Include="OrigemLogin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EntidadePessoa\TipoPessoa.cs" />
+    <Compile Include="EntidadeUsuario\Usuario.cs" />
+    <Compile Include="TipoFeriado.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SqlServerTypes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

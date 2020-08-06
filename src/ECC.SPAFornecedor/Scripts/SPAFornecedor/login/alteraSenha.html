@@ -1,0 +1,67 @@
+﻿<div class="panel panel-primary" style="margin-bottom: 0;">
+
+    <div class="modal-header">
+        <button type="button" ng-click="cancel()" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">ALTERAR SENHA</h4>
+
+    </div>
+
+    <div class="panel-body">
+        <form class="form-signin" role="form" novalidate angular-validator name="userAlterarSenhaForm" angular-validator-submit="salvarNovaSenha()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" id="txtSenha0" name="txtSenha0" class="form-control" ng-model="novaSenha0" placeholder="Senha Atual"
+                                   validate-on="blur" required required-message="'Senha atual obrigatória'" ng-disabled="desabilitaAlterar">
+                            <i class="ace-icon fa fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" id="txtSenha1" name="txtSenha1" class="form-control" ng-model="novaSenha1" placeholder="Nova Senha"
+                                   validate-on="blur" required required-message="'Senha obrigatória'" ng-disabled="desabilitaAlterar" maxlength="8" />
+                            <i class="ace-icon fa fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-horizontal">
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" id="txtSenha2" name="txtSenha2" class="form-control" ng-model="novaSenha2" placeholder="Confirmação Senha"
+                                   validate-on="blur" required required-message="'Confirmação de Senha obrigatória'" ng-disabled="desabilitaAlterar" maxlength="8" />
+                            <i class="ace-icon fa fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Fim Dados do Usuário-->
+            <!--Inicio Botoes-->
+            <hr />
+
+
+            <!--Fim Botoes-->
+            <div class="pull-right">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="ace-icon fa fa-check"></i>
+                    Salvar
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" ng-click="cancel()">
+                    <i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

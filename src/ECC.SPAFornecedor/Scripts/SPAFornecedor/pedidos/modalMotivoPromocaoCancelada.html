@@ -1,0 +1,45 @@
+﻿
+<div class="panel-container">
+    <div class="panel-header">
+        <div class="modal-header">
+            <button ng-click="close();" type="button" class="bootbox-close-button close">
+                X
+            </button>
+            <h4 class="modal-title"> CANCELAMENTO PROMOÇÃO</h4>
+        </div>
+    </div>
+
+    <div class="panel-body" style="background-color:white;">
+
+        <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{detahePedidoPromocao.PedidoId}}</b></span>
+        <p style="margin-top: 20px;">
+            <b class="red bigger-125">Membro: </b><span class="lbl bigger-125 ng-binding"> {{detahePedidoPromocao.Membro.NomeFantasia}}</span>
+        </p>
+
+
+        <div class="content">
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-12">
+                    <label>Descreva o motivo do cancelamento:</label>
+                    <label class="pull-right label label-info">{{200 - detahePedidoPromocao.DescMotivoCancelamento.length}}</label>
+                    <label class="pull-right" style="margin-right: 5px;">Restam: </label>
+                    <textarea name="txtDescMotivoCancelPromocao" cols="1" rows="5"
+                              maxlength="200"
+                              placeholder="Escreva aqui..."
+                              class="form-control"
+                              ng-model="detahePedidoPromocao.DescMotivoCancelamento"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success btn-sm btn-block" ng-click="inserirCancelamentoPromocao()">
+                        <i class="icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

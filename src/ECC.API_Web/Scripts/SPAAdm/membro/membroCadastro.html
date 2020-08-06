@@ -1,0 +1,576 @@
+﻿<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabCadMembro" class="active">
+            <a data-toggle="tab" href="#tabContMembro" target="_self">
+                <i class="red ace-icon fa fa-users bigger-120"></i>
+                Membro Comprador
+            </a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+
+        <div id="tabContMembro" class="tab-pane fade in active">
+
+            <h4 style="margin-top: 20px;">Tipo Pessoa</h4>
+            <hr />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="inline pos-rel">
+                        <label class="pos-rel">
+                            <input type="radio" ng-disabled="habilitaEscolhaTipoPessoa" class="ace input-lg" ng-model="tipoPessoa" value="pj" ng-click="mostraDadosTipoPessoa('pj');">
+                            <span class="lbl">Pessoa Jurídica</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="inline pos-rel">
+                        <label class="pos-rel">
+                            <input type="radio" ng-disabled="habilitaEscolhaTipoPessoa" class="ace input-lg" ng-model="tipoPessoa" value="pf" ng-click="mostraDadosTipoPessoa('pf');">
+                            <span class="lbl">Pessoa Física</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Dados</h4>
+            <hr />
+
+            <!--Dados membro.-->
+            <form class="form-group" role="form" name="novoMembro">
+
+                <div ng-show="tipoPessoa=='pj' ">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Razão Social</span>
+                                <input type="text" class="form-control" id="txtRzSocial" name="txtRzSocial" placeholder="Razão Social"
+                                       ng-model="novoMembro.RazaoSocial"
+                                       validate-on="blur" required required-message="'Razao Social preenchimento obrigatório.'"
+                                       maxlength="100" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Nome Fantasia</span>
+                                <input type="text" class="form-control" id="txtNomeFantasia" name="txtNomeFantasia" placeholder="Nome Fantasia"
+                                       ng-model="novoMembro.NomeFantasia"
+                                       validate-on="blur" required required-message="'Nome Fantasia preenchimento obrigatório.'" maxlength="100" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> E-mail</span>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                                       ng-model="novoMembro.Email" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CNPJ</span>
+                                <input type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                                       ng-model="novoMembro.Cnpj"
+                                       validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+
+                                <span class="lbl"> Inscrição Estadual</span>
+                                <input type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" maxlength="15" ng-model="novoMembro.InscEstadual" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Comprador</span>
+                                <input type="text" class="form-control" id="txtComprador" name="txtComprador" placeholder="Comprador" ng-model="novoMembro.Comprador" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <span class="lbl"> Data da Fundação</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control date-picker" disabled="disabled" name="txtDataFundacao"
+                                           datepicker-popup="{{format}}" ng-model="novoMembro.DtFundacao" is-open="datepicker.opened"
+                                           datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                           placeholder="Data da Fundação" />
+
+                                    <span class="input-group-addon">
+                                        <a href="javascript:void(0);" ng-click="openDatePicker($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--<div class="col-md-4">
+                            <span class="lbl"> Franquia</span>
+                            <select class="form-control" id="form-field-select-1" ng-model="novoMembro.FranquiaId" ng-options="franquia.FranquiaId as franquia.RazaoSocial for franquia in FranquiaMembro">
+                                <option value="">Selecione uma franquia...</option>
+                            </select>
+                        </div>-->
+
+
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="hidden" id="ckbAtivo"
+                                       ng-model="novoMembro.Ativo" ng-init="novoMembro.Ativo=true">
+
+                            </label>
+                        </div>
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="hidden" id="ckbVip"
+                                       ng-model="novoMembro.Vip" ng-init="novoMembro.Vip=false">
+
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-show="tipoPessoa=='pf'">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Nome</span>
+                                <input type="text" class="form-control" id="txtNome" name="txtNome" placeholder="Nome"
+                                       ng-model="novoMembro.Nome"
+                                       validate-on="blur" required required-message="'Nome preenchimento obrigatório.'" maxlength="100" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> E-mail</span>
+                                <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                                       ng-model="novoMembro.Email" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CPF</span>
+                                <input type="text" class="form-control" id="txtCpf" name="txtCpf" placeholder="CPF" mask="XXX.XXX.XXX-XX"
+                                       ng-model="novoMembro.Cpf"
+                                       validate-on="blur" required required-message="'Cpf preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CRO</span>
+                                <input type="text" class="form-control" id="txtCro" name="txtCro" placeholder="CRO" mask="XXXXXX"
+                                       ng-model="novoMembro.Cro" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> RG</span>
+                                <input type="text" class="form-control" id="txtCro" name="txtCro" placeholder="RG" mask="XXXXXXXXXX"
+                                       ng-model="novoMembro.Rg"
+                                       validate-on="blur" required required-message="'RG preenchimento obrigatório.'" />
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+
+                                <span class="lbl"> Data de Nascimento</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control date-picker" disabled="disabled" name="txtDtNascimento"
+                                           datepicker-popup="{{formatNascimento}}" ng-model="novoMembro.DtNascimento" is-open="datepickerNascimento.opened"
+                                           datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                           placeholder="Data de Nascimento" />
+
+                                    <span class="input-group-addon">
+                                        <a href="javascript:void(0);" ng-click="openDatePickerNascimento($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Sexo</span>
+                                <select id="ddlSexo" ng-model="novoMembro.Sexo" class="form-control black" ng-options="option.Id as option.DescSexo for option in sexos"></select>
+                                <input type="hidden" name="sexo" ng-value="novoMembro.Sexo" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="hidden" id="ckbAtivo"
+                                       ng-model="novoMembro.Ativo" ng-init="novoMembro.Ativo=true">
+
+                            </label>
+                        </div>
+                        <div class="col-md-2 col-xs-2" style="top: 25px;">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="hidden" id="ckbVip"
+                                       ng-model="novoMembro.Vip" ng-init="novoMembro.Vip=false">
+
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Telefone-->
+                <h4 style="margin-top: 20px;">Telefone</h4>
+                <hr />
+                <div class="conteudo">
+                    <div id="Telefone" class="row">
+                        <div class="col-md-1">
+                            <span class="lbl"> DDD</span>
+                            <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="5" ng-model="novoMembro.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                        <div class="col-md-3">
+                            <span class="lbl"> Telefone</span>
+                            <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="11" ng-model="novoMembro.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                        </div>
+                    </div>
+                </div>
+                <div id="Celular" class="row">
+                    <div class="col-md-1">
+                        <span class="lbl"> DDD</span>
+                        <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="4" ng-model="novoMembro.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+                    <div class="col-md-3">
+                        <span class="lbl"> Celular</span>
+                        <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novoMembro.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                    </div>
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="lbl"> Contato</span>
+                        <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" ng-model="novoMembro.Contato" />
+
+                    </div>
+                </div>
+
+                <!--Fim Telefone-->
+            </form>
+
+            <!--Endereços membro.-->
+            <div ng-show="habilitaCadastroEndereco">
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Endereço</h4>
+                        <hr />
+                    </div>
+                </div>
+                <form class="form-group" role="form" novalidate name="novoEndereco">
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> CEP</span>
+                                <input type="text" class="form-control" id="txtCep" name="txtcep" placeholder="CEP"
+                                       ng-model="novoEndereco.Cep"
+                                       validate-on="blur" required required-message="'Cep obrigatório.'" maxlength="8" mask="XXXXXXXX" ng-change="loadEnderecoCep(novoEndereco.Cep);" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Logradouro</span>
+                                <select id="ddlLogradouro" ng-model="novoEndereco.LogradouroId" class="form-control black" ng-options="option.Id as option.DescLogradouro for option in logradouros"></select>
+                                <input type="hidden" name="LogradouroId" ng-value="novoEndereco.LogradouroId" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Endereço</span>
+                                <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" maxlength="100" placeholder="Endereço"
+                                       ng-model="novoEndereco.Endereco" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Número Endereço</span>
+                                <input type="text" class="form-control" id="txtNumEndereco" name="txtNumEndereco" placeholder="Número"
+                                       ng-model="novoEndereco.NumEndereco" mask="XXXXXXXXX" maxlength="9" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Complemento</span>
+                                <input type="text" class="form-control" id="txtComplemento" name="txtComplemento" placeholder="Complemento"
+                                       ng-model="novoEndereco.Complemento" />
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Estado</span>
+                                <select id="ddlEstado" ng-change="loadCidadeChange(novoEndereco.EstadoId)" ng-model="novoEndereco.EstadoId" class="form-control black" ng-options="option.Id as option.DescEstado for option in estados"></select>
+                                <input type="hidden" name="EstadoId" ng-value="novoEndereco.EstadoId" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Cidade</span>
+
+                                <select id="ddlCidade" ng-change="loadBairroChange(novoEndereco.CidadeId)" ng-model="novoEndereco.CidadeId" ng-disabled="habilitaddlCidade" class="form-control black" ng-options="option.Id as option.DescCidade for option in cidades">
+                                    <option value="" selected>Cidade...</option>
+                                </select>
+                                <input type="hidden" name="CidadeId" ng-value="novoEndereco.CidadeId" />
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4" ng-show="mostraBairroDll">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Bairro</span>
+                                <select id="ddlBairro" ng-model="novoEndereco.BairroId" class="form-control black" disabled="" ng-disabled="habilitaddlBairro" ng-options="option.Id as option.DescBairro for option in bairros">
+                                    <option value="" selected>Bairro...</option>
+                                </select>
+                                <input type="hidden" name="BairroID" ng-value="novoEndereco.Endereco.BairroId" />
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4" ng-show="mostraBairroInput">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Bairro</span>
+                                <input type="text" class="form-control" name="bairroDesc" ng-model="novoEndereco.BairroDescNew" placeholder="Bairro" ng-init="novoFornecedor.Endereco.BairroDescNew=''" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <span class="lbl"> Referência</span>
+                                <input type="text" class="form-control" id="txtReferencia" name="txtComplemento" placeholder="Ponto de Referencia"
+                                       ng-model="novoEndereco.Referencia" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover" id="gvEnderecoMembro">
+                                    <thead>
+                                        <tr>
+                                            <th>Logradouro</th>
+                                            <th>Endereço</th>
+                                            <th>Bairro</th>
+                                            <th>Cidade</th>
+                                            <th>Estado</th>
+                                            <th>Horário Entrega</th>
+                                            <th>End.Padrão </th>
+                                            <th>Ativo</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr ng-repeat="enderecoPesq in Enderecos | filter:filtroEndereco">
+                                            <td>{{enderecoPesq.Logradouro}} </td>
+                                            <td>{{enderecoPesq.Endereco}} </td>
+                                            <td> {{enderecoPesq.Bairro}} </td>
+                                            <td>{{enderecoPesq.Cidade}} </td>
+                                            <td>{{enderecoPesq.Estado}}</td>
+
+                                            <td>
+                                                <div class="text-center">
+                                                    <div ng-repeat="periodo in enderecoPesq.PeriodoEntrega" style="float: left; margin-left: 2px;">
+                                                        <label class="label label-warning">
+                                                            {{periodo.DescPeriodoEntrega}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+
+                                                <div class="">
+                                                    <div class="inline pos-rel">
+                                                        <label class="pos-rel">
+                                                            <input type="radio" class="ace input-lg" ng-model="enderecoPesq.EnderecoPadrao" name="nameEndP" ng-checked="(enderecoPesq.EnderecoPadrao==true)" ng-click="atualizaParaEndPadrao(enderecoPesq);">
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td><span ng-class="enderecoPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{enderecoPesq.DescAtivo}}</span></td>
+                                            <td>
+                                                <div class="">
+                                                    <div class="inline pos-rel">
+                                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close" style="">
+
+                                                            <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <a href="javascript:void(0);" ng-click="editarEndereco(enderecoPesq);">
+                                                                    <span class="green">
+                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!--Relacionar Produtos com membro.-->
+            <div ng-show="habilitaRelacionarCategoria">
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Relacionar Categoria de Produto</h4>
+                        <hr />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        Segmento
+                        <select id="ddlSegmento" ng-model="filtroCategoriaSegmento" class="form-control black" ng-change="loadCategoriaPorSegmento(filtroCategoriaSegmento)">
+                            <option value="0" selected="selected">Todos</option>
+                            <option ng-repeat="option in segmentos" value="{{option.Id}}">{{option.DescSegmento}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        Categoria
+                        <input type="text" ng-model="filtroCategoria" class="form-control" placeholder="Pesquisar Categoria ..." />
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="tbRelatProduto">
+                                <thead>
+                                    <tr>
+                                        <th>Categoria</th>
+                                        <th>
+
+                                            <label class="pos-rel">
+                                                <input type="checkbox" class="ace input-lg" ng-model="chkAllCat" ng-click="checkAll(categorias, chkAllCat )">
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="categoriaPesq in categorias | filter:filtroCategoria | filter :{visivel : true}">
+                                        <td>{{categoriaPesq.DescCategoria}}</td>
+
+                                        <td>
+                                            <div class="">
+                                                <div class="inline pos-rel">
+                                                    <label class="pos-rel">
+                                                        <input type="checkbox" class="ace input-lg" ng-model="categoriaPesq.selected" value="{{categoriaPesq.Id}}" ng-checked="categoriaPesq.Relacionado">
+                                                        <span class="lbl"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Botões-->
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" ng-click="cadastrarMembro();" class="btn btn-success btn-sm">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Novo
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

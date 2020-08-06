@@ -1,0 +1,155 @@
+﻿<div class="tabbable">
+   
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabssegmento.tabPesquisar.tabAtivar" ng-show="tabssegmento.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadsegmento" ng-class="tabssegmento.tabCadsegmento.tabAtivar" ng-show="tabssegmento.tabCadsegmento.tabhabilitar" ng-click="limpaDados();">
+            <a data-toggle="tab" href="#tabContsegmento" target="_self">
+                <i class="red ace-icon fa fa-tags bigger-120"></i>
+                Segmento
+            </a>
+        </li>
+
+ 
+
+
+    </ul>
+   
+
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabssegmento.tabPesquisar.contentAtivar" ng-show="tabssegmento.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtrosegmento" placeholder="Pesquisar Nome" />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarsegmento();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisasegmento">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="segmentoPesq in segmento | filter:filtrosegmento">
+                                    <td>{{segmentoPesq.DescSegmento}}</td>
+                                    <td>
+                                        <span ng-class="segmentoPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{segmentoPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarsegmento(segmentoPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarsegmento(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContsegmento" ng-class="tabssegmento.tabCadsegmento.contentAtivar" ng-show="tabssegmento.tabCadsegmento.contentHabilitar">
+            <h4>Segmento</h4>
+            <hr />
+            <form class="form-group" role="form" novalidate angular-validator name="novosegmento" angular-validator-submit="inserirsegmento()">
+                <!--Inicio Dados -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <input type="text" class="form-control" ng-model="novosegmento.DescSegmento"
+                                   id="txtDescsegmento" name="txtDescsegmento" placeholder="Nome segmento"
+                                   validate-on="blur" required required-message="'Nome é de preenchimento obrigatório.'" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="top: 5px;">
+
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" checked="checked" id="ckbAtivo" ng-model="novosegmento.Ativo">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+
+
+
+                    </div>
+                </div>
+
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+
+    </div>
+
+</div>

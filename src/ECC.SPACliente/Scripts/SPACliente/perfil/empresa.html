@@ -1,0 +1,137 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-building-o" aria-hidden="true"></i>
+            Dados da Empresa
+        </h1>
+    </div>
+
+    <form class="form-group" role="form" novalidate angular-validator name="novoMembro" angular-validator-submit="atualizarMembro()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Razão Social</span>
+                    <input type="text" class="form-control" id="txtRzSocial" name="txtRzSocial" placeholder="Razão Social"
+                           ng-model="novoMembro.RazaoSocial" disabled
+                           validate-on="blur" required required-message="'Razao Social preenchimento obrigatório.'" maxlength="100" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Nome Fantasia</span>
+                    <input type="text" class="form-control" id="txtNomeFantasia" name="txtNomeFantasia" placeholder="Nome Fantasia"
+                           ng-model="novoMembro.NomeFantasia"
+                           validate-on="blur" required required-message="'Nome Fantasia preenchimento obrigatório.'" maxlength="100" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> E-mail</span>
+                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                           ng-model="novoMembro.Email" />
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> CNPJ</span>
+                    <input type="text" class="form-control" id="txtCnpj" name="txtCnpj" placeholder="CNPJ" mask="XX.XXX.XXX/XXXX-XX"
+                           ng-model="novoMembro.Cnpj" disabled
+                           validate-on="blur" required required-message="'CNPJ preenchimento obrigatório.'" />
+
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+
+                    <span class="lbl"> Inscrição Estadual</span>
+                    <input type="text" class="form-control" id="txtInscricaoEstadual" name="txtInscricaoEstadual" disabled placeholder="Inscrição Estadual" mask="XXXXXXXXXXXX" maxlength="15" ng-model="novoMembro.InscEstadual" />
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-horizontal">
+                    <span class="lbl"> Comprador</span>
+                    <input type="text" class="form-control" id="txtComprador" name="txtComprador" placeholder="Comprador" ng-model="novoMembro.Comprador" />
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+
+                    <span class="lbl"> Data da Fundação</span>
+                    <div class="input-group">
+                        <input type="text" class="form-control date-picker" disabled name="txtDataFundacao"
+                               datepicker-popup="{{format}}" ng-model="novoMembro.DtFundacao" is-open="datepicker.opened"
+                               datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                               placeholder="Data da Fundação" />
+
+                        <!--<span class="input-group-addon">
+                            <a href="javascript:void(0);" ng-click="openDatePicker($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                        </span>-->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--Telefone-->
+        <h4>Telefone</h4>
+        <hr />
+        <div class="conteudo">
+            <div id="Telefone" class="row">
+                <div class="col-md-1">
+                    <span class="lbl"> DDD</span>
+                    <input type="text" class="form-control" id="txtDDDTel" name="txtDDDTel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoMembro.DddTelComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                </div>
+                <div class="col-md-3">
+                    <span class="lbl"> Telefone</span>
+                    <input type="text" class="form-control" id="txtTel" name="txtTel" mask="XXXXXXXX" placeholder="Telefone" maxlength="11" ng-model="novoMembro.TelefoneComl" validate-on="blur" required required-message="'Campo obrigatório.'" />
+
+                </div>
+            </div>
+        </div>
+        <div id="Celular" class="row">
+            <div class="col-md-1">
+                <span class="lbl"> DDD</span>
+                <input type="text" class="form-control" id="txtDDDCel" name="txtDDDCel" placeholder="DDD" mask="XX" maxlength="2" ng-model="novoMembro.DddCel" validate-on="blur" required required-message="'Campo obrigatório.'" />
+            </div>
+            <div class="col-md-3">
+                <span class="lbl"> Celular</span>
+                <input type="text" class="form-control" id="txtCel" name="txtCel" placeholder="Celular" mask="XXXXXXXXX" maxlength="11" ng-model="novoMembro.Celular" validate-on="blur" required required-message="'Campo obrigatório.'" />
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <span class="lbl"> Contato</span>
+                <input type="text" class="form-control" id="txtContato" name="txtContato" placeholder="Contato" ng-model="novoMembro.Contato" />
+
+            </div>
+        </div>
+
+        <!--Fim Telefone-->
+        <hr />
+        <div class="row">
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="ace-icon fa fa-check"></i>
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

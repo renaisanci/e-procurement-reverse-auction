@@ -1,0 +1,562 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            MINHAS COMPRAS
+        </h1>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li id="tabCotacao" ng-class="tabsCarrinhoCompras.tabCarrinhoCotacao.tabAtivar" ng-show="tabsCarrinhoCompras.tabCarrinhoCotacao.tabhabilitar" ng-click="habilitaDesabilitaAbaCotacao();">
+            <a data-toggle="tab" href="#tabContCarrinhoCotacao" target="_self">
+                <i class="green ace-icon fa fa-usd bigger-120"></i>
+                Cotação
+            </a>
+        </li>
+
+        <li id="tabPromocao" ng-class="tabsCarrinhoCompras.tabCarrinhoPromocao.tabAtivar" ng-show="tabsCarrinhoCompras.tabCarrinhoPromocao.tabhabilitar" ng-click="habilitaDesabilitaAbaPromocao();">
+            <a data-toggle="tab" href="#tabContCarrinhoPromocao" target="_self">
+                <i class="red ace-icon fa fa-money bigger-120"></i>
+                Promoção
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" style="padding: 10px;">
+
+        <!--Carrinho Cotação-->
+        <div id="tabContCarrinhoCotacao" ng-class="tabsCarrinhoCompras.tabCarrinhoCotacao.contentAtivar"
+             ng-show="tabsCarrinhoCompras.tabCarrinhoCotacao.contentHabilitar">
+            <div class="page-content" style="padding: 1px;">
+                <div class="page-header">
+
+                    <h1>
+                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                        Meu Carrinho de Cotação
+                    </h1>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-8">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="gvCarrinhoCotacao">
+                                <thead>
+                                    <tr>
+                                        <td class="tdRight"><b></b></td>
+                                        <td><b>Item</b></td>
+                                        <td class="tdCenter"><b>Quantidade</b></td>
+                                        <td class="tdCenter">
+                                            <b>Excluir</b>
+                                        </td>
+                                        <td class="tdCenter">
+                                            <b>Pode ser outra marca?</b>
+                                        </td>
+
+
+                                        <td class="tdCenter"
+                                            tooltip="Clique no icone vermelho para remover fornecedores da cotação deste item"
+                                            tooltip-placement="left">
+                                            <b>Fornecedor</b>
+                                        </td>
+                                    </tr>
+
+                                    <!-- empty cart message -->
+                                    <tr ng-hide="cart.getItems()">
+                                        <td class="tdCenter text-center" colspan="6" style="background-color: white; color: red; padding: 10px;">
+                                            <i class="fa fa-ban" aria-hidden="true" style="font-size: 20px;"></i>
+                                            Seu Carrinho de Cotações está Vazio, Clique em Continuar comprando.
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <!-- cart items -->
+                                <tbody>
+                                    <!--Carrinho para itens da cotação-->
+                                    <tr ng-repeat="item in cartItens | orderBy:'name'" ng-show="cartItens.length > 0">
+
+                                        <td class="tdRight text-center">
+                                            <img ng-src="{{item.imagem}}" alt="Imagem Produto" height="40px" width="50px" />
+                                        </td>
+                                        <td>{{item.name}}</td>
+                                        <td class="tdCenter">
+                                            <!-- use type=tel instead of to prevent spinners -->
+                                            <div style="display:flex;">
+                                                <input class="span3 text-center" type="text" id="qtdCarrinhoCotacao"
+                                                       maxlength="4" mask="XXXX" min="1" style="height: 30px; width: 55px;"
+                                                       ng-model="item.quantity"
+                                                       ng-change="cart.saveItems()" />
+
+                                                <!--<button type="button" style="height: 40px; width: 30px;"
+                                                        ng-disabled="item.quantity >= 1000"
+                                                        ng-click="cart.addItem(item.sku, item.name, item.price, +1)">
+                                                    <i class="fa fa-plus green"></i>
+
+                                                </button>-->
+
+                                                <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, +1)"
+                                                   tooltip="Adicionar no Carrinho"
+                                                   ng-disabled="item.quantity >= 1000"
+                                                   tooltip-placement="right">
+                                                    <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i>
+                                                </a>
+
+                                                &nbsp;
+                                                <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -1)"
+                                                   tooltip="Remover do Carrinho"
+                                                   ng-disabled="item.quantity <= 1"
+                                                   tooltip-placement="right">
+                                                    <i class="fa fa-minus-square fa-2x" aria-hidden="true"></i>
+                                                </a>
+
+                                            </div>
+
+
+
+
+                                            <!--<button type="button" style="height: 40px; width: 30px;"
+                                                    ng-disabled="item.quantity <= 1"
+                                                    ng-click="cart.addItem(item.sku, item.name, item.price, -1)">
+                                                <i class="fa fa-minus"></i>
+                                            </button>-->
+                                        </td>
+                                        <td class="tdCenter center">
+                                            <a href="" ng-click="cart.addItem(item.sku, item.name, item.price, -10000000)"
+                                               tooltip="Remover do Carrinho"
+                                               tooltip-placement="left">
+                                                <i class="fa fa-trash green fa-2x" aria-hidden="true"></i>
+
+                                            </a>
+                                        </td>
+
+                                        <td class="tdCenter center">
+
+
+
+                                            <label class="pos-rel"
+                                                  tooltip="Retirando esta opção, quer dizer que você somente aceita marca especificada na descrição do item."
+                                                   tooltip-placement="left">
+
+                                                <input type="checkbox" class="ace input-lg" ng-model="item.flgOutraMarca" value="true" ng-checked="item.flgOutraMarca"   ng-click="marcaExtras(item.sku,item.flgOutraMarca);" >
+                                                <span class="lbl"></span>
+                                                
+                                            </label>
+
+                                        </td>
+
+
+                                        <td class="tdCenter center">
+                                            <a href="javascript:;" ng-click="openRemoveFornecedorCotacao(item)"
+                                               tooltip="Clique aqui para remover fornecedores da cotação deste item"
+                                               tooltip-placement="top">
+                                                <i class="fa fa-user-times fa-2x red" aria-hidden="true"></i>
+
+                                            </a>
+                                            &nbsp;
+                                            <span class="lbl bigger-120 red"
+                                                  tooltip="Você removeu {{item.qtdForn +0}} fornecedores da cotação deste item"
+                                                  tooltip-placement="top">({{item.qtdForn +0}})</span>
+                                        </td>
+
+
+                                    </tr>
+                                    <!-- footer Itens Cotação-->
+                                    <tr class="well" ng-show="cart.items.length > 0">
+                                        <td class="tdRight"><b></b></td>
+                                        <td><b>Total</b></td>
+                                        <td class="tdCenter">
+                                            <b>{{cart.getTotalCount()}}</b>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- buttons -->
+                    <div class="col-md-4">
+
+                        <p class="text-info">
+                            <button class="btn btn-block btn-warning" ng-click="salvaListaCompras();" ng-disabled="cartItens.length == 0">
+                                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Salvar Lista de Compras
+                            </button>
+                        </p>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel widget-box" style="margin: 0;">
+
+                                <div class="widget-header widget-header-flat widget-header-small" role="tab" id="headingEndereco">
+                                    <h5 class="widget-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseEndereco" aria-expanded="true" aria-controls="collapseEndereco">
+                                            <span>
+                                                <i class="ace-icon fa fa-map-marker"></i>
+                                                Endereço de Entrega
+                                                <i class="ace-icon fa fa-arrow-up" style="margin-right: 5px;"></i>
+                                            </span>
+                                        </a>
+                                    </h5>
+                                </div>
+
+                                <div id="collapseEndereco" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingEndereco">
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed shortMargin">
+                                                <tr>
+                                                    <td class="shortPadding"><b>Destinatário:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Logradouro}} {{EnderecoPadrao.Endereco}} , {{EnderecoPadrao.NumEndereco}} </i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Complemento:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Complemento}}</i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Bairro:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Bairro}}</i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Cidade:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cidade }} </i></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td class="shortPadding"><b>Cep:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cep }}</i></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="shortPadding"><b>Referência: </b></td>
+                                                    <td class="shortPadding"><i> {{EnderecoPadrao.Referencia }}</i></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-footer clearfix">
+                                    <div class="pull-right">
+                                        <button class="btn btn-success btn-xs"
+                                                ng-click="openEndDialog(EnderecoPadrao);"
+                                                ng-disabled="desabilitaTrocaEndereco(true,false)">
+                                            <i class="fa fa-exchange"></i>
+                                            Trocar Endereço
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="panel widget-box" style="margin: 0; margin-top: 10px">
+
+                                <div class="widget-header widget-header-flat widget-header-small" role="tab" id="headingData">
+                                    <h5 class="widget-title">
+                                        <a href="javascript:;"
+                                           ng-click="openCalendario()"
+                                           tooltip="Clique aqui para escolher a data de cotação do seu pedido"
+                                           tooltip-placement="top">
+                                            <span>
+                                                <i class="ace-icon fa fa-calendar"></i>
+                                                Datas da Cotação
+                                                <i class="ace-icon fa fa-arrow-left red icon-animated-bell " style="margin-left: 5px;"></i>
+                                            </span>
+                                        </a>
+                                    </h5>
+                                </div>
+                                <p class="text-info">
+
+
+                                    <div class="panel-body" style="padding: 0;">
+                                        <div class="pull-left">
+                                            <label class="lbl" style="font-size: 13px;">&nbsp;&nbsp;Seu pedido entrará na cotação de: </label>
+                                            &nbsp;<label class="lbl red"> <b> {{dataCotacao | date : 'dd/MM/yyyy HH:mm:ss'}}</b></label>
+                                        </div>
+                                        <!--<datepicker ng-model="dtAbertura" min-date="dtMin" show-weeks="true" class="well well-lg" style="margin: 0;"></datepicker>-->
+                                    </div>
+
+                                    <div class="panel-footer clearfix">
+
+                                    </div>
+
+                            </div>
+                        </div>
+
+
+                        <p class="text-info">
+                            <button class="btn btn-block btn-success " style="margin-top: 5px;"
+                                    onclick="window.location.href = '#' + localStorage.UrlMembro">
+                                <i class="fa fa-cart-plus fa-lg"></i>
+                                Continuar Comprando
+                            </button>
+                            <button class="btn btn-block btn-danger" style="margin-top: 10px;"
+                                    ng-click="limparCarrinhoCompras(true,false)"
+                                    ng-disabled="desabilitaLimparCarrinho(true,false)">
+                                <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+                                Limpar Carrinho
+                            </button>
+                        </p>
+
+                        <p class="text-info">
+
+                            <button class="btn btn-block btn-primary"
+                                    ng-click="inserirPedido();"
+                                    ng-disabled="desabilitaLimparCarrinho(true,false)">
+                                <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                                Finalizar Pedido
+                            </button>
+                            <!--<button class="btn btn-block btn-primary"
+                                        ng-click="cart.checkout('Google')"
+                                        ng-disabled="cart.getTotalCount() < 1">
+                                <i class="icon-ok icon-white"/> check out usando Google
+                            </button>-->
+                        </p>
+
+                        <br /><br />
+
+                        <!--<p class="text-info">
+                            <button class="btn btn-block btn-link"
+                                    ng-click="cart.checkout('PayPal')"
+                                    ng-disabled="cart.getTotalCount() < 1">
+                                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal"/>
+                            </button>
+                            <button class="btn btn-block btn-link"
+                                    ng-click="cart.checkout('Google')"
+                                    ng-disabled="cart.getTotalCount() < 1">
+                                <img src="https://checkout.google.com/buttons/checkout.gif?w=168&h=44&style=white&variant=text" alt="checkoutGoogle"/>
+                            </button>
+                        </p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Carrinho Promoção-->
+        <div id="tabContCarrinhoPromocao" ng-class="tabsCarrinhoCompras.tabCarrinhoPromocao.contentAtivar"
+             ng-show="tabsCarrinhoCompras.tabCarrinhoPromocao.contentHabilitar">
+            <div class="page-content" style="padding: 1px;">
+                <div class="page-header">
+
+                    <h1>
+                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                        Meu Carrinho de Promoção
+                    </h1>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="gvCarrinhoPromocao">
+                                <thead>
+                                    <tr>
+                                        <td class="tdRight"><b></b></td>
+                                        <td><b>Item</b></td>
+                                        <td class="tdCenter"><b>Quantidade</b></td>
+                                        <td class="tdCenter"><b>Preço Promocional</b></td>
+                                        <td class="tdCenter"><b>Frete</b></td>
+                                        <td />
+                                    </tr>
+                                    <!-- empty cart message -->
+                                    <tr ng-hide="cartPromocoes.getItemsPromocao()">
+                                        <td class="tdCenter text-center" colspan="6" style="background-color: white; color: red; padding: 10px;">
+                                            <i class="fa fa-ban" aria-hidden="true" style="font-size: 20px;"></i>
+                                            Seu Carrinho de Promoções está Vazio, Clique em Continuar comprando.
+
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <!-- cart items -->
+                                <tbody>
+                                    <!--Carrinho para itens da promoção-->
+                                    <tr ng-repeat="itemPromocao in cartPromocoes.itemsPromocao | orderBy:'name'" ng-show="cartPromocoes.itemsPromocao.length > 0">
+
+                                        <td class="tdRight text-center">
+                                            <img ng-src="{{itemPromocao.imagem}}" alt="Imagem Produto" height="40px" width="50px" />
+                                        </td>
+                                        <td>{{itemPromocao.name}}</td>
+                                        <td class="tdCenter">
+                                            <!-- use type=tel instead of to prevent spinners -->
+                                            <input class="span3 text-center" type="text" min='1' name="qtdCarrinhoPromocao" id="qtdCarrinhoPromocao" maxlength="4" mask="XXXX" style="height: 30px; width: 55px;"
+                                                   ng-model="itemPromocao.quantity"
+                                                   ng-change="cartPromocoes.saveItemsPromocao()" />
+
+                                            <!--<button type="button" style="height: 40px; width: 30px;"
+                                                    ng-disabled="itemPromocao.quantity >= 1000"
+                                                    ng-click="cartPromocoes.addItemPromocao(itemPromocao.sku, itemPromocao.name, itemPromocao.price, +1)">
+
+                                                <i class="fa fa-plus-square" aria-hidden="true"></i>
+
+                                            </button>-->
+                                            <div style="display:flex;">
+                                                <a href="" ng-click="cartPromocoes.addItemPromocao(itemPromocao.sku, itemPromocao.name, itemPromocao.price, +1)"
+                                                   tooltip="Adicionar no Carrinho"
+                                                   ng-disabled="itemPromocao.quantity >= 1000"
+                                                   tooltip-placement="right">
+                                                    <i class="fa fa-plus-square  fa-2x" aria-hidden="true"></i>
+                                                </a>
+
+                                                <a href="" ng-click="cartPromocoes.addItemPromocao(itemPromocao.sku, itemPromocao.name, itemPromocao.price, -1)"
+                                                   tooltip="Remover do Carrinho"
+                                                   ng-disabled="itemPromocao.quantity <= 1"
+                                                   tooltip-placement="right">
+                                                    <i class="fa fa-minus-square fa-2x" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+
+
+
+                                            <!--<button type="button" style="height: 40px; width: 30px;"
+                                                    ng-disabled="itemPromocao.quantity <= 1"
+                                                    ng-click="cartPromocoes.addItemPromocao(itemPromocao.sku, itemPromocao.name, itemPromocao.price, -1)">
+                                                <i class="fa fa-minus"></i>
+                                            </button>-->
+                                        </td>
+
+                                        <td>{{itemPromocao.price | currency}}</td>
+
+                                        <td class="tdCenter">
+                                            <div class="popover-info customPopover" data-content="{{itemPromocao.obsFrete}}"
+                                                 data-rel="popover" data-trigger="hover"
+                                                 title=""
+                                                 data-original-title="Frete."
+                                                 data-placement="top">
+
+                                                {{itemPromocao.obsFrete | limitTo: 20 }} {{itemPromocao.obsFrete.length > 25 ? '...' : ''}}
+                                            </div>
+                                        </td>
+
+                                        <td class="tdCenter">
+                                            <a href="" ng-click="cartPromocoes.removeItemPromocao(itemPromocao.sku)"
+                                               tooltip="Remover do Carrinho"
+                                               tooltip-placement="left">
+                                                <i class="fa fa-trash green fa-2x" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <!-- footer Itens Promoção-->
+                                    <tr class="well" ng-show="cartPromocoes.itemsPromocao.length > 0">
+                                        <td class="tdRight"><b></b></td>
+                                        <td><b>Total</b></td>
+                                        <td class="tdCenter">
+                                            <b>{{cartPromocoes.getTotalCountPromocao()}}</b>
+                                        </td>
+                                        <td>
+                                            <b>{{cartPromocoes.getTotalPricePromocao() | currency}}</b>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- buttons -->
+                    <div class="col-md-4">
+
+                        <div class="panel-group" id="accordion">
+                            <div class="panel widget-box" style="margin: 0;">
+                                <div class="widget-box" style="margin: 0;">
+
+                                    <div class="widget-header widget-header-flat widget-header-small">
+                                        <h5 class="widget-title">
+                                            <i class="ace-icon fa fa-map-marker"></i>
+                                            Endereço de Entrega
+                                        </h5>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-condensed shortMargin">
+                                                <tr>
+                                                    <td class="shortPadding"><b>Destinatário:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Logradouro}} {{EnderecoPadrao.Endereco}} , {{EnderecoPadrao.NumEndereco}} </i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Complemento:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Complemento}}</i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Bairro:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Bairro}}</i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="shortPadding"><b>Cidade:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cidade }} </i></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td class="shortPadding"><b>Cep:</b></td>
+                                                    <td class="shortPadding"><i>{{EnderecoPadrao.Cep }}</i></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="shortPadding"><b>Referência: </b></td>
+                                                    <td class="shortPadding"><i> {{EnderecoPadrao.Referencia }}</i></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer clearfix">
+
+                                        <div class="pull-right">
+                                            <button class="btn btn-success btn-xs"
+                                                    ng-click="openEndDialog(EnderecoPadrao);"
+                                                    ng-disabled="desabilitaTrocaEndereco(false,true)">
+                                                <i class="fa fa-exchange"></i>
+                                                Trocar Endereço
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p class="text-info" style="margin-top: 5px;">
+                            <button class="btn btn-block btn-success "
+                                    onclick="window.location.href = '#' + localStorage.UrlMembro">
+                                <i class="fa fa-cart-plus fa-lg"></i>
+                                Continuar Comprando
+                            </button>
+
+                        </p>
+                        <p>
+                            <button class="btn btn-block btn-danger"
+                                    ng-click="limparCarrinhoCompras(false,true)"
+                                    ng-disabled="desabilitaLimparCarrinho(false,true)">
+                                <i class="fa fa-times fa-lg" aria-hidden="true"></i> Limpar Carrinho
+                            </button>
+                        </p>
+
+                        <p class="text-info">
+
+                            <button class="btn btn-block btn-primary"
+                                    ng-click="inserirPedidoPromocao();"
+                                    ng-disabled="desabilitaLimparCarrinho(false,true)">
+                                <i class="fa fa-check fa-lg" aria-hidden="true"></i> Finalizar Pedido
+                            </button>
+                        </p>
+                        <br /><br />
+
+                        <!--<p class="text-info">
+                            <button class="btn btn-block btn-link"
+                                    ng-click="cart.checkout('PayPal')"
+                                    ng-disabled="cart.getTotalCount() < 1">
+                                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" alt="checkout PayPal"/>
+                            </button>
+                            <button class="btn btn-block btn-link"
+                                    ng-click="cart.checkout('Google')"
+                                    ng-disabled="cart.getTotalCount() < 1">
+                                <img src="https://checkout.google.com/buttons/checkout.gif?w=168&h=44&style=white&variant=text" alt="checkoutGoogle"/>
+                            </button>
+                        </p>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

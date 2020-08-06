@@ -1,0 +1,71 @@
+﻿<div class="login-layout">
+    <div class="login-container">
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <div class="position-relative">
+  
+                <div id="login-box" class="login-box visible widget-box no-border">
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <h4 class="header green lighter bigger">
+                                <i class="fa fa-lock"></i>
+                                {{usuario.usuarioNome}} entre com sua nova senha.
+                            </h4>
+
+
+                            <form class="form-signin" role="form" novalidate angular-validator name="userAlterarSenhaForm" angular-validator-submit="alterarSenha()">
+                                <fieldset>
+                                    <label class="block clearfix">
+                                        <label class="block clearfix">
+                                            <span class="block input-icon input-icon-right">
+
+                                                <input type="password" id="txtSenha1" name="txtSenha1" class="form-control" ng-model="novaSenha1" placeholder="Senha"
+                                                       validate-on="blur" required required-message="'Senha obrigatório'" ng-disabled="desabilitaAlterar">
+                                                <i class="ace-icon fa fa-lock"></i>
+                                            </span>
+                                        </label>
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+                                                                                                                                                                   
+                                            <input type="password" id="txtSenha2" name="txtSenha2" class="form-control" ng-model="novaSenha2" placeholder="Corfirmar Senha"
+                                                   validate-on="blur" required required-message="'Senha obrigatório'" ng-disabled="desabilitaAlterar">
+                                            <i class="ace-icon fa fa-lock"></i>
+                                        </span>
+                                    </label>
+
+                                    <div class="space"></div>
+
+                                    <div class="clearfix">
+                                        
+                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-success" ng-disabled="desabilitaAlterar">
+                                            <i class="ace-icon fa fa-key"></i>
+                                            <span class="bigger-110">Alterar</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="space-4"></div>
+                                </fieldset>
+                            </form>
+
+                            <div class="space-6"></div>
+
+                        </div><!-- /.widget-main -->
+
+
+                        <div class="toolbar clearfix">
+                            
+                        </div>
+                    </div><!-- /.widget-body -->
+                </div><!-- /.login-box -->
+        
+
+
+        </div><!-- /.widget-body -->
+    </div><!-- /.signup-box -->
+    <!-- inline scripts related to this page -->
+</div>
+

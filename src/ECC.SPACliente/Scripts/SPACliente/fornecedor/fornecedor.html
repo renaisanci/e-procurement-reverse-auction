@@ -1,0 +1,342 @@
+﻿<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Novos Fornecedores
+        </h1>
+    </div>
+
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabPesquisar" ng-class="tabsFornecedor.tabPesquisar.tabAtivar" ng-show="tabsFornecedor.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbas()">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadFornecedor" ng-class="tabsFornecedor.tabCadFornecedor.tabAtivar" ng-show="tabsFornecedor.tabCadFornecedor.tabhabilitar">
+            <a data-toggle="tab" href="#tabSolicitaNovoFornecedor" target="_self">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                {{novoSolicitaFornecedor.TrabalhaMembro ? 'Fornecedor' : 'Novo Fornecedor'}}
+            </a>
+        </li>
+
+        <li id="tabRespostaAceiteFornecedor" ng-class="tabsFornecedor.tabRespostaAceiteFornecedor.tabAtivar" ng-show="tabsFornecedor.tabRespostaAceiteFornecedor.tabhabilitar">
+            <a data-toggle="tab" href="#tabContRespostaAceiteFornecedor" target="_self" ng-click="habilitaDesabilitaAbasRespostaAceiteFornecedor()">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                Solicitações
+            </a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabsFornecedor.tabPesquisar.contentAtivar" ng-show="tabsFornecedor.tabPesquisar.contentHabilitar">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Pesquisar Fornecedor</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtronovofornecedor" placeholder="Pesquisar por nome, razão social, cnpj e categoria de produto" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 pull-left">
+                                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarNovoFornecedor(page);">
+                                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaFornecedor">
+                            <thead>
+                                <tr>
+
+                                    <th>Nome Fornecedor</th>
+                                    <th>Razão Social</th>
+                                    <th>Cnpj</th>
+                                    <th>Prazo de Entrega</th>
+                                    <th>Detalhes</th>
+                                    <th>Trabalha</th>
+                                    <th>Avaliação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="fornecedor in novoFornecedor | filter : filtronovofornecedor">
+                                    <td>{{fornecedor.NomeFornecedor}}</td>
+                                    <td>{{fornecedor.NomeRazaoSocialFornecedor}}</td>
+                                    <td>{{fornecedor.CnpjFornecedor}}</td>
+                                    <td>
+                                        <div ng-show="{{fornecedor.PrazoEntegaFornecedor > 0}}">
+                                            {{fornecedor.PrazoEntegaFornecedor}} ({{fornecedor.PrazoEntegaFornecedor > 1 ? 'Dias úteis' : 'Dia útil'}})
+                                        </div>
+                                        <div ng-show="{{fornecedor.FornecedorPrazoSemanal.length > 0}}">
+                                            <div ng-repeat="prazo in fornecedor.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                                <label class="label label-danger">
+                                                    {{prazo.DescDiaSemana}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="align-center">
+                                        <a href="javascript:void(0);" ng-click="detalhesFornecedor(fornecedor)" tooltip="Clique para ver o detalhe" tooltip-placement="bottom">
+                                            <span class="green">
+                                                <i class="ace-icon fa fa-list bigger-160"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td class="align-center">{{fornecedor.TrabalhaMembro ? 'Sim' : 'Não'}}</td>
+                                    <td style="width:120px;" class="align-center">
+                                        <div class="text-center bigger-110">
+                                            <div class="media-bottom">
+                                                <span component-rating-fornecedor="{{fornecedor.MediaAvaliacaoPedido / fornecedor.QtdNotas }}"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarNovoFornecedor(page)"></custom-pager>
+
+                        </div>
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabSolicitaNovoFornecedor" ng-class="tabsFornecedor.tabCadFornecedor.contentAtivar" ng-show="tabsFornecedor.tabCadFornecedor.contentHabilitar">
+            <h4>Detalhes do Fornecedor</h4>
+            <hr />
+
+            <form class="form-group" role="form" novalidate angular-validator name="novoProduto" angular-validator-submit="inserirProduto()">
+                <!--Inicio Dados Produto-->
+
+                <div class="widget-box">
+
+                    <div class="widget-header widget-header-flat widget-header-small">
+
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed shortMargin">
+                                <tr>
+                                    <td class="shortPadding" style="width: 15%;"><b>Nome Fornecedor:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.NomeFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Razão Social:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.NomeRazaoSocialFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Cnpj:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.CnpjFornecedor}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Valor Pedido Minímo:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.VlPedMinimo | currency}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="shortPadding"><b>Prazo:</b></td>
+                                    <td class="shortPadding">
+                                        <!--<i>{{novoSolicitaFornecedor.PrazoEntegaFornecedor}} ({{novoSolicitaFornecedor.PrazoEntegaFornecedor.length > 1 ? 'Dias' : 'Dia'}})</i>-->
+
+                                        <div ng-show="novoSolicitaFornecedor.PrazoEntegaFornecedor > 0">
+                                            <i>{{novoSolicitaFornecedor.PrazoEntegaFornecedor}} ({{novoSolicitaFornecedor.PrazoEntegaFornecedor > 1 ? 'Dias' : 'Dia'}})</i>
+                                        </div>
+                                        <div ng-show="novoSolicitaFornecedor.FornecedorPrazoSemanal.length > 0">
+                                            <div ng-repeat="prazo in novoSolicitaFornecedor.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                                <i>
+                                                    <label class="label label-danger">
+                                                        {{prazo.DescDiaSemana}}
+                                                    </label>
+                                                </i>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Formas Pagamento:</b></td>
+                                    <td class="shortPadding">
+                                        <i>
+                                            <table>
+                                                <tr ng-repeat="pagament in novoSolicitaFornecedor.FormasPagamento">
+                                                    <td>
+                                                        {{pagament.DescFormaPagto}}
+
+                                                        <span class="badge badge-danger" ng-show="{{pagament.Desconto > 0}}"><b>-</b>{{pagament.Desconto}}<b>%</b></span>
+                                                    <td>
+                                                        <input type="hidden" ng-value="{{pagament.Id}}" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </i>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Obs. Forma Pagto:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.ObservacaoFormPagto}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Obs. Entrega:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.ObservacaoEntrega}}</i></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="shortPadding"><b>Descrição:</b></td>
+                                    <td class="shortPadding"><i>{{novoSolicitaFornecedor.Descricao}}</i></td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+
+                    </div>
+                </div>
+
+
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-4" ng-show="!novoSolicitaFornecedor.TrabalhaMembro">
+                        <button type="button" class="btn btn-success btn-block" ng-click="membroSolicitaFornecedor(novoSolicitaFornecedor)">
+                            <i class="ace-icon fa fa-paper-plane"></i>
+                            Solicitar para trabalhar com fornecedor
+                        </button>
+                    </div>
+                    <div class="col-md-4" ng-show="novoSolicitaFornecedor.TrabalhaMembro">
+                        <button type="button" class="btn btn-danger btn-block" ng-click="membroCancelaFornecedor(novoSolicitaFornecedor)">
+                            <i class="ace-icon fa fa-times"></i>
+                            Cancelar cadastro com fornecedor
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-info btn-block" ng-click="cancelarNovoFornecedor()">
+                            <i class="fa fa-pencil-square-o"></i>
+                            Pesquisar novo fornecedor
+                        </button>
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+        <div id="tabContRespostaAceiteFornecedor" ng-class="tabsFornecedor.tabRespostaAceiteFornecedor.contentAtivar" ng-show="tabsFornecedor.tabRespostaAceiteFornecedor.contentHabilitar">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Resposta Fornecedor</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtrorespostafornecedor" placeholder="Pesquisar por fornecedor e data da solicitação" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 pull-left">
+                                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarRespostaFornecedor(page);">
+                                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvRespostaFornecedor">
+                            <thead>
+                                <tr>
+                                    <th>Nome Fornecedor</th>
+                                    <th>Razão Social</th>
+                                    <th>Cnpj</th>
+                                    <th>Data Solicitação</th>
+                                    <th>Status</th>
+                                    <th>Detalhes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="resposta in respostaFornecedor | filter : filtrorespostafornecedor">
+                                    <td>{{resposta.NomeFantasia}}</td>
+                                    <td>{{resposta.RazaoSocial}}</td>
+                                    <td>{{resposta.Cnpj}}</td>
+                                    <td>{{resposta.DataCriado | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    <td>
+                                        <label ng-class="{'label label-danger':resposta.Status == 'Recusado','label label-success':resposta.Status == 'Aceito','label label-warning':resposta.Status == 'Aguardando'}">
+                                            {{resposta.Status}}
+                                        </label>
+                                    </td>
+                                    <td style="text-align: center;">
+
+                                        <a href="javascript:void(0);" ng-click="detalhesRecusaFornecedor(resposta)" tooltip="Clique para ver os detalhes do fornecedor" tooltip-placement="bottom">
+                                            <span class="green">
+                                                <i class="ace-icon fa fa-user bigger-160"></i>
+                                            </span>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}"  custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarRespostaFornecedor(page)"></custom-pager>
+ 
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

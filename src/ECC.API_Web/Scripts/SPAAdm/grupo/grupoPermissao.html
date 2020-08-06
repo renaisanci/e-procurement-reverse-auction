@@ -1,0 +1,287 @@
+﻿<div class="tabbable">
+   
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsGrupo.tabPesquisar.tabAtivar" ng-show="tabsGrupo.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="blue ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadGrupo" ng-class="tabsGrupo.tabCadGrupo.tabAtivar" ng-show="tabsGrupo.tabCadGrupo.tabhabilitar">
+            <a data-toggle="tab" href="#tabContGrupo" target="_self" ng-click="habilitaDesabilitaAbaCadastro();">
+                <i class="blue ace-icon fa fa-th bigger-120"></i>
+                Grupo
+            </a>
+        </li>
+
+        <li id="tabCadPermissao" ng-class="tabsGrupo.tabCadPermissao.tabAtivar" ng-show="tabsGrupo.tabCadPermissao.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPermissao" target="_self" ng-click="editarPermissaoGrupo(novoGrupo);">
+                <i class="blue ace-icon fa fa-shield bigger-120"></i>
+                Permissão
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabsGrupo.tabPesquisar.contentAtivar" ng-show="tabsGrupo.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroGrupo" placeholder="Pesquisar Descrição" />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarGrupos(novoGrupo);">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+                        
+                        <table class="table table-bordered table-hover" id="gvPesquisaGrupo">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                <tr ng-repeat="GrupoPesq in Grupos | filter:filtroGrupo">
+                                    <td>{{GrupoPesq.DescGrupo}}</td>
+                                    <td>
+                                        <span ng-class="GrupoPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{GrupoPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarGrupo(GrupoPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Permissão">
+                                                        <a href="javascript:void(0);" ng-click="editarPermissaoGrupo(GrupoPesq);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-shield bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarGrupos(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContGrupo" ng-class="tabsGrupo.tabCadGrupo.contentAtivar" ng-show="tabsGrupo.tabCadGrupo.contentHabilitar">
+            <h4>Grupo</h4>
+            <hr />
+
+
+            <form class="form-group" role="form" novalidate angular-validator name="novoGrupo" angular-validator-submit="inserirGrupo()">
+                <!--Inicio Dados -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <input type="text" class="form-control" ng-model="novoGrupo.DescGrupo"
+                                   id="txtDescGrupo" name="txtDescGrupo" placeholder="Descrição Status"
+                                   validate-on="blur" required required-message="'Descrição é de preenchimento obrigatório.'" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="top: 5px;">
+
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" checked="checked" id="ckbAtivo" ng-model="novoGrupo.Ativo">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+
+
+
+                    </div>
+                </div>
+
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+        <div id="tabContPermissao" ng-class="tabsGrupo.tabCadPermissao.contentAtivar" ng-show="tabsGrupo.tabCadPermissao.contentHabilitar">
+            <h4>Permissão</h4>
+            <hr />
+
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" ng-model="filtroMenuPermissao" class="form-control" placeholder="Pesquisar Menu ..." />
+                    &nbsp;
+                </div>
+
+                <button type="button" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+
+            </div>
+
+            <p>
+                <b class="bigger-125">Grupo: </b><span class="lbl bigger-125"> {{novoGrupo.DescGrupo}}</span>
+            </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered table-hover" id="tbRelatProduto">
+                            <thead>
+                                <tr>
+                                    <th>Menu</th>
+                                    <th>Visualizar Menu
+                                        <!--
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="chkAllCat" ng-click="checkAll(categorias, chkAllCat )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                            -->
+                                    </th>
+                                    <th>Consultar</th>
+                                    <th>Incluir</th>
+                                    <th>Alterar</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <tr ng-repeat="menuPesq in menuPermissaoGrupo | filter:filtroMenuPermissao">
+                                    <td align="left"> {{menuPesq.DescMenu}}</td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="menuPesq.selected" value="{{menuPesq.Id}}" ng-checked="menuPesq.Relacionado">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg"  ng-model="menuPesq.selected" value="{{menuPesq.Id}}" ng-checked="menuPesq.Relacionado" disabled="disabled">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="menuPesq.selected" value="{{menuPesq.Id}}" ng-checked="menuPesq.Relacionado" disabled="disabled">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="menuPesq.selected" value="{{menuPesq.Id}}" ng-checked="menuPesq.Relacionado" disabled="disabled">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="menuPesq.selected" value="{{menuPesq.Id}}" ng-checked="menuPesq.Relacionado" disabled="disabled">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="editarPermissao();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+
+                <!--Fim Botoes-->
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,100 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Minha Conta
+        </h1>
+    </div>
+    <form class="form-group" role="form" novalidate angular-validator name="novoUsuario">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <span class="lbl"> Nome</span>
+                    <input type="text" class="form-control" ng-model="novoUsuario.UsuarioNome" id="txtUsuNome"
+                           name="txtUsuNome" placeholder="Nome"
+                           validate-on="blur" required required-message="'Nome é de preenchimento obrigatório.'" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <span class="lbl"> E-mail</span>
+                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                           ng-model="novoUsuario.UsuarioEmail" required required-message="'Email é de preenchimento obrigatório.'" />
+
+                </div>
+            </div>
+        </div>
+
+        <h4 style="margin-top: 20px;">Telefone</h4>
+        <hr style="padding-top: 0; margin-top: 0;" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> DDD</span>
+                            <input type="text" class="form-control" ng-model="novoUsuario.TelefoneUsuario.DddCel" id="txtDDDCel" mask="XX" maxlength="2"
+                                   name="txtDDDCel" placeholder="DDD" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Celular</span>
+                            <input type="text" class="form-control" ng-model="novoUsuario.TelefoneUsuario.Celular" id="txtNumeroCel" mask="XXXXXXXXX" maxlength="9"
+                                   name="txtNumeroCel" placeholder="Celular" validate-on="blur" required required-message="'Celular é de preenchimento obrigatório. '" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> DDD</span>
+                            <input type="text" class="form-control" ng-model="novoUsuario.TelefoneUsuario.DddTelComl" id="txtDDDTel" mask="XX" maxlength="2"
+                                   name="txtDDDTel" placeholder="DDD" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Telefone</span>
+                            <input type="text" class="form-control" ng-model="novoUsuario.TelefoneUsuario.TelefoneComl" id="txtNumeroTel" mask="XXXXXXXX" maxlength="8"
+                                   name="txtNumeroTel" placeholder="Telefone" validate-on="blur" required required-message="'Telefone é de preenchimento obrigatório. '" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <span class="lbl"> Contato</span>
+                    <input type="text" class="form-control" ng-model="novoUsuario.TelefoneUsuario.Contato" id="txtContato"
+                           name="txtContato" placeholder="Contato" validate-on="blur" required required-message="'Contato é de preenchimento obrigatório.'" />
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <div class="row">
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success btn-sm" ng-click="atualizarModelUsuario()">
+                    <i class="ace-icon fa fa-check"></i>
+                    Salvar
+                </button>
+            </div>
+
+            <div class="col-md-11">
+                <button type="submit" class="btn btn-danger btn-sm pull-right" ng-click="cancelarAssinatura()">
+                    <i class="ace-icon fa fa-remove"></i>
+                    Cancelar Conta
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,274 @@
+﻿<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisarM" ng-class="tabs.tabPesquisarM.tabAtivar" ng-show="tabs.tabPesquisarM.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisarM" target="_self" ng-click="habilitaDesabilitaAbaPesquisaM();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar Membro
+            </a>
+        </li>
+
+
+        <li id="tabPesquisarMPF" ng-class="tabs.tabPesquisarMPF.tabAtivar" ng-show="tabs.tabPesquisarMPF.tabhabilitar">
+            <a data-toggle="tab" href="#tabPesquisarMPF" target="_self" ng-click="habilitaDesabilitaAbaPesquisaMembroPf();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar Membro PF
+            </a>
+        </li>
+
+
+        <li id="tabPesquisarF" ng-class="tabs.tabPesquisarF.tabAtivar" ng-show="tabs.tabPesquisarF.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisarF" target="_self" ng-click="habilitaDesabilitaAbaPesquisaF();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+
+                Pesquisar Fornecedor
+            </a>
+        </li>
+
+
+    </ul>
+
+    <div class="tab-content">
+        <!--Tab Pesquisar membro-->
+        <div id="tabContPesquisarM" ng-class="tabs.tabPesquisarM.contentAtivar" ng-show="tabs.tabPesquisarM.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Membro</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroMembros" placeholder="Pesquisar Nome Fantasia, CNPJ ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarMembro();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-hover " id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+                                    <th>Razão Social</th>
+                                    <th>Comprador</th>
+                                    <th>Email</th>
+                                    <th>CNPJ</th>
+                                    <th>Completo</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            <tr ng-show="Membros.length == 0">
+                                <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                                    <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                                    Nenhum Membro Encontrado.
+                                </td>
+                            </tr>
+                            <tbody>
+                                <tr class="ng-trans ng-trans-scale-up" ng-repeat="membroPesq in Membros | filter:filtroMembros | orderBy:'-Completo'">
+                                    <td>{{membroPesq.RazaoSocial}}</td>
+                                    <td>{{membroPesq.Comprador}}</td>
+                                    <td>{{membroPesq.Email}}</td>
+                                    <td>{{membroPesq.Cnpj}}</td>
+                                    <td>{{membroPesq.Completo}}</td>
+                                    <td>
+                                        <span ng-class="membroPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{membroPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-success" tooltip="Enviar email para membro" tooltip-placement="left" ng-disabled="membroPesq.Completo == 'Nao'" ng-click="enviarEmailMembro(membroPesq)">
+                                                    <i class="ace-icon fa fa-paper-plane bigger-110"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarMembro(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--Tab Pesquisar Fronecedor-->
+        <div id="tabContPesquisarF" ng-class="tabs.tabPesquisarF.contentAtivar" ng-show="tabs.tabPesquisarF.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Fornecedor</h4>
+
+                    <hr />
+
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroFornecedor" placeholder="Pesquisar Nome Fantasia, CNPJ ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarFornecedor();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaFornecedor">
+                            <thead>
+                                <tr>
+                                    <th>Razão Social</th>
+                                    <th>Responsável</th>
+                                    <th>Email</th>
+                                    <th>CNPJ</th>
+                                    <th>Completo</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            <tr ng-show="Fornecedores.length == 0">
+                                <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                                    <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                                    Nenhum Fornecedor Encontrado.
+                                </td>
+                            </tr>
+                            <tbody>
+                                <tr ng-repeat="fornecedorPesq in Fornecedores | filter:filtroFornecedor | orderBy:'-Completo'">
+                                    <td>{{fornecedorPesq.RazaoSocial}}</td>
+                                    <td>{{fornecedorPesq.Responsavel}}</td>
+                                    <td>{{fornecedorPesq.Email}}</td>
+                                    <td>{{fornecedorPesq.Cnpj}}</td>
+                                    <td>
+                                        {{fornecedorPesq.Completo}}
+                                    </td>
+                                    <td>
+                                        <span ng-class="fornecedorPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{fornecedorPesq.DescAtivo}}</span>
+                                    </td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-success" tooltip="Enviar email para fornecedor" tooltip-placement="left" ng-disabled="fornecedorPesq.Completo == 'Não'" ng-click="enviarEmailFornecedor(fornecedorPesq)">
+                                                    <i class="ace-icon fa fa-paper-plane bigger-110"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{pagina}}" pages-count="{{paginasContador}}" total-count="{{totalContador}}" search-func="pesquisarFornecedor(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!--Tab Pesquisar membro pf-->
+        <div id="tabContPesquisarM" ng-class="tabs.tabPesquisarMPF.contentAtivar" ng-show="tabs.tabPesquisarMPF.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Membro</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroMembrosPF" placeholder="Pesquisar Nome , cpf ..." />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarMembroPf();">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+
+                        <table class="table table-bordered table-hover " id="gvPesquisaMembro">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>                                  
+                                    <th>Email</th>
+                                    <th>CPF</th>
+                                    <th>Completo</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+                            <tr ng-show="MembrosPf.length == 0">
+                                <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                                    <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                                    Nenhum Membro Encontrado.
+                                </td>
+                            </tr>
+                            <tbody>
+                                <tr class="ng-trans ng-trans-scale-up" ng-repeat="membroPesq in MembrosPf | filter:filtroMembrosPF | orderBy:'-Completo'">
+                                    <td>{{membroPesq.Nome}}</td>
+                             
+                                    <td>{{membroPesq.Email}}</td>
+                                    <td>{{membroPesq.Cpf}}</td>
+                                    <td>{{membroPesq.Completo}}</td>
+                                    <td>
+                                        <span ng-class="membroPesq.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{membroPesq.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-success" tooltip="Enviar email para membro" tooltip-placement="left" ng-disabled="membroPesq.Completo == 'Nao'" ng-click="enviarEmailMembro(membroPesq)">
+                                                    <i class="ace-icon fa fa-paper-plane bigger-110"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarMembro(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

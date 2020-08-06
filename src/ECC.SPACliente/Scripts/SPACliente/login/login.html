@@ -1,0 +1,180 @@
+﻿<div class="login-layout">
+    <div   class="login-container" style="padding-top: 8%;">
+         
+
+        <div class="position-relative">
+            <div  id="login-box" class="login-box visible widget-box no-border" ng-show="!habTrocaSenha">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header red lighter bigger">
+                            <i class="fa fa-lock"></i>
+                            Entre com E-mail e Senha
+                        </h4>
+
+                        <div class="space-6"></div>
+
+                        <form   class="form-signin" role="form" novalidate angular-validator name="userLoginForm" angular-validator-submit="login()">
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+
+                                        <input type="email" id="txtEmail" name="txtEmail" class="form-control" ng-model="usuario.UsuarioEmail" placeholder="Email"
+                                               validate-on="blur" required required-message="'Email obrigatório'" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+
+                                        <i class="ace-icon fa fa-user"></i>
+
+                                    </span>
+                                </label>
+                                <br />
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+
+                                        <input type="password" id="txtSenha" name="txtSenha" class="form-control" ng-model="usuario.Senha" placeholder="Senha"
+                                               validate-on="blur" required required-message="'Senha obrigatório'">
+                                        <i class="ace-icon fa fa-lock"></i>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+                                <br />
+                                <div class="clearfix">
+                                    <label class="inline">
+                                        <input type="checkbox" class="ace input-lg" ng-model="usuario.LembraMe" />
+                                        <span class="lbl"> Ficar Conectado</span>
+                                    </label>
+
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+                                        <i class="ace-icon fa fa-key"></i>
+                                        <span class="bigger-110">Entrar</span>
+                                    </button>
+                                </div>
+
+                                <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+
+                        <div class="space-6"></div>
+
+                    </div><!-- /.widget-main -->
+
+                    <div class="toolbar clearfix">
+                        <div>
+                            <a href="javascript:void(0)" data-target="#forgot-box" class="forgot-password-link">
+                                <i class="ace-icon fa fa-arrow-left"></i>
+                                Esqueci a senha
+                            </a>
+                        </div>
+
+                    </div>
+                </div><!-- /.widget-body -->
+            </div><!-- /.login-box -->
+            
+            <div id="forgot-box" class="forgot-box widget-box no-border" ng-show="!habTrocaSenha">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header red lighter bigger">
+                            <i class="ace-icon fa fa-key"></i>
+                            Recuperar Senha
+                        </h4>
+
+                        <div class="space-6"></div>
+                        <p>
+                            Digite seu e-mail para receber instruções
+                        </p>
+
+                        <form class="form-signin" role="form" novalidate angular-validator name="userSenhaFormEsqueceu" angular-validator-submit="enviarEmail()">
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="email" id="txtEmailEsqueceu" name="txtEmail" class="form-control" ng-model="usuario.UsuarioEmail" placeholder="Email"
+                                               validate-on="blur" required required-message="'Email obrigatório'" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+
+                                        <i class="ace-icon fa fa-envelope"></i>
+                                    </span>
+                                </label>
+
+                                <div class="clearfix">
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-danger">
+                                        <i class="ace-icon fa fa-lightbulb-o"></i>
+                                        <span class="bigger-110">Enviar</span>
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div><!-- /.widget-main -->
+
+                    <div class="toolbar center">
+                        <a href="javascript:void(0)" data-target="#login-box" class="back-to-login-link">
+                            Voltar para Login
+                            <i class="ace-icon fa fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div><!-- /.widget-body -->
+            </div><!-- /.forgot-box -->
+
+
+
+            <div id="trocaSenha-box" class="forgot-box visible widget-box no-border" ng-show="habTrocaSenha">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header blue lighter bigger">
+                            <i class="ace-icon fa fa-key"></i>
+                            Trocar Senha
+                        </h4>
+
+                        <div class="space-6"></div>
+                        <p>
+                            Para seu primeiro Acesso, é necessário alterar sua senha.
+                        </p>
+
+                        <form class="form-signin" role="form" novalidate angular-validator name="userAlterarSenhaForm" angular-validator-submit="alterarSenha()">
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+
+                                            <input type="password" id="txtSenha1" name="txtSenha1" class="form-control" ng-model="novaSenha1" placeholder="Senha"
+                                                   validate-on="blur" required required-message="'Senha obrigatório'" ng-disabled="desabilitaAlterar" maxlength="12">
+                                            <i class="ace-icon fa fa-lock"></i>
+                                        </span>
+                                    </label>
+
+                                    <label class="block clearfix">
+                                        <span class="block input-icon input-icon-right">
+
+                                            <input type="password" id="txtSenha2" name="txtSenha2" class="form-control" ng-model="novaSenha2" placeholder="Corfirmar Senha"
+                                                   validate-on="blur" required required-message="'Senha obrigatório'" ng-disabled="desabilitaAlterar" maxlength="12">
+                                            <i class="ace-icon fa fa-lock"></i>
+                                        </span>
+                                    </label>
+
+                                    <div class="space"></div>
+
+                                    <div class="clearfix">
+
+                                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-disabled="desabilitaAlterar">
+                                            <i class="ace-icon fa fa-key"></i>
+                                            <span class="bigger-110">Alterar</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+
+                    </div><!-- /.widget-main -->
+
+
+                </div><!-- /.widget-body -->
+            </div><!-- /.trocaSenha-box -->
+
+
+        </div><!-- /.widget-body -->
+    </div><!-- /.signup-box -->
+    <!-- inline scripts related to this page -->
+</div>
+<style>
+    .footer {
+        padding-top: 0 !important;
+    }
+</style>

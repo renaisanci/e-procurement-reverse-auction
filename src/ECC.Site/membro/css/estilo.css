@@ -1,0 +1,501 @@
+﻿/* ============ RESET ===========*/
+
+* {margin: 0;  padding: 0; font-size: 100%; border:none; outline:none; font-weight:300; box-sizing:border-box;}
+body {background: #eee; }
+a {text-decoration:none; color:#e4391e;}
+ul {list-style:none;}
+img {max-width:100%;}
+
+/* ============ CONTAINER ===========*/
+.container {width:100%; float:left; text-align: center; font-family: 'RobotoDraft', 'Roboto', sans-serif;}
+
+/*=========== BG COLORS ==========*/
+
+.bg-black {background-color: #eee; }
+.bg-white {background-color: #fff;}
+.bg-gradient {background: linear-gradient(to right,#e4391e,#e4391e);}
+ .bg-footer {background: url("http://www.economizaja.com.br/img/gradient-3.png") center top no-repeat #f2f2f2;}
+
+
+/* ============ topo ===========*/
+.topo {width:100%; float: left; padding:0px; }
+
+.logo {width:60px; height:60px; margin:0; margin-left: 33px;   float: left; background: url(../img/economizaja_mobile.png) center center/60px no-repeat; font-size: 0;}
+
+
+/* conteudo */
+.conteudo {width: 100%;}
+
+/* RODAPÉ */
+.rodape  {padding: 15px 0; }
+.rodape.active  {position: absolute; bottom: 0; padding: 15px 0; }
+.social-icons a {font-size: 1.5em; color:#666; margin-right: 3%;}
+.social-icons a:last-child {margin-right: 0;}
+.social-icons a:hover {color: rgba(174,168,168,0.7);}
+.copyright {color:#666; margin-top:5%;}
+
+
+
+
+.conteudo.active .card:first-child {
+  display: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.conteudo.active .card:nth-child(2) {
+  display: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.conteudo.active .card.alt {
+  background: #e4391e;
+  top:85px;
+  right: 0;
+  width: 100%;
+  min-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  padding: 40px 0 40px;
+  overflow: hidden;
+
+
+}
+
+
+.conteudo.active .card.alt .toggle {
+  background: #e4391e;
+  position: absolute;
+  top: 40px;
+  box-shadow: none;
+  -webkit-transform: scale(10);
+  transform: scale(10);
+  -webkit-transition: -webkit-transform .3s ease;
+  transition: -webkit-transform .3s ease;
+  transition: transform .3s ease;
+  transition: transform .3s ease, -webkit-transform .3s ease;
+}
+
+
+.conteudo.active .card.alt .title,
+.conteudo.active .card.alt .input-conteudo,
+.conteudo.active .card.alt .button-conteudo {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.conteudo.active .card.alt .title {
+  margin-right: 40px;
+  -webkit-transition-delay: .3s;
+          transition-delay: .3s;
+}
+.conteudo.active .card.alt .input-conteudo {
+  -webkit-transition-delay: .4s;
+          transition-delay: .4s;
+}
+.conteudo.active .card.alt .input-conteudo:nth-child(2) {
+  -webkit-transition-delay: .5s;
+          transition-delay: .5s;
+}
+.conteudo.active .card.alt .input-conteudo:nth-child(3) {
+  -webkit-transition-delay: .6s;
+          transition-delay: .6s;
+}
+.conteudo.active .card.alt .button-conteudo {
+  -webkit-transition-delay: .7s;
+          transition-delay: .7s;
+}
+
+/* Card */
+.card {
+  position: relative;
+  background: #ffffff;
+  padding: 0px 0 30px 0;
+  box-sizing: border-box;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  /* Title */
+  /* Inputs */
+  /* Button */
+  /* Footer */
+  /* Alt Card */
+}
+
+
+.card:first-child {
+}
+
+.card:last-child {
+    background: #eee;
+    height: 0px;
+    border-radius:0 0 10px 10px ;
+/*margin: 1px 20px 30px 20px;*/
+    padding: 0;
+}
+.title {
+  position: relative;
+  z-index: 1;
+  border-left: 5px solid #e4391e;
+  margin: 0 0 15px;
+  padding: 10px 0 10px 10px;
+  color: #e4391e;
+  font-size: 32px;
+  font-weight: 600;
+  /* text-transform: uppercase; */
+}
+
+.title i {margin: 0  20px 0 0px;}
+
+.card .input-conteudo {
+  position: relative;
+  margin: 0 30px 20px;
+}
+.card .input-conteudo input {
+  outline: none;
+  z-index: 1;
+  position: relative;
+  background: none;
+  width: 100%;
+  height: 60px;
+  border: 0;
+  color: #212121;
+  font-size:18px;
+  font-weight: 400;
+}
+
+
+
+.card .input-conteudo input:focus ~ label {
+  color: #9d9d9d;
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+          transform: translate(-12%, -50%) scale(0.75);
+}
+.card .input-conteudo input:focus ~ .bar:before, .card .input-conteudo input:focus ~ .bar:after {
+  width: 50%;
+}
+.card .input-conteudo input:valid ~ label {
+  color: #9d9d9d;
+  -webkit-transform: translate(-12%, -50%) scale(0.75);
+          transform: translate(-12%, -50%) scale(0.75);
+}
+.card .input-conteudo label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #757575;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 50px;
+  -webkit-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+.card .input-conteudo .bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #757575;
+  width: 100%;
+  height: 1px;
+}
+.card .input-conteudo .bar:before, .card .input-conteudo .bar:after {
+  content: '';
+  position: absolute;
+  background: #e4391e;
+  width: 0;
+  height: 2px;
+  -webkit-transition: .2s ease;
+  transition: .2s ease;
+}
+.card .input-conteudo .bar:before {
+  left: 50%;
+}
+.card .input-conteudo .bar:after {
+  right: 50%;
+}
+.card .button-conteudo {
+  margin: 0 60px;
+  text-align: center;
+}
+.card .button-conteudo button {
+  outline: 0;
+  margin: 10px 0 0 0;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  background: #e4391e;
+  width: 240px;
+  border: 2px solid #e4391e;
+  padding: 20px 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  overflow: hidden;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-conteudo button span {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-conteudo button:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  background: #e4391e;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin: -15px 0 0 -15px;
+  opacity: 0;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .button-conteudo button:hover, .card .button-conteudo button:active, .card .button-conteudo button:focus {
+  border-color: #e4391e; background:#fff;
+}
+.card .button-conteudo button:hover span, .card .button-conteudo button:active span, .card .button-conteudo button:focus span {
+  color: #e4391e;
+}
+.card .button-conteudo button:active span, .card .button-conteudo button:focus span {
+  color: #fff;
+}
+.card .button-conteudo button:active:before, .card .button-conteudo button:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(10);
+  transform: scale(10);
+}
+.card .esqueci {
+  margin: 15px 0 0;
+  color: #d3d3d3;
+  font-size: 24px;
+  font-weight: 300;
+  text-align: center;
+}
+.card .footer a {
+  color: #e4391e;
+  text-decoration: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+.card .footer a:hover {
+  color: #e4391e;
+}
+.card.alt {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+  width: 100px;
+  height: 100px;
+  background: none;
+  border-radius: 100%;
+  box-shadow: none;
+  padding: 0;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  /* Toggle */
+  /* Title */
+  /* Input */
+  /* Button */
+}
+
+
+/*.card.alt .toggle:before {
+  content: '\f040';
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+*/
+
+.card.alt .title,
+.card.alt .input-conteudo,
+.card.alt .button-conteudo {
+  left: 100px;
+  opacity: 0;
+  visibility: hidden;
+}
+.card.alt .title {
+  position: relative;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.card.alt .title .close {
+  cursor: pointer;
+  position: absolute;
+  top: -5px;
+  right:-25px;
+  display: inline;
+  color: #ffffff;
+  font-size: 58px;
+  font-weight: 400;
+}
+.card.alt .title .close:before {
+  content: '\00d7';
+}
+.card.alt .input-conteudo input {
+  color: #ffffff;
+}
+.card.alt .input-conteudo input:focus ~ label {
+  color: #ffffff;
+}
+.card.alt .input-conteudo input:focus ~ .bar:before, .card.alt .input-conteudo input:focus ~ .bar:after {
+  background: #ffffff;
+}
+.card.alt .input-conteudo input:valid ~ label {
+  color: #ffffff;
+}
+.card.alt .input-conteudo label {
+  color: rgba(255, 255, 255, 0.8);
+}
+.card.alt .input-conteudo .bar {
+  background: rgba(255, 255, 255, 0.8);
+}
+.card.alt .button-conteudo button {
+  width: 100%;
+  background: #ffffff;
+  border-color: #ffffff;
+}
+.card.alt .button-conteudo button span {
+  color: #e4391e;
+}
+.card.alt .button-conteudo button:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+.card.alt .button-conteudo button:active:before, .card.alt .button-conteudo button:focus:before {
+  display: none;
+}
+
+
+/* ========== MOBILE FIRST ==========*/
+/* SMALL DEVICES - SMARTPHONES */
+@media screen and (min-width: 480px) {
+.logo {width: 214px; background: url(../img/economizaja.png) center center/214px no-repeat;}
+.btn {font-size: 2em;}
+.container {padding:15px;}
+.conteudo {padding: 20px 0;}
+.title { padding: 30px 0 10px 50px;}
+
+.card .input-conteudo input {font-size:24px;}
+
+.conteudo.active .card.alt {top:30px;}
+
+.card.alt .title .close {
+
+    top: 15px;
+    font-size: 70px;
+}
+
+.card .input-conteudo {
+  position: relative;
+  margin: 0 60px 20px;
+}
+
+.toggle {
+  position: relative;
+  background: url("../img/logo.png") no-repeat center #e4391e;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  color: #ffffff;
+  font-size: 58px;
+  line-height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+
+.card.alt {right: -70px;}
+
+.card {
+  padding: 30px 0!important;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+}
+
+.card:first-child {
+    background: #fff;
+    height:25px;
+    border-radius: 10px 10px 0 0;
+    margin: 0px 20px 0 20px;
+    padding:0!important;
+}
+
+
+
+
+.copyright {margin: 10px 0 0 0;}
+
+
+}
+
+/* SMALL DEVICES - TABLETS*/
+@media screen and (min-width: 768px) {
+.conteudo {width: 49%; margin-right: 2%;}
+.conteudo:nth-child(2){margin-right: 0;}
+.newsletter h2 {font-size: 2em;}
+.newsletter h3 {font-size: 1.5em;}
+.newsletter input {width: 70%; padding: 2%; float: left; margin-right: 1%;}
+.newsletter button {width: 29%; padding: 2%; float: right; margin-top: 0;}
+}
+
+/* MEDIUM DEVICES - TABLETS & DESKTOPS*/
+@media screen and (min-width:1024px) {
+
+.conteudo {width:50%; margin: 0 auto; position:relative; }
+}
+
+
+
+/* MEDIUM DEVICES - TABLETS & DESKTOPS*/
+@media screen and (min-width: 960px) {
+
+.conteudo {width:50%; padding: 40px 0; margin: 0 auto; position:relative; }
+.title {padding: 30px 0 10px 0px;}
+.conteudo.active .card.alt .title {
+    -webkit-transition-delay: .3s;
+    transition-delay: .3s;
+}
+
+.conteudo.active .card.alt {
+    top: 120px;
+
+}
+
+.card.alt .title .close {
+    top: 10px;
+    margin-left: 5px;
+    font-size: 70px;}
+}
+
+/* LARGE DEVICES - WIDE SCREENS*/
+@media screen and (min-width: 1360px) {
+.conteudo {width:34%; margin-top:30px; margin-bottom:30px;}
+.title {font-size: 40px; padding: 30px 10px;}
+.card.alt .title .close {top: 15px; margin-left: 5px;}
+.conteudo.active .card.alt {
+    top:50px;
+
+}
+
+}
+/* LARGE DEVICES - WIDE SCREENS*/
+@media screen and (min-width: 1920px) {
+ .conteudo {margin-top: 160px; padding: 50px 0;}
+ .conteudo.active .card.alt {top: 120px;}
+

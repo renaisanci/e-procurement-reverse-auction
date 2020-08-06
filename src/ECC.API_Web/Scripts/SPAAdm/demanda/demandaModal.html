@@ -1,0 +1,91 @@
+﻿
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        MANUTENÇÃO DE DEMANDA
+    </div>
+</div>
+<form class="form-group" role="form" novalidate angular-validator name="addDemanda" angular-validator-submit="inserirDemanda()">
+    <div class="panel-body">
+        <h4>Dados da Demanda</h4>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <select id="ddlCategoriaModal" ng-change="loadSubCategoriaModal(novoMembroDemanda.CategoriaId)" ng-model="novoMembroDemanda.CategoriaId" class="form-control black" ng-options="option.Id as option.DescCategoria for option in categoriasModal" required></select>
+                    <input type="hidden" name="categoriaModalId" ng-value="novoMembroDemanda.CategoriaId" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div angucomplete-alt
+                         id="txtSubCategoriaModal"
+                         placeholder="Sub Categoria ..."
+                         maxlength="50"
+                         pause="100"
+                         search-fields="DescSubCategoria"
+                         title-field="DescSubCategoria"
+                         selected-object="subCategoriaModalSelecionada"
+                         initial-value="subCategoriaModalInitial"
+                         local-data="subcategoriasModal"
+                         minlength="1"
+                         input-class="form-control form-control-small"
+                         text-no-results="Sub Categoria não encontrada"
+                         text-searching="Procurando..."
+                         match-class="highlight"
+                         field-required="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="number" class="form-control" id="txtQuantidade" ng-model="novoMembroDemanda.Quantidade"
+                           name="txtQuantidade" placeholder="Quantidade ..." mask="XXXXXXXX" maxlength="8" min="0" validate-on="blur" required required-message="'Campo obrigatório.'" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <select id="ddlUnidadeMedida" ng-model="novoMembroDemanda.UnidadeMedidaId" class="form-control black" ng-options="option.Id as option.DescUnidadeMedida for option in unidadesMedidaModal" required></select>
+                    <input type="hidden" name="unidadeMedidaModalId" ng-value="novoMembroDemanda.UnidadeMedidaId" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="text" class="form-control" id="txtObservacao" name="txtObservacao" placeholder="Observação ..."
+                           ng-model="novoMembroDemanda.Observacao" maxlength="300"/>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-horizontal">
+                    <select id="ddlPeriodicidade" ng-model="novoMembroDemanda.PeriodicidadeId" class="form-control black" ng-options="option.Id as option.DescPeriodicidade for option in periodicidadesModal" required></select>
+                    <input type="hidden" name="periodicidadeModalId" ng-value="novoMembroDemanda.PeriodicidadeId" />
+                </div>
+            </div>
+
+            <div class="col-md-1" style="top: 5px;">
+                <label>
+                    <input type="checkbox" name="ckbAtivo" class="ace input-lg" id="ckbAtivo" ng-model="novoMembroDemanda.Ativo" checked="checked">
+                    <span class="lbl"> Ativo</span>
+                </label>
+            </div>
+        </div>
+
+        <!--Fim Dados do Usuário-->
+        <!--Inicio Botoes-->
+        <hr />
+        <!--Fim Botoes-->
+
+        <button type="submit" class="btn btn-success btn-sm">
+            <i class="ace-icon fa fa-check"></i>
+            Salvar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="cancel()">
+            <i class="ace-icon fa fa-times"></i>
+            Cancel
+        </button>
+    </div>
+</form>

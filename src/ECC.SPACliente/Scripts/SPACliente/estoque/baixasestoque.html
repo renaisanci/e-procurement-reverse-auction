@@ -1,0 +1,190 @@
+﻿<div class="page-content">
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsEstoque.tabPesquisar.tabAtivar" ng-show="tabsEstoque.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+
+        <li id="tabCadEstoque" ng-class="tabsEstoque.tabCadEstoque.tabAtivar" ng-show="tabsEstoque.tabCadEstoque.tabhabilitar">
+            <a data-toggle="tab" href="#tabContEstoque" target="_self">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                Baixas Estoque
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="tabContPesquisar" ng-class="tabsEstoque.tabPesquisar.contentAtivar" ng-show="tabsEstoque.tabPesquisar.contentHabilitar">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Pesquisar Produtos do Estoque</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-horizontal">
+                                    <span class="lbl"> Endereços do Estoque:</span>
+                                    <select id="ddlEnderecoPesq" ng-model="novoItemEstoque.EnderecoId" class="form-control black" ng-options="option.Id as option.Endereco for option in enderecos" required></select>
+                                    <input type="hidden" name="novoItemEstoque.EnderecoId" ng-value="novoItemEstoque.EnderecoId" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-horizontal">
+                                    <span class="lbl"> Produto:</span>
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtroEstoque" placeholder="Pesquisar Produto" />
+                                </div>
+                            </div>
+
+                            &nbsp;
+                            <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarEstoque();">
+                                <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaEstoque">
+                            <thead>
+                                <tr>
+                                    <th>Endereço</th>
+                                    <th>Nome do produto</th>
+                                    <th>Estoque mínimo</th>
+                                    <th>Estoque máximo</th>
+                                    <th>Estoque atual</th>
+                                    <th>Estoque a receber</th>
+                                    <th>Ativo</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="pesqEstoque in Estoque | filter : filtroEstoque | orderBy:predicate:reverse">
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.DescEndereco}}</td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.DescProduto}}</td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.MinimoEstoque}}</td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.MaximoEstoque}}</td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.QtdEstoque}}<span style="float: right" ng-class="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque ? 'ace-icon fa fa-exclamation-circle bigger-120' : 'ace-icon fa fa-check bigger-120'" title="Estoque atual abaixo do Estoque mínimo"></span></td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">{{pesqEstoque.QtdEstoqueReceber}}</td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">
+                                        <span ng-class="pesqEstoque.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pesqEstoque.DescAtivo}}</span>
+                                    </td>
+                                    <td ng-style="pesqEstoque.MinimoEstoque > pesqEstoque.QtdEstoque && {'background-color':'#FDFD96'}">
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarItemEstoque(pesqEstoque);">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarEstoque(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContEstoque" ng-class="tabsEstoque.tabCadEstoque.contentAtivar" ng-show="tabsEstoque.tabCadEstoque.contentHabilitar">
+            <h4>Baixas do Estoque</h4>
+            <hr />
+                  
+            <form class="form-group" role="form" novalidate angular-validator name="novoItemEstoque" angular-validator-submit="salvarItemEstoque()">
+                <!--Inicio Dados Produto-->
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Produto</span>
+                            <input type="text" class="form-control" id="txtProduto" name="txtProduto" placeholder="Produto" ng-model="novoItemEstoque.DescProduto" disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Estoque Mínimo</span>
+                            <input type="text" class="form-control" id="txtEstoqueMinimo" name="txtEstoqueMinimo" placeholder="Estoque Mínimo"
+                                   ng-model="novoItemEstoque.MinimoEstoque" mask="XXXXXX" maxlength="6" disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Estoque Máximo</span>
+                            <input type="text" class="form-control" id="txtEstoqueMaximo" name="txtEstoqueMaximo" placeholder="Estoque Máximo"
+                                   ng-model="novoItemEstoque.MaximoEstoque" mask="XXXXXX" maxlength="6" disabled />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Estoque Atual</span>
+                            <input type="text" class="form-control" id="txtEstoqueAtual" name="txtEstoqueAtual" placeholder="Estoque Atual"
+                                   ng-model="novoItemEstoque.QtdEstoque" mask="XXXXXX" maxlength="6" required required-message="'Estoque Atual obrigatório.'" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Estoque a Receber</span>
+                            <input type="text" class="form-control" id="txtEstoqueReceber" name="txtEstoqueReceber" placeholder="Estoque a Receber"
+                                   ng-model="novoItemEstoque.QtdEstoqueReceber" mask="XXXXXX" maxlength="6" disabled />
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+        </div>
+
+
+    </div>
+</div>

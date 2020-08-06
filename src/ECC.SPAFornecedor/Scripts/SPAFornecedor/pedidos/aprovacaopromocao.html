@@ -1,0 +1,74 @@
+﻿
+<div class="page-content">
+
+    <div class="page-header">
+        <h1>
+            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            Aprovação de Promoção PJ
+        </h1>
+
+    </div>
+    <!--Pedidos Promoção-->
+    <div class="row" ng-show="Promocoes.length > 0">
+        <div class="col-md-12">
+            <br />
+            <div class="table-responsive">
+                <table class="table table-bordered" id="gvPedidosPromocao">
+                    <thead>
+                        <tr>
+                            <th>PEDIDO</th>
+                            <th>EMPRESA</th>
+                            <th>QTD. ITENS</th>
+                            <th>DATA PEDIDO</th>
+                            <th>PAGAMENTO</th>
+                            <th>HR. ENTREGA</th>
+                            <th>OBS. ENTREGA</th>
+                            <th>TOTAL</th>
+                            <th>AÇÃO</th>
+                            <th>DETALHES</th>
+                        </tr>
+                    </thead>
+                    <!-- ngRepeat: item in cotacoes -->
+                    <tbody>
+                        <tr class="accordion-toggle" ng-repeat="promocao in Promocoes | orderBy:'-DtPedido'">
+                            <td>{{promocao.PedidoId}}</td>
+                            <td>{{promocao.Membro.NomeFantasia}}</td>
+                            <td>{{promocao.Quantidade.QtdItens}}</td>
+                            <td>{{promocao.DtPedido | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{promocao.Quantidade.FormaPagamento}}</td>
+                            <td>
+                                <div ng-repeat="ped in promocao.Endereco.PeriodoEntrega" style="float: left; margin-left: 2px;">
+                                    <label class="label label-warning">
+                                        {{ped.DescPeriodoEntrega}}
+                                    </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>{{promocao.Endereco.DescHorarioEntrega}}</div>
+                            </td>
+                            <td>{{promocao.Quantidade.ValorTotalAvista | currency : "R$ "}}</td>
+                            <td style="text-align: center;">
+                                <button class="btn btn-success btn-xs" tooltip="APROVAR PROMOÇÃO" tooltip-placement="bottom" ng-click="aprovarPedidoPromocao(promocao);" style="padding-top: 0; padding-bottom: 0;">
+                                    <i class="ace-icon fa fa-check  bigger-100 icon-only"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" tooltip="CANCELAR PROMOÇÃO" tooltip-placement="bottom" ng-click="cancelarPedidoPromocao(promocao);" style="padding-top: 0; padding-bottom: 0;">
+                                    <i class="ace-icon fa fa-times  bigger-100 icon-only"></i>
+                                </button>
+                            </td>
+
+                            <td style="text-align: center;">
+                                <a href="javascript:void(0);" ng-click="openDialogDetalhesPedido(promocao);"
+                                   tooltip="DETALHES DO PEDIDO"
+                                   tooltip-placement="bottom" style="cursor: pointer;">
+
+                                    <i class="fa fa-list  fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

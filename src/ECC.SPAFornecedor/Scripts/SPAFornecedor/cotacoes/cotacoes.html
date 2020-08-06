@@ -1,0 +1,136 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-usd" aria-hidden="true"></i>
+            Minhas Cotações
+        </h1>
+
+
+
+    </div>
+    <div class="col-md-12">
+        <button class="btn btn-primary pull-right" style="margin-bottom:5px;"
+                tooltip="Clique para atualizar os preços"
+                tooltip-placement="left"
+                ng-click="loadCotacoes();">
+            <i class="fa fa-refresh  fa-2x" aria-hidden="true"></i>
+            <span class="bigger-110">  Atualizar </span>
+        </button>
+
+        <!--<a href="" ng-click="refreshPrecos()" class="pull-right"
+           tooltip="Clique para atualizar os preços"
+           tooltip-placement="left">
+            <i class="fa fa-refresh green fa-2x" aria-hidden="true"></i>
+        </a>-->
+    </div>
+    <!--<div class="row" id="divFiltro">
+
+        <div class="col-md-3">
+            <div class="form-horizontal">
+                <select id="ddlStatus" ng-model="StatusId" class="form-control black" ng-change="loadCotacoes();" ng-on ng-options="option.Id as option.DescStatus for option in StatusCotacao" required>
+                    <option value="" selected>Status...</option>
+                </select>
+                <input type="hidden" name="hdnStatusId" ng-value="StatusId" />
+            </div>
+        </div>
+    </div>-->
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+            <div class="table-responsive">
+                <!--<span class="blue lbl bigger-125"> Cotações: </span>
+                <span class="lbl bigger-110" ng-show="DtDe!='' && DtAte!='' "> {{DtDe | date: 'dd/MM/yyyy'}} - {{DtAte | date: 'dd/MM/yyyy'}}</span>
+                <span class="lbl bigger-110" ng-show="DtDe=='' && DtAte=='' "> Últimas 10 Cotações</span>-->
+                <table class="table table-bordered table-hover" id="gvCotacoes">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Cotação</th>
+                            <th>Status</th>
+                            <th>Fechamento</th>
+                            <th>Qtd. Pedidos</th>
+                            <th>Qtd. Itens</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tr ng-show="Cotacoes.length == 0">
+                        <td class="tdCenter text-center" colspan="7" style="background-color: white; color: red; padding: 20px;">
+                            <i class="fa fa-ban" aria-hidden="true" style="font-size: 20px;"></i>
+                            Nenhum Registro Encontrado.
+                        </td>
+                    </tr>
+                    <tbody ng-repeat="cotacao in Cotacoes">
+                        <tr class="accordion-toggle">
+                            <td data-toggle="collapse" data-target="#{{cotacao.CotacaoId}}">
+                                <i class="blue fa fa-eye fa-2x icon-animated-bell" aria-hidden="true" style="cursor: pointer" title="Clique para visualizar"></i>
+                            </td>
+                            <td style="font-size: 20px">{{cotacao.CotacaoId}}</td>
+                            <td style="font-size: 20px"><span class="label label-lg label-success">{{cotacao.Status}}</span></td>
+
+                            <td style="font-size: 20px">
+
+                                <i-countdown set-date="{{cotacao.DtFechamento | date: 'yyyy-MM-dd HH:mm:ss'}}" set-dateini="{{dateCotaIni | date: 'yyyy-MM-dd HH:mm:ss'}}" format-vi format-view="<label class='red lbl bigger-110'> %dDia %h:%i:%s</label>" expire-message="FIM DO PERÍODO :(" b-var="doIt('')"> </i-countdown>
+
+                            </td>
+                            <td style="font-size: 20px">{{cotacao.QtdPedidos}}</td>
+                            <td style="font-size: 20px">{{cotacao.QtdItem}}</td>
+
+                            <td>
+
+                                <a ui-sref="Cotacao({ cotacaoSelect: cotacao, cotacaoDateIni: dateCotaIni})"
+                                   tooltip="CLIQUE E DÊ SUA OFERTA"
+                                   tooltip-placement="bottom" style="cursor: pointer;">
+
+                                    <i class="red fa fa-tags fa-2x" aria-hidden="true"></i>
+                                </a>
+                                <a href="javascript:void(0);" ng-click="openCotacaoMapa(cotacao.CotacaoId);"
+                                   tooltip="VISUALIZE OS PEDIDOS DESTA COTAÇÃO NO MAPA"
+                                   tooltip-placement="bottom" style="cursor: pointer;">
+
+                                    <i class="fa fa-globe  fa-2x" aria-hidden="true"></i>
+                                </a>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="hiddenRow" style="font-size: 30px">
+                                <div class="accordian-body collapse" id="{{ cotacao.CotacaoId }}">
+                                    <ul style="margin-left: 0;" class="steps">
+                                        <li data-step="1" ng-class="status.Ordem <= cotacao.OrdemStatus ? 'active' : ''" ng-repeat="status in StatusCotacao">
+                                            <span class="step" style="font-size: 20px">
+                                                <i ng-class="status.Ordem <= cotacao.OrdemStatus ? 'fa fa-check green fa-lg' : 'fa fa-hourglass-half grey icon-animated-bell '" aria-hidden="true"> </i>
+                                            </span>
+                                            <span class="title">{{status.DescStatus}}</span>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </td>
+
+
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="text-center">
+                    <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadPedidosMembro(page)"></custom-pager>
+                </div>
+
+            </div>
+            <!--Fim Tabela Pesquisar-->
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

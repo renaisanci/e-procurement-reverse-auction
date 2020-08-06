@@ -1,0 +1,131 @@
+﻿<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button ng-click="close();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> DETALHE DO PRODUTO</h4>
+
+    </div>
+
+
+
+</div>
+
+<div class="panel-body">
+
+    <div class="row">
+        <div class="col-md-12">
+            <img ng-src="{{produtoPesq.ImagemGrande}}" class="media-object img-responsive text-center" alt="{{produtoPesq.DescProduto}}" style="height: 400px; width: 400px;margin: auto">
+
+        </div>
+    </div>
+
+    <div class="caption">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="clearfix">
+                    <div class="pull-right bigger-110">
+                        <div class="media-bottom">
+                            <span component-rating="{{produtoPesq.Ranking }}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <input type="number" maxlength="4" ng-model="QtdProduto" min='1' name="txtQtdProd" style="height: 30px; width: 60px; float: left; " placeholder="Qtd.." value="{{QtdProduto}}">
+
+                <button type="button" class="btn btn-success btn-mini pull-left" style="height: 30px;" name="btninserir" id="btnInserir" data-toggle="tooltip"
+                        ng-click="addQuantidadePromocao(produtoPesq.Id, produtoPesq.DescProduto, produtoPesq.PrecoPromocao, QtdProduto, this, produtoPesq.Imagem, produtoPesq.ObsFrete)"
+                        tooltip="Informe a Quantidade e clique aqui para colocar na cesta"
+                        tooltip-placement="right">
+                    Add
+                    <i class="ace-icon fa fa-cart-plus fa-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <h5 class="search-title" style="height: 30px;">
+            <a href="javascript:void(0);" class="blue">{{produtoPesq.DescProduto}}</a>
+        </h5>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Especificações do produto:</h5>
+            </div>
+            <div class="col-md-6">
+                <p ng-bind-html="renderHtml(produtoPesq.Especificacao)"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Unidade de Medida:
+            </div>
+            <div class="col-md-6">
+                {{produtoPesq.UnidadeMedida}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Marca:
+            </div>
+            <div class="col-md-6">
+                {{produtoPesq.Marca}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Categoria:
+            </div>
+            <div class="col-md-6">
+                {{produtoPesq.DescCategoria}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Pagamento em:
+            </div>
+            <div class="col-md-6">
+                <div ng-repeat="pag in produtoPesq.PromocaoFormaPagto" style="float: left;">
+                    <label class="label label-warning">
+                        {{pag.DescFormaPagamento}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Frete Grátis:
+            </div>
+            <div class="col-md-6">
+                {{produtoPesq.FreteGratis == true ? 'Sim' : 'Não'}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Observação Frete:
+            </div>
+            <div class="col-md-6">
+                {{produtoPesq.ObsFrete}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Prazo de Entrega:
+            </div>
+            <div class="col-md-6">
+                <div ng-show="produtoPesq.Fornecedor.PrazoEntrega > 0">
+                    {{produtoPesq.Fornecedor.PrazoEntrega}} {{produtoPesq.Fornecedor.PrazoEntrega > 1 ? '(Dias)' : '(Dia)' }}
+                </div>
+                <div style="float: left;margin-right:3px;" ng-show="produtoPesq.Fornecedor.FornecedorPrazoSemanal > 0"
+                     ng-repeat="prazo in produtoPesq.Fornecedor.FornecedorPrazoSemanal | orderBy:'DiaSemana'">
+                    <label class="label label-danger">
+                        {{produtoPesq.DescSemana}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>

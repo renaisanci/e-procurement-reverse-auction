@@ -1,0 +1,318 @@
+﻿<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Endereços de Entregas
+        </h1>
+    </div>
+
+
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsProduto.tabPesquisar.tabAtivar" ng-show="tabsProduto.tabPesquisar.tabhabilitar" ng-click="habilitaDesabilitaAbaPesquisa();">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadProduto" ng-class="tabsProduto.tabCadProduto.tabAtivar" ng-show="tabsProduto.tabCadProduto.tabhabilitar" ng-click="habilitaDesabilitaAbaCad();">
+            <a data-toggle="tab" href="#tabContProduto" target="_self">
+                <i class="red ace-icon fa fa-map-marker  bigger-120"></i>
+                Endereço
+            </a>
+        </li>
+
+
+
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabContPesquisar" ng-class="tabsProduto.tabPesquisar.contentAtivar" ng-show="tabsProduto.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Endereço</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroEndereco" placeholder="Pesquisar Endereço" />
+                        &nbsp;
+
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarEndereco()">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="" style="margin-top: 30px">
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" ng-repeat="EnderecoPadrao in Enderecos | filter:filtroEndereco">
+                    <div class="widget-box">
+
+                        <div class="widget-header widget-header-flat widget-header-small">
+
+                            <div class="inline pos-rel">
+                                <label class="pos-rel">
+                                    <input type="radio" ng-disabled="!EnderecoPadrao.Ativo"
+                                           ng-checked="EnderecoPadrao.EnderecoPadrao" class="ace input-md" name="nameEndP"
+                                           ng-click="enderecoPadraoMembro(EnderecoPadrao);">
+                                    <span class="lbl">Deixar este como endereço padrão</span>
+                                </label>
+                            </div>
+
+
+                            <div class="inline pos-rel pull-right">
+                                <button class="btn btn-success btn-sm" ng-click="levaParaAbaAlteraEndereco(EnderecoPadrao)"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 15px"></i></button>
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed shortMargin">
+                                    <tr>
+                                        <td class="shortPadding" style="width: 20%;"><b>Ativo:</b></td>
+                                        <td class="shortPadding" colspan="2">{{EnderecoPadrao.Ativo ? 'Sim' : 'Não'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Destinatário:</b></td>
+                                        <td class="shortPadding"><i>{{EnderecoPadrao.Logradouro}} {{EnderecoPadrao.Endereco}} , {{EnderecoPadrao.NumEndereco}} </i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Complemento:</b></td>
+                                        <td class="shortPadding"><i>{{EnderecoPadrao.Complemento}}</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Bairro:</b></td>
+                                        <td class="shortPadding"><i>{{EnderecoPadrao.Bairro}}</i></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="shortPadding"><b>Cidade:</b></td>
+                                        <td class="shortPadding"><i>{{EnderecoPadrao.Cidade }} </i></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Cep:</b></td>
+                                        <td class="shortPadding"><i>{{EnderecoPadrao.Cep }}</i></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Referência: </b></td>
+                                        <td class="shortPadding"><i> {{EnderecoPadrao.Referencia }}</i></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Horário Entrega:</b></td>
+                                        <td class="shortPadding">
+                                            <div ng-repeat="endereco in EnderecoPadrao.PeriodoEntrega">
+                                                <div>
+                                                    <i>{{endereco.DescPeriodoEntrega}}</i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="shortPadding"><b>Obs. Entrega:</b></td>
+                                        <td class="shortPadding"><i> {{EnderecoPadrao.DescHorarioEntrega}}</i></td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="panel-footer clearfix">
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="tabContProduto" ng-class="tabsProduto.tabCadProduto.contentAtivar" ng-show="tabsProduto.tabCadProduto.contentHabilitar">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Novo Endereço</h4>
+                    <hr />
+
+                </div>
+            </div>
+           
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> CEP</span>
+                            <input type="text" class="form-control" id="txtCep" name="txtcep" placeholder="CEP"
+                                   ng-model="novoEndereco.Cep" maxlength="9" mask="XXXXX-XXX"
+                                   ng-change="loadEnderecoCep(novoEndereco.Cep);"
+                                   ng-disabled="novoEndereco.Id > 0" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Logradouro</span>
+                            <select id="ddlLogradouro" ng-model="novoEndereco.LogradouroId" class="form-control black"
+                                    ng-options="option.Id as option.DescLogradouro for option in logradouros"
+                                    ng-disabled="novoEndereco.Id > 0"></select>
+                            <input type="hidden" name="LogradouroId" ng-value="novoEndereco.LogradouroId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Endereço</span>
+                            <input type="text" class="form-control" id="txtEndereco" name="txtEndereco" maxlength="100" placeholder="Endereço"
+                                   ng-model="novoEndereco.Endereco"
+                                   ng-disabled="novoEndereco.Id > 0" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Número Endereço</span>
+                            <input type="text" class="form-control" id="txtNumEndereco" name="txtNumEndereco" placeholder="Número"
+                                   ng-model="novoEndereco.NumEndereco" mask="XXXXXXXXX" maxlength="9"
+                                   ng-disabled="novoEndereco.Id > 0" />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Estado</span>
+                            <select id="ddlEstado" ng-change="loadCidadeChange(novoEndereco.EstadoId)"
+                                    ng-model="novoEndereco.EstadoId" class="form-control black"
+                                    ng-options="option.Id as option.DescEstado for option in estados"
+                                    ng-disabled="novoEndereco.Id > 0"></select>
+
+
+                            <input type="hidden" name="EstadoId" ng-value="novoEndereco.EstadoId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Cidade</span>
+                            <select id="ddlCidade" ng-change="loadBairroChange(novoEndereco.CidadeId)"
+                                    ng-model="novoEndereco.CidadeId"
+                                    ng-disabled="novoEndereco.Id > 0" class="form-control black"
+                                    ng-options="option.Id as option.DescCidade for option in cidades">
+                                <option value="">Selecione...</option>
+                            </select>
+                            <input type="hidden" name="CidadeId" ng-value="novoEndereco.CidadeId" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Bairro</span>
+                            <select id="ddlBairro" ng-model="novoEndereco.BairroId" class="form-control black"
+                                    ng-disabled="novoEndereco.Id > 0"
+                                    ng-options="option.Id as option.DescBairro for option in bairros">
+                                <option value="">Selecione...</option>
+                            </select>
+                            <input type="hidden" name="BairroID" ng-value="novoEndereco.BairroId" />
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Complemento</span>
+                            <input type="text" class="form-control" id="txtComplemento" name="txtComplemento"   placeholder="Complemento"  maxlength="100"
+                                   ng-model="novoEndereco.Complemento"
+                                   ng-disabled="novoEndereco.Id > 0" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl"> Referência</span>
+                            <input type="text" class="form-control" id="txtReferencia" name="txtComplemento"   placeholder="Ponto de Referencia"  maxlength="100"
+                                   ng-model="novoEndereco.Referencia"
+                                   ng-disabled="novoEndereco.Id > 0" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <span class="lbl">Período de Entrega</span>
+                        <select id="sleEntregaMembro" multiple="true" size="4" ng-model="novoEndereco.PeriodoEntrega" ng-checked="novoEndereco.PeriodoEntrega"
+                                class="form-control black" ng-options="option.DescPeriodoEntrega for option in HorarioEntrega track by option.Id"
+                                ng-disabled="novoEndereco.Id > 0"></select>
+                    </div>
+
+                    <div class="col-md-4" ng-show="novoEndereco.PeriodoEntrega.length > 0">
+                        <span class="lbl">Observação para entrega</span>
+                        <textarea class="form-control" id="txtDescHorarioEntrega" rows="4"
+                                  ng-model="novoEndereco.DescHorarioEntrega"
+                                  ng-disabled="novoEndereco.Id > 0"></textarea>
+                    </div>
+
+                    <div class="col-md-4" style="line-height:5;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" id="ckbEndAtivo"
+                                   ng-model="novoEndereco.Ativo"
+                                   ng-init="novoFornecedor.Ativo=true">
+                            <span class="lbl"
+                                  tooltip="Se deixar checado o endereço ficará disponivel na troca"
+                                  tooltip-placement="left">Ativo</span>
+                        </label>
+                    </div>
+
+                </div>
+
+
+
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="inserirEndereco()">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDadosEndereco()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+             
+
+        </div>
+
+    </div>
+
+
+
+</div>

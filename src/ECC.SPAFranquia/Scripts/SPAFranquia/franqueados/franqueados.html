@@ -1,0 +1,130 @@
+﻿
+<div class="page-content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="page-header">
+                <h1>
+                    <i class="fa fa fa-users" aria-hidden="true"></i>
+                    Pesquisar Franqueados
+                </h1>
+            </div>
+
+            <!--Campos para filtrar a pesquisa dos produtos promocionais-->
+            <form class="form-group" role="form">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Estados</span>
+                            <select id="ddlEstados" class="form-control black"
+                                    ng-model="EstadoId"
+                                    ng-options="estado.Id as estado.Uf for estado in Estados"
+                                    ng-change="pesquisarCidades(EstadoId)"
+                                    required></select>
+                            <input type="hidden" name="CategoriaId" ng-value="EstadoId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Cidade</span>
+                            <select id="ddlCategoriaPesq" class="form-control black"
+                                    ng-model="CidadeId"
+                                    ng-disabled="habilitaCategoria"
+                                    ng-options="cidade.Id as cidade.DescCidade for cidade in Cidades" required>
+                                <option value="">Selecione...</option>
+                            </select>
+                            <input type="hidden" name="CategoriaId" ng-value="CidadeId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Nome Fantasia</span>
+                            <input type="text" class="form-control" ng-model="filtroFranqueado" placeholder="Nome Fantasia" maxlength="100" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal" style="margin-top: 20px;">
+                            <span class=" lbl">
+                            </span>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarFranqueado()" ng-disabled="!CidadeId > 0">
+                                <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover " id="gvPesquisaFranqueados">
+                    <thead>
+                        <tr>
+                            <th>Razão Social</th>
+                            <th>Comprador</th>
+                            <th>Email</th>
+                            <th>CNPJ</th>
+                            <th>Status</th>
+                            <!--<th>Ação</th>-->
+
+                        </tr>
+                    </thead>
+                    <tr ng-show="Franqueados.length == 0">
+                        <td class="tdCenter text-center" colspan="5" style="background-color: white; color: red; padding: 10px;">
+                            <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                            Nenhum Franqueado Encontrado.
+                        </td>
+                    </tr>
+                    <tbody>
+                        <tr class="ng-trans ng-trans-flip-x" ng-repeat="franqueado in Franqueados | filter: filtroFranqueado | orderBy:predicate:reverse">
+
+                            <td>{{franqueado.RazaoSocial}}</td>
+                            <td>{{franqueado.Comprador}}</td>
+                            <td>{{franqueado.Email}}</td>
+                            <td>{{franqueado.Cnpj}}</td>
+                            <td>
+                                <label ng-class="{'label label-success':franqueado.Ativo == true, 'label label-danger':franqueado.Ativo == false}">
+                                    {{franqueado.Ativo == true ? 'Ativo': 'Desativado'}}
+                                </label>
+                            </td>
+
+                            <!--<td>
+                                <div>
+                                    <div class="inline pos-rel">
+                                        <button class="btn btn-minier btn-info"
+                                                data-toggle="dropdown"
+                                                data-position="auto" aria-expanded="false"
+                                                tooltip="Aprovar Promoção" tooltip-placement="left"
+                                                ng-click="detalhesFranqueado(franqueado)">
+                                            <i class="ace-icon fa fa-pencil-square-o bigger-110"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>-->
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarFranqueado(page)"></custom-pager>
+                </div>
+            </div>
+            <!--Fim Tabela Pesquisar-->
+
+        </div>
+    </div>
+
+</div>
+
+
+
+

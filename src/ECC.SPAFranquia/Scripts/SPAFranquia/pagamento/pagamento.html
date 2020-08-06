@@ -1,0 +1,49 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-credit-card" aria-hidden="true"></i>
+            Fatura
+        </h1>
+    </div>
+    <div class="tabbable">
+
+        <ul class="nav nav-tabs">
+            <li id="tabAnterior" ng-class="tabsFatura.tabAnterior.tabAtivar" ng-show="tabsFatura.tabAnterior.tabHabilitar">
+                <a data-toggle="tab" href="#tabContAnterior" target="_self" ng-click="habilitaAnterior();">
+                    <i class="fa fa-history"></i>
+                    Anterior
+                </a>
+            </li>
+
+            <li id="tabAtual" ng-class="tabsFatura.tabAtual.tabAtivar" ng-show="tabsFatura.tabAtual.tabHabilitar">
+                <a data-toggle="tab" href="#tabContAtual" target="_self" ng-click="habilitaAtual();">
+                    <i class="fa fa-clock-o"></i>
+                    Atual ({{FaturaAtual.Status}})
+                </a>
+            </li>
+
+            <li id="tabProxima" ng-class="tabsFatura.tabProxima.tabAtivar" ng-show="tabsFatura.tabProxima.tabHabilitar">
+                <a data-toggle="tab" href="#tabContProxima" target="_self" ng-click="habilitaProxima();">
+                    <i class="fa fa-history fa-flip-horizontal"></i>
+                    Próxima ({{FaturaProxima.Status}})
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!--Tab Anterior-->
+            <div id="tabContAnterior" ng-class="tabsFatura.tabAnterior.contAtivar" ng-show="tabsFatura.tabAnterior.contHabilitar" ng-include src="'Scripts/SPAFranquia/pagamento/fartura.html'">
+            </div>
+
+            <!--Tab Atual-->
+            <div id="tabContAtual" ng-class="tabsFatura.tabAtual.contAtivar" ng-show="tabsFatura.tabAtual.contHabilitar" ng-include src="'Scripts/SPAFranquia/pagamento/fartura.html'">
+            </div>           
+            
+            <!--Tab Próxima-->
+            <div id="tabContProxima" ng-class="tabsFatura.tabProxima.contAtivar" ng-show="tabsFatura.tabProxima.contHabilitar" ng-include src="'Scripts/SPAFranquia/pagamento/fartura.html'">
+            </div>
+        </div>
+    </div>
+
+</div>

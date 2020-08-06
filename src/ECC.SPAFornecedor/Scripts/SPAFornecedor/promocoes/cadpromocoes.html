@@ -1,0 +1,514 @@
+﻿<style>
+    table.table-bordered > thead > tr > th {
+        padding: 0;
+    }
+</style>
+
+
+<div class="page-content">
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa fa-money" aria-hidden="true"></i>
+            Cadastro de Promoções Urgentes
+        </h1>
+
+    </div>
+    <ul class="nav nav-tabs">
+
+        <li id="tabAbaPromocoes" ng-class="tabsPromocoes.tabPesquisar.tabAtivar" ng-show="tabsPromocoes.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabListaPromocoes" target="_self" ng-click="habilitaDesabilitaAbas()">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Promoções
+            </a>
+        </li>
+
+        <li id="tabCadPromocoes" ng-class="tabsPromocoes.tabCadPromocoes.tabAtivar" ng-show="tabsPromocoes.tabCadPromocoes.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPromocoes" target="_self" ng-click="habilitaDesabilitaAbaCadProduto()">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                Cadastrar
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabListaPromocoes" ng-class="tabsPromocoes.tabPesquisar.contentAtivar" ng-show="tabsPromocoes.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Promoções</h4>
+                    <hr />
+                    <!--Campos para filtrar a pesquisa dos produtos promocionais-->
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <span class="lbl">Categoria</span>
+                                    <select id="ddlCategoriaPesq" ng-model="CategoriaId" class="form-control black"
+                                            ng-options="option.Id as option.DescCategoria for option in categorias" required
+                                            ng-change="pesquisarSubCategoria(CategoriaId);"></select>
+                                    <input type="hidden" name="CategoriaId" ng-value="CategoriaId" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <span class="lbl">Sub-Categoria</span>
+                                    <select id="ddlSubCategoriaPesq" ng-model="SubCategoriaId" class="form-control black"
+                                            ng-options="option.Id as option.DescSubCategoria for option in subcategorias"
+                                            ng-disabled="DesabilitarSubCategoria">
+                                        <option value="">Subcategoria ...</option>
+                                    </select>
+                                    <input type="hidden" name="pesq.SubCategoriaId" ng-value="SubCategoriaId" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-horizontal">
+                                    <span class="lbl">Descrição</span>
+                                    <input type="text" class="form-control" ng-model="filtroProduto"
+                                           placeholder="Pesquisar Produto" maxlength="100" />
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-horizontal" style="margin-top: 20px;">
+                                    <span class=" lbl">
+                                    </span>
+                                    <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarProduto()"
+                                            ng-disabled="!SubCategoriaId > 0">
+                                        <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover " id="gvPesquisaProduto">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescProduto';  reverse = (predicate === predicate) ? !reverse : false;">Produto</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescProduto'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <!--<th>
+                                        <a href="" ng-click="predicate = 'Categoria';  reverse = (predicate === predicate) ? !reverse : false;">Categoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'Categoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>-->
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Subcategoria';  reverse = (predicate === predicate) ? !reverse : false;">Subcategoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'Subcategoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Marca';  reverse = (predicate === predicate) ? !reverse : false;">Marca</a>
+                                        <span class="sortorder" ng-show="predicate === 'Marca'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <!--<th>
+                                        <a href="" ng-click="predicate = 'UnidadeMedida';  reverse = (predicate === predicate) ? !reverse : false;">Un. Medida</a>
+                                        <span class="sortorder" ng-show="predicate === 'UnidadeMedida'" ng-class="{reverse:reverse}"></span>
+
+                                    </th>-->
+                                    <th>
+                                        <a href="" ng-click="predicate = 'PrecoMedio';  reverse = (predicate === predicate) ? !reverse : false;">Preço Real</a>
+                                        <span class="sortorder" ng-show="predicate === 'PrecoMedio'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'PrecoPromocao';  reverse = (predicate === predicate) ? !reverse : false;">Preço <br><b style="color: #D15B47;">Promoção</b></a>
+                                        <span class="sortorder" ng-show="predicate === 'PrecoPromocao'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'InicioPromocao';  reverse = (predicate === predicate) ? !reverse : false;">Iníciou</a>
+                                        <span class="sortorder" ng-show="predicate === 'InicioPromocao'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'FimPromocao';  reverse = (predicate === predicate) ? !reverse : false;">Encerra</a>
+                                        <span class="sortorder" ng-show="predicate === 'FimPromocao'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <!--<th>
+                                        <a href="" ng-click="predicate = 'Ativo';  reverse = (predicate === predicate) ? !reverse : false;">Ativo</a>
+                                        <span class="sortorder" ng-show="predicate === 'Ativo'" ng-class="{reverse:reverse}"></span>
+                                    </th>-->
+                                    <th>
+                                        <a href="" ng-click="predicate = 'PromocaoAtiva';  reverse = (predicate === predicate) ? !reverse : false;">Ativada</a>
+                                        <span class="sortorder" ng-show="predicate === 'PromocaoAtiva'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th style="color: #337ab7">
+                                        Aprovado por<br><b style="color: #D15B47">Economiza Já</b>
+                                    </th>
+                                    <th style="color: #337ab7">Ação</th>
+                                </tr>
+                            </thead>
+                            <tr ng-show="produtos.length == 0">
+                                <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                                    <i class="icon fa fa-ban" style="font-size: 20px;"></i> Nenhuma Promoção Cadastrada.
+                                </td>
+                            </tr>
+                            <tbody>
+                                <tr class="ng-trans ng-trans-flip-x" ng-repeat="pesqProduto in produtos | filter: filtroProduto | orderBy:predicate:reverse">
+
+                                    <td>{{pesqProduto.DescProduto}}</td>
+                                    <!--<td>{{pesqProduto.DescCategoria}}</td>-->
+                                    <td>{{pesqProduto.DescSubCategoria}}</td>
+
+                                    <td>{{pesqProduto.Marca}}</td>
+                                    <!--<td>{{pesqProduto.UnidadeMedida}}</td>-->
+                                    <td>{{pesqProduto.PrecoMedio}}</td>
+                                    <td>{{pesqProduto.PrecoPromocao}}</td>
+                                    <td>{{pesqProduto.InicioPromocao | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{pesqProduto.FimPromocao | date:'dd/MM/yyyy'}}</td>
+
+                                    <!--<td>
+                                        <span ng-class="pesqProduto.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pesqProduto.DescAtivo}}</span>
+                                    </td>-->
+                                    <td>
+
+                                        <label ng-class="{'label label-success':pesqProduto.PromocaoAtiva == true,
+                                                          'label label-danger' : pesqProduto.PromocaoAtiva == false}">
+                                            {{pesqProduto.PromocaoAtiva == true ? 'Sim' : 'Não'}}
+                                        </label>
+
+                                    </td>
+                                    <td>
+                                        <label ng-class="{'label label-success':pesqProduto.PromoAtivo == true && pesqProduto.Aprovado == true,
+                                                       'label label-warning':pesqProduto.PromoAtivo == true && pesqProduto.Aprovado == false,
+                                                       'label label-danger':pesqProduto.PromoAtivo == false && pesqProduto.Aprovado == false}">
+                                            {{pesqProduto.PromoAtivo == true && pesqProduto.Aprovado == true ? 'Sim' : pesqProduto.PromoAtivo == true && pesqProduto.Aprovado == false ? 'Aguardando' : 'Não'}}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true" tooltip="Clique aqui" tooltip-placement="left">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close" style="min-width: 35px;">
+                                                    <li tooltip="Editar Promoção" tooltip-placement="left">
+                                                        <a href="javascript:void(0);" ng-click="editarProduto(pesqProduto)">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li tooltip="Detalhes Promoção" tooltip-placement="left">
+                                                        <a href="javascript:void(0);" ng-click="openDialogDetalhePromocao(pesqProduto)">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-info-circle bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProduto(page)"></custom-pager>
+                        </div>
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+            </div>
+        </div>
+
+        <div id="tabContPromocoes" ng-class="tabsPromocoes.tabCadPromocoes.contentAtivar" ng-show="tabsPromocoes.tabCadPromocoes.contentHabilitar">
+
+            <h4> Cadastrar Produto</h4>
+
+            <hr />
+            <form class="form-group" role="form" novalidate name="frmCadPromocao">
+                <!--Inicio do Cadastro de Produto-->
+                <div class="row">
+
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Categoria</span>
+                            <select id="ddlCategoria" ng-model="novoProduto.CategoriaId" class="form-control black" ng-options="option.Id as option.DescCategoria for option in categorias" required ng-change="pesquisarSubCategoria(novoProduto.CategoriaId);"></select>
+                            <input type="hidden" name="novoProduto.CategoriaId" ng-value="novoProduto.CategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Sub-Categoria</span>
+                            <select id="ddlSubCategoria" ng-model="novoProduto.SubCategoriaId" class="form-control black" ng-options="option.Id as option.DescSubCategoria for option in subcategorias" ng-disabled="DesabilitarSubCategoria">
+                                <option value="">Subcategoria ...</option>
+                            </select>
+                            <input type="hidden" name="novoProduto.SubCategoriaId" ng-value="novoProduto.SubCategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Descrição</span>
+                            <input type="text" class="form-control" id="txtDescricaoProduto" name="txtDescricaoProduto" placeholder="Descrição Produto" ng-model="novoProduto.DescProduto" maxlength="100" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Unidade Medida</span>
+                            <select id="ddlUnidMedida" ng-model="novoProduto.UnidadeMedidaId" class="form-control black" ng-options="option.Id as option.DescUnidadeMedida for option in unidademedida"></select>
+                            <input type="hidden" name="novoProduto.UnidadeMedidaId" ng-value="novoProduto.UnidadeMedidaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Marca</span>
+
+                            <angucomplete-alt id="txtMarca"
+                                              placeholder="Digite uma Marca"
+                                              pause="200"
+                                              selected-object="selectCustomer"
+                                              input-changed=""
+                                              remote-url="{{identificaAmbienteNet}}/api/produtopromocional/marca?filter="
+                                              remote-url-data-field=""
+                                              title-field="DescMarca"
+                                                      minlength="1"
+                                              description-field=""
+                                              input-class="form-control"
+                                              match-class="red"
+                                              text-searching="Procurando marca.."
+                                              text-no-results="Não há marca com está descrição"
+                                              ng-model="novoProduto.MarcaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Quantidade em estoque</span>
+                            <input type="number" class="form-control" id="txtQtdProdutos" name="txtQtdProdutos" placeholder="Qtd. Estoque" ng-model="novoProduto.QtdProdutos" maxlength="4" min="1" mask="XXXX" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Qtd. Mín. Venda</span>
+                            <input type="number" class="form-control" id="txtQtdMinVenda" name="txtQtdMinVenda" placeholder="Qtd. Mín. Venda" ng-model="novoProduto.QtdMinVenda" maxlength="4" min="1" mask="XXXX" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Preço Real</span>
+                            <input type="text" class="form-control" id="txtPrecoMedio" name="txtPrecoMedio" placeholder="Preço" ng-model="novoProduto.PrecoMedio" money-mask />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl"><b style="color: #d15b47">Preço Promoção</b></span>
+                            <input type="text" class="form-control" id="txtPrecoPromocao" name="txtPrecoPromocao" placeholder="Preço" ng-model="novoProduto.PrecoPromocao" money-mask />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Especificação do produto</span>
+                            <textarea rows="4" class="form-control" cols="50" ng-model="novoProduto.Especificacao" placeholder="Especificação do Produto"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Motivo para está promoção</span>
+                            <textarea rows="4" class="form-control" cols="50"
+                                      ng-model="novoProduto.MotivoPromocao"
+                                      placeholder="Descrever aqui o motivo para colocar este produto em promoção"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Especificação do frete</span>
+                            <textarea rows="4" class="form-control" cols="150" ng-model="novoProduto.ObsFrete" placeholder="Especificação da entrega com descrição de valor"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <span class="lbl">Frete Grátis?</span>
+                        </div>
+                        <div class="form-horizontal">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox"
+                                       id="ckbAtivo" ng-model="novoProduto.FreteGratis"
+                                       ng-init="novoProduto.FreteGratis = false">
+                                <span class="lbl"> Sim</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <span class="lbl">Validade do Produto</span>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control date-picker" disabled="disabled" name="txtValidadeProduto"
+                                       datepicker-popup="{{format}}" ng-model="novoProduto.ValidadeProd" is-open="datepicker.opened"
+                                       datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                       ng-change="validarDataValidadeProduro()"
+                                       placeholder="Validade Produto" />
+
+                                <span class="input-group-addon">
+                                    <a href="javascript:void(0);" ng-click="openDatePickerValidadeProduto($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <span class="lbl" style="margin-left: 10px;">Escolha as formas de pagamento</span>
+                            <div class="" style="margin-top: 10px;">
+                                <div ng-repeat="pag in FormasPagamentoFornecedor" style="float: left;">
+                                    <label style="margin-left: 10px;">
+                                        <input name="form-field-checkbox" class="ace input-lg" type="checkbox"
+                                               id="{{pag.Id}}"
+                                               value="{{pag.Id}}"
+                                               ng-model="pag.selected"
+                                               ng-checked="pag.Relacionado"
+                                               ng-click="inseriFormaPagto(pag)">
+                                        <span class="lbl">{{pag.DescFormaPagto}}</span>
+
+                                        <span class="badge badge-danger" ng-show="{{pag.Desconto > 0}}"><b>-</b>{{pag.Desconto}}<b>%</b></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2" style="top: 30px;">
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox"
+                                   id="ckbAtivo" ng-model="novoProduto.Ativo"
+                                   ng-init="novoProduto.Ativo = true">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <!--Vigência da Promoção-->
+
+                <h4>    Vigência da Promoção</h4>
+                <hr />
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <span class="lbl">Início da Promoção</span>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control date-picker" disabled="disabled" name="txtValidadeIniPromocao"
+                                       datepicker-popup="{{format}}" ng-model="novoProduto.InicioPromocao" is-open="datepicker.openedIniPromocao"
+                                       datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                       placeholder="Início Promoção" />
+
+                                <span class="input-group-addon">
+                                    <a href="javascript:void(0);" ng-click="openDatePickerValidadeInicioPromocao($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <span class="lbl">Fim da Promoção</span>
+
+                            <div class="input-group">
+                                <input type="text" class="form-control date-picker" disabled="disabled" name="txtValidadeFimPromocao"
+                                       datepicker-popup="{{format}}" ng-model="novoProduto.FimPromocao" is-open="datepicker.openedFimPromocao"
+                                       datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close"
+                                       ng-change="validarDataFimPromocao()"
+                                       placeholder="Fim Promoção" />
+
+                                <span class="input-group-addon">
+                                    <a href="javascript:void(0);" ng-click="openDatePickerValidadeFimPromocao($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Imagem do Produto-->
+
+
+
+                <h4> Imagem</h4>
+                <hr />
+
+                <div class="row text-center" style="margin-top: 30px;">
+                    <div class="col-md-12 text-center">
+                        <div class="text-center">
+                            <img ng-src="{{novaImagem.CaminhoImagemGrande}}" class="avatar img-responsive" alt="Imagem" width="400" height="400">
+
+                            <br />
+                            <input type="file" ng-file-select="prepareFiles($files)" ng-model="novaImagem.CaminhoImagem"
+                                   tooltip="Escolha uma imagem com o tamanho de ''400x400'' e uma qualidade superior, pois seu produto ficará em destaque para nossos ''MEMBROS''."
+                                   tooltip-placement="right">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="inserirProduto()">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar Promoção
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limparCampos()" ng-show="novoProduto.Id > 0">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Nova Promoção
+                        </button>
+
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+
+</div>

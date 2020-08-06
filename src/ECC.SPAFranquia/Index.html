@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" ng-app="ECCFranquia">
+
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Economiza Já - FRANQUIA</title>
+
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/css/font-awesome.min.css" />
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="Content/css/css5c0a.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="Content/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link href="Content/css/sweet-alert.css" rel="stylesheet" />
+
+    <!-- Logo Sistema -->
+    <link rel="shortcut icon" href="logoeconomiza.ico" type="i	mage/x-icon" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+    <!-- ace styles -->
+    <link href="Content/css/morris.css" rel="stylesheet" />
+    <link href="Content/css/toastr.css" rel="stylesheet" />
+    <link href="Content/css/jquery.fancybox.css" rel="stylesheet" />
+    <link href="Content/css/loading-bar.css" rel="stylesheet" />
+
+    <link href="/Content/css/custom.css" rel="stylesheet" />
+</head>
+
+<body class="no-skin" ng-controller="rootCtrl">
+    <top-bar ng-if="userData.isUserLoggedIn"></top-bar>
+
+    <div id="navbar" ng-if="!userData.isUserLoggedIn" class="navbar navbar-default ace-save-state">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar" ng-if="userData.isUserLoggedIn">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <img src="/Content/images/logo.png" alt="" />
+                    </small>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="main-container ace-save-state" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.loadState('main-container') } catch (e) { }
+
+        </script>
+
+        <menu-lateral ng-if="userData.isUserLoggedIn"></menu-lateral>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <div class="page {{ pageClass }}" ui-view></div>
+                    <!-- PAGE CONTENT ENDS -->
+                </div>
+            </div>
+        </div><!-- /.main-content -->
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+
+
+                    <span ng-if="userData.isUserLoggedIn" class="bigger-100">
+                        <a ng-href="#/termoUso">
+                            Termos de uso
+                        </a> | <a ng-href="#/privacidade">
+                            Privacidade
+                        </a>
+                    </span>
+
+                    <span class="bigger-100">
+                        &nbsp;
+                        © Copyright 2014 - {{anoFoot}} <span class="red bolder">Economiza Já.</span>
+
+                    </span>
+
+
+
+                    <span class="action-buttons">
+                        <a href="https://www.instagram.com/economizaja/" target="_blank">
+                            <i class="ace-icon fa fa-instagram light-blue bigger-150"></i>
+                        </a>
+                        <a href="https://www.facebook.com/economizaja/?fref=ts" target="_blank">
+                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                        </a>
+
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+    <script src="Content/js/jquery.js"></script>
+    <script src="Content/js/bootstrap.min.js"></script>
+
+    <!--Tela de Login-->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });
+    </script>
+
+    <!-- ace scripts -->
+    <script src="Content/js/ace-elements.min.js"></script>
+    <script src="Content/js/ace.min.js"></script>
+
+    <script src="Scripts/lib/jquery.signalR-2.2.1.js"></script>
+
+    <!-- Scripts da pasta lib -->
+
+    <script src="Scripts/lib/modernizr.js"></script>
+
+    <script src="/Scripts/lib/toastr.js"></script>
+    <script src="/Scripts/lib/jquery.raty.js"></script>
+    <script src="/Scripts/lib/respond.src.js"></script>
+    <script src="Scripts/lib/raphael.js"></script>
+    <script src="/Scripts/lib/angular.js"></script>
+    <script src="/Scripts/lib/angular-route.js"></script>
+    <script src="/Scripts/lib/angular-cookies.js"></script>
+    <script src="/Scripts/lib/angular-validator.js"></script>
+    <script src="/Scripts/lib/angular-locale_pt-br.js"></script>
+    <script src="/Scripts/lib/angular-base64.js"></script>
+    <script src="/Scripts/lib/angular-file-upload.js"></script>
+    <script src="/Scripts/lib/angucomplete-alt.min.js"></script>
+    <script src="/Scripts/lib/angular-ui-router.js"></script>
+    <script src="/Scripts/lib/ui-bootstrap-tpls-0.13.1.js"></script>
+    <script src="/Scripts/lib/morris.js"></script>
+    <script src="/Scripts/lib/jquery.fancybox.js"></script>
+    <script src="/Scripts/lib/jquery.fancybox-media.js"></script>
+    <script src="/Scripts/lib/loading-bar.js"></script>
+    <script src="/Scripts/lib/ocLazyLoad.js"></script>
+    <script src="/Scripts/lib/angular-breadcrumb.js"></script>
+    <script src="/Content/js/customFornecedor.js"></script>
+    <script src="Scripts/lib/angular-money-mask.js"></script>
+    <script src="Scripts/lib/sweet-alert.min.js"></script>
+    <script src="Scripts/lib/SweetAlert.js"></script>
+    <script src="Scripts/lib/angular-signalr-hub.js"></script>
+    <script src="Scripts/lib/angular-messages.js"></script>
+    <script src="Scripts/lib/lodash.js"></script>
+    <script src="Scripts/lib/angular-simple-logger.js"></script>
+    <script src="Scripts/lib/angular-google-maps.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCVtn53qNj_IgWVrRH-yco1qD4hx7fzsxY"></script>
+
+    <!-- Scripts da pasta SPAFranquia -->
+    <script src="/Scripts/SPAFranquia/modules/common.core.js"></script>
+    <script src="/Scripts/SPAFranquia/modules/common.ui.js"></script>
+    <script src="/Scripts/SPAFranquia/app.js"></script>
+    <script src="/Scripts/SPAFranquia/services/apiService.js"></script>
+    <script src="/Scripts/SPAFranquia/services/notificationService.js"></script>
+    <script src="/Scripts/SPAFranquia/services/membershipService.js"></script>
+    <script src="/Scripts/SPAFranquia/services/mapaService.js"></script>
+    <script src="/Scripts/SPAFranquia/services/franquiaUtilService.js"></script>
+    <script src="/Scripts/SPAFranquia/layout/topBar.directive.js"></script>
+    <script src="/Scripts/SPAFranquia/layout/topBarCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/layout/menuLateral.directive.js"></script>
+    <script src="/Scripts/SPAFranquia/directives/ratingFornecedor.directive.js"></script>
+    <script src="/Scripts/SPAFranquia/layout/menuLateralFraCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/home/rootCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/home/indexCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/login/loginCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/login/recuperasenhaCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/login/alteraSenhaCtrl.js"></script>
+    <script src="/Scripts/SPAFranquia/config.js"></script>
+    <script src="Scripts/SPAFranquia/termoUso/aceiteTermoUsoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/termoUso/termoUsoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/termoUso/privacidadeCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/perfil/configuracaoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/perfil/perfilCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/perfil/empresaCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/layout/modalDetAvisosCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/pagamento/pagamentoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/promocao/aprovacaopromocaoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/promocao/detalhesPromocaoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/franqueados/franqueadosCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/dataCotacao/dataCotacaoPedidoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/produto/relacionarprodutoCtrl.js"></script>
+    <script src="Scripts/SPAFranquia/fornecedor/fornecedorCtrl.js"></script>
+
+
+    <!-- Scripts para paginação -->
+    <script src="Scripts/SPAFranquia/layout/customPager.directive.js"></script>
+
+    <!-- Scripts directives -->
+    <script src="Scripts/SPAFranquia/directives/iCountdown.directive.js"></script>
+
+    <!-------------------------------------------------------------------------------
+
+      Modal politica de privacidade
+
+      --------------------------------------------------------------------------------->
+    <!-- Modal -->
+    <div class="modal fade" id="politica-privacidade" tabindex="1" style="z-index:9999;" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header " style="background-color:green;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Pol&iacute;tica de Privacidade</h4>
+                </div>
+
+                <div style="margin-left:5px;">
+                    <p>
+                        Esta política de privacidade descreve os tipos de informações cadastrais
+                        que poderemos coletar e como iremos utilizá-la para prestar serviços
+                        através da plataforma Economiza Já e aplicativos da    <strong>EconomizaJa.com.br</strong>.
+                    </p>
+                    <p>
+                        A primeira providência para desfrutar dos serviços da plataforma    <strong>EconomizaJa.com.br</strong> é registrar-se e informar os dados
+                        cadastrais de sua empresa, completos e exatos.
+                    </p>
+                    <p>
+                        Ao utilizar nossa plataforma e aplicativos, você concorda com a coleta e
+                        uso de suas informações cadastrais como descrito nesta política. Saiba que:
+                    </p>
+                    <p>
+                        a) As informações coletadas serão as necessárias para armazenamento,
+                        manutenção de sua conta e conteúdo, em nossos servidores.
+                    </p>
+                    <p>
+                        b) No intuito de promover a interação entre os demais usuários de    <strong>EconomizaJa.com.br</strong>, será permitido o acesso limitado à
+                        certos dados cadastrais dos demais utilizadores.
+                    </p>
+                    <p>
+                        c) A qualquer momento, sua empresa poderá atualizar as informações e
+                        preferências de sua conta, bem como solicitar a extinção de seu registro.
+                    </p>
+                    <p>
+                        <strong>Conteúdo das informações coletadas</strong>
+                    </p>
+                    <p>
+                        Quando sua empresa se registrar no <strong>EconomizaJa.com.br</strong>,
+                        solicitaremos algumas informações cadastrais. Esses dados serão utilizados
+                        na inscrição e habilitação de uma nova conta ou serviço ao usuário, na
+                        autenticação de acesso do usuário, no faturamento e cobrança pelos serviços
+                        prestados, na pesquisa e melhoria dos serviços oferecidos, e no contato com
+                        os membros e fornecedores da nossa plataforma.
+                    </p>
+                    <p>
+                        Também poderá ser realizada a coleta de informações acerca do uso de sua
+                        conta, tais como a frequência que sua empresa acessa nossa plataforma e
+                        outras informações relacionadas ao seu registro.
+                    </p>
+                    <p>
+                        A <strong>EconomizaJa.com.br</strong> recebe e armazena qualquer informação
+                        enviada para a plataforma por meios eletrônicos ou físicos. Você pode optar
+                        por não enviar determinadas informações, mas pode com isso, deixar de tirar
+                        o melhor proveito das ferramentas da plataforma. A    <strong>EconomizaJa.com.br</strong> usa a informação que você envia com o
+                        objetivo de responder aos seus requerimentos, adequar suas compras futuras,
+                        melhorar de forma geral a oferta e comunicação da plataforma com seus
+                        usuários.
+                    </p>
+                    <p>
+                        A <strong>EconomizaJa.com.br</strong> não se responsabiliza pela veracidade
+                        das informações divulgadas no sistema pelos Cadastrados. Os Cadastrados
+                        concordam e declaram que A <strong>EconomizaJa.com.br</strong> não tem
+                        qualquer obrigação em monitorar e verificar o conteúdo das informações
+                        divulgadas no Sistema, expressamente isentando A    <strong>EconomizaJa.com.br</strong> de qualquer responsabilidade relativas
+                        a tais conteúdos.
+                    </p>
+                    <p>
+                        A <strong>EconomizaJa.com.br</strong> é responsável somente pela
+                        disponibilização de informações de oferta de venda de bens e serviços entre
+                        Cadastrados, intermediando a procura e a oferta entre compradores e
+                        fornecedores.
+                    </p>
+                    <p>
+                        Comunicações via E-mail, SMS e Notificações: Por assegurar uma comunicação
+                        eficiente e ágil, o E-mail, SMS e Notificações passa a ser uma ferramenta
+                        fundamental para assegurar a comunicação entre a plataforma    <strong>EconomizaJa.com.br</strong> e seus usuários. Através do E-mail, SMS
+                        e Notificações os usuários obtêm informações de cadastro, liberação de
+                        acesso, promoções exclusivas e muitas outras mensagens importantes para o
+                        dia-a-dia de seus negócios. A plataforma    <strong>EconomizaJa.com.br</strong> possibilita ao usuário a desativação, a
+                        qualquer momento, do envio de material informativo por E-mail e SMS.
+                    </p>
+                    <p>
+                        A <strong>EconomizaJa.com.br</strong> reserva-se no direito de compartilhar
+                        as informações que recebe de seus usuários com suas empresas parceiras, com
+                        o objetivo de oferecer os produtos e serviços a que a plataforma se propõe,
+                        que também são responsáveis em última instância pela qualidade do serviço
+                        final ofertado através da plataforma. Estas empresas têm acesso às
+                        informações dos usuários da plataforma somente para exercerem suas funções,
+                        não podendo usá-las para qualquer outro propósito
+                    </p>
+                    <p>
+                        <strong>Requisições de Autoridades</strong>
+                    </p>
+                    <p>
+                        Atendendo requisições das autoridades competentes,    <strong>EconomizaJa.com.br</strong> poderá revelar a informação cadastral
+                        de seus utilizadores, mediante requerimento judicial ou governamental, para
+                        fins processuais e/ou investigativos.
+                    </p>
+                    <p>
+                        <strong>Autenticação</strong>
+                    </p>
+                    <p>
+                        Para acesso dos serviços disponibilizados na nossa plataforma, as empresas
+                        devidamente registradas irão dispor de uma senha pessoal e intransferível.
+                        Com ela poderão comprar, vender e ofertar seus produtos/serviços, dentre
+                        outras atividades. Esta senha, que é escolhida pelo próprio utilizador,
+                        deve ser mantida sob absoluta confidencialidade e, em nenhum caso, deverá
+                        ser revelada ou compartilhada com terceiros.
+                    </p>
+                    <p>
+                        O utilizador da senha será responsável por todos os atos que sejam
+                        realizados em seu nome utilizando sua senha pessoal, incluindo a
+                        responsabilização por prejuízos que possam vir a sofrer outros utilizadores
+                        do site, por qualquer motivo. Se por qualquer razão um utilizador
+                        desconfiar que alguém pode conhecer sua senha, deverá modificá-la
+                        imediatamente.
+                    </p>
+                    <p>
+                        <strong>Os Cookies e recursos de armazenamento pelo navegador</strong>
+                    </p>
+                    <p>
+                        Um cookie ou <em>WebStorage</em> é um pequeno arquivo de dados que é
+                        enviado para o seu computador quando você visita um site. Como a maioria
+                        dos cookies de acesso a websites, os nossos cookies e <em>WebStorage</em>
+                        incluem um número de identificação que é exclusivo para o computador que
+                        sua empresa está utilizando. Esta identificação nos ajuda a compreender
+                        melhor a nossa base de usuários e como eles estão usando nosso site e
+                        serviços.
+                    </p>
+                    <p>
+                        Sua empresa pode desativar os seus cookies nas opções do seu browser, ou
+                        fazendo alterações nas ferramentas do seu Antivírus. Todavia, devemos lhe
+                        informar que tal procedimento poderá alterar a forma como interage com o
+                        nosso site, ou mesmo com outros portais.
+                    </p>
+                    <p>
+                        <strong>O endereço IP (Internet Protocol)</strong>
+                    </p>
+                    <p>
+                        O endereço IP é um número que é utilizado por computadores e servidores na
+                        Internet para identificar seu computador. Tal como os demais websites,
+                        nossos servidores automaticamente coletam o seu endereço IP como dados de
+                        tráfego, para que possamos fornecer-lhe a própria aplicação web em si. O
+                        endereço de IP dos computadores de sua empresa que acessarem nosso site
+                        jamais serão utilizados para qualquer outro fim.
+                    </p>
+                    <p>
+                        <strong>Segurança das Informações</strong>
+                    </p>
+                    <p>
+                        Todas as informações coletadas em nossa plataforma são armazenadas em
+                        ambientes operacionais seguros que não estão acessíveis ao público. Os
+                        proprietários, parceiros e funcionários estão comprometidos e dedicados a
+                        manter a privacidade e a segurança de suas informações.
+                    </p>
+                    <p>
+                        Infelizmente, nenhuma transmissão de dados pela Internet é garantida ou
+                        100% segura. Em virtude disso, não obstante todos os esforços realizados
+                        por nossa equipe, não podemos garantir a segurança de qualquer informação
+                        que você transmita ao nosso site, fazendo-a por sua conta e risco.
+                    </p>
+                    <p>
+                        Assim que recebermos as informações, fazemos todos os esforços
+                        comercialmente razoáveis para garantir sua segurança em nossos sistemas.
+                        Não nos responsabilizamos por eventuais danos ou prejuízos causados pela
+                        intervenção de pessoas não autorizadas ou mesmo no caso de invasão por
+                        hackers.
+                    </p>
+                    <p>
+                        Contamos com fornecedores de hardware, software, rede, armazenamento de
+                        dados e tecnologia, tudo necessário para bom funcionamento do nosso site e
+                        fornecimento dos nossos serviços. Todavia, somente nosso site possui os
+                        códigos de acesso aos seus dados e informações cadastrais.
+                    </p>
+                    <p>
+                        <strong>Links Externos de Terceiros</strong>
+                    </p>
+                    <p>
+                        A <strong>EconomizaJa.com.br</strong>, suas aplicações e/ou seus(s)
+                        websites pode(m) conter links para outros websites de terceiros. As
+                        práticas de privacidade de outros sites ou empresas não estão abrangidas
+                        pela presente declaração de privacidade. Não somos responsáveis pelas
+                        práticas de privacidade de outros sites ou seu conteúdo.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

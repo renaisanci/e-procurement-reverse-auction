@@ -1,0 +1,704 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" ng-app="ECCFornecedor">
+
+<head ng-controller="rootCtrl">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+
+    <title>Economiza Já FORNECEDOR {{username}}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="Content/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/css/font-awesome.min.css" />
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="Content/css/css5c0a.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="Content/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link href="Content/css/sweet-alert.css" rel="stylesheet" />
+
+    <!-- Logo Sistema -->
+    <link rel="shortcut icon" href="logoeconomiza.ico" type="i	mage/x-icon" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+
+    <!-- ace styles -->
+    <link href="Content/css/morris.css" rel="stylesheet" />
+    <link href="Content/css/toastr.css" rel="stylesheet" />
+    <link href="Content/css/jquery.fancybox.css" rel="stylesheet" />
+    <link href="Content/css/loading-bar.css" rel="stylesheet" />
+
+    <link href="/Content/css/customFornecedor.css" rel="stylesheet" />
+    <link href="/Content/css/ngPrint.css" rel="stylesheet" />
+    <!--   Live Chat script -->
+    <script src="//code.jivosite.com/widget.js" data-jv-id="nJN65s2pfT" async></script>
+</head>
+
+<body class="no-skin" ng-controller="rootCtrl">
+    <top-bar ng-if="userData.isUserLoggedIn"></top-bar>
+
+    <div id="navbar" ng-if="!userData.isUserLoggedIn" class="navbar navbar-default ace-save-state">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+
+
+
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar" ng-if="userData.isUserLoggedIn">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left">
+                <a href="#" class="navbar-brand">
+                    <small>
+                        <img src="/Content/images/logo.png" alt="" />
+                    </small>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="main-container ace-save-state" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.loadState('main-container') } catch (e) { }
+
+        </script>
+
+        <menu-lateral ng-if="userData.isUserLoggedIn"></menu-lateral>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+
+                <div class="">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <div class="page {{ pageClass }}" ui-view></div>
+                    <!-- PAGE CONTENT ENDS -->
+                </div>
+
+            </div>
+        </div><!-- /.main-content -->
+
+        <div class="footer">
+
+            <div class="footer-inner">
+
+
+
+                <div class="footer-content" style="right: 75px;">
+
+                    <span class="bigger-100">
+                        <span ng-if="userData.isUserLoggedIn" class="bigger-100">
+                            <a ng-href="#/termoUso">
+                                Termos de uso
+                            </a> | <a ng-href="#/privacidade">
+                                Privacidade
+                            </a>
+                        </span>
+                        &nbsp;
+
+                        © Copyright 2014 - {{anoFoot}} <span class="red bolder">Economiza Já.</span>
+                    </span>
+
+                    <span class="action-buttons">
+                        <a href="https://www.instagram.com/economizaja/" target="_blank">
+                            <i class="ace-icon fa fa-instagram light-blue bigger-150"></i>
+                        </a>
+                        <a href="https://www.facebook.com/economizaja/?fref=ts" target="_blank">
+                            <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                        </a>
+
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+    <script src="Content/js/jquery.js"></script>
+    <script src="Content/js/bootstrap.min.js"></script>
+
+    <!--Tela de Login-->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });
+    </script>
+
+    <!-- ace scripts -->
+    <script src="Content/js/ace-elements.min.js"></script>
+    <script src="Content/js/ace.min.js"></script>
+
+    <script src="Scripts/lib/jquery.signalR-2.2.1.js"></script>
+
+    <!-- Scripts da pasta lib -->
+
+    <script src="Scripts/lib/modernizr.js"></script>
+
+    <script src="/Scripts/lib/toastr.js"></script>
+    <script src="/Scripts/lib/jquery.raty.js"></script>
+    <script src="/Scripts/lib/respond.src.js"></script>
+    <script src="Scripts/lib/raphael.js"></script>
+    <script src="/Scripts/lib/angular.js"></script>
+    <script src="/Scripts/lib/angular-route.js"></script>
+    <script src="/Scripts/lib/angular-cookies.js"></script>
+    <script src="/Scripts/lib/angular-validator.js"></script>
+    <script src="/Scripts/lib/angular-locale_pt-br.js"></script>
+    <script src="/Scripts/lib/angular-base64.js"></script>
+    <script src="/Scripts/lib/angular-file-upload.js"></script>
+    <script src="/Scripts/lib/angucomplete-alt.min.js"></script>
+    <script src="/Scripts/lib/angular-ui-router.js"></script>
+    <script src="/Scripts/lib/ui-bootstrap-tpls-0.13.1.js"></script>
+    <script src="/Scripts/lib/morris.js"></script>
+    <script src="/Scripts/lib/jquery.fancybox.js"></script>
+    <script src="/Scripts/lib/jquery.fancybox-media.js"></script>
+    <script src="/Scripts/lib/loading-bar.js"></script>
+    <script src="/Scripts/lib/ocLazyLoad.js"></script>
+    <script src="/Scripts/lib/angular-breadcrumb.js"></script>
+    <script src="/Content/js/customFornecedor.js"></script>
+    <script src="Scripts/lib/angular-money-mask.js"></script>
+    <script src="Scripts/lib/sweet-alert.min.js"></script>
+    <script src="Scripts/lib/SweetAlert.js"></script>
+    <script src="Scripts/lib/angular-signalr-hub.js"></script>
+    <script src="Scripts/lib/angular-messages.js"></script>
+    <script src="Scripts/lib/lodash.js"></script>
+    <script src="Scripts/lib/angular-simple-logger.js"></script>
+    <script src="Scripts/SPAFornecedor/directives/ngPrint.js"></script>
+    <script src="Scripts/lib/angular-google-maps.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyC7bpLjf8oFauFPwuUNYxNHVmkyn22UyEI"></script>
+    <script src="Scripts/lib/moment.min.js"></script>
+
+    <!-- Scripts da pasta SPAFornecedor -->
+    <script src="/Scripts/SPAFornecedor/modules/common.core.js"></script>
+    <script src="/Scripts/SPAFornecedor/modules/common.ui.js"></script>
+    <script src="/Scripts/SPAFornecedor/app.js"></script>
+    <script src="/Scripts/SPAFornecedor/services/apiService.js"></script>
+    <script src="/Scripts/SPAFornecedor/services/notificationService.js"></script>
+    <script src="/Scripts/SPAFornecedor/services/membershipService.js"></script>
+    <script src="/Scripts/SPAFornecedor/services/mapaService.js"></script>
+    <script src="/Scripts/SPAFornecedor/services/fornecedorUtilService.js"></script>
+    <script src="/Scripts/SPAFornecedor/layout/topBar.directive.js"></script>
+    <script src="/Scripts/SPAFornecedor/layout/topBarCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/layout/menuLateral.directive.js"></script>
+    <script src="/Scripts/SPAFornecedor/layout/menuLateralFornCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/home/rootCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/home/indexCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/login/loginCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/login/recuperasenhaCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/login/alteraSenhaCtrl.js"></script>
+    <script src="/Scripts/SPAFornecedor/config.js"></script>
+    <script src="/Scripts/SPAFornecedor/cotacoes/cotacaoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/cotacoes/cotacoesCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/pedidosCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/pedidosPFCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/cotacoes/cotacaoHistCtrl.js"></script>
+
+    <script src="Scripts/SPAFornecedor/pedidos/pedidosGeradosCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/pedidosGeradosPFCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/membro/solicitafornecedorCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/membro/modalMotivoRecusaMembroCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/cotacoes/cotacaoMapaCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/pedidoMapaCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/promocoes/cadpromocoesCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/promocoes/promocaoRecusadaCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/termoUso/aceiteTermoUsoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/termoUso/termoUsoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/termoUso/privacidadeCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/perfil/configuracaoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/perfil/perfilCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/perfil/empresaCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/layout/modalDetAvisosCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pagamento/pagamentoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/promocoes/modalDetProdPromocaoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/aprovacaopromocaoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/aprovacaopromocaoPFCtrl.js"></script>
+
+
+    <script src="Scripts/SPAFornecedor/pedidos/modalDetPedidoGeradoCtrl.js"></script>
+
+
+
+    <script src="Scripts/SPAFornecedor/produtos/indisponibilidadeCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/produtos/fornecedorProdutoCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/produtos/modalFornecedorProdutoQuantidadeCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/produtos/modalDataIndisponibilidadeCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/modalMotivoPromocaoCanceladaCtrl.js"></script>
+    <script src="Scripts/SPAFornecedor/pedidos/modalMotivoPedidoCanceladoCtrl.js"></script>
+
+    <!-- Scripts para paginação -->
+    <script src="Scripts/SPAFornecedor/layout/customPager.directive.js"></script>
+
+    <!-- Scripts directives -->
+    <script src="Scripts/SPAFornecedor/directives/iCountdown.directive.js"></script>
+    <script src="Scripts/SPAFornecedor/directives/customPopover.directive.js"></script>
+    <script src="Scripts/SPAFornecedor/directives/ngPrint.min.js"></script>
+
+    <!-------------------------------------------------------------------------------
+
+      Modal politica de privacidade
+
+      --------------------------------------------------------------------------------->
+    <!-- Modal -->
+    <div class="modal fade" id="politica-privacidade" tabindex="1" style="z-index:9999;" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header " style="background-color:green;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Pol&iacute;tica de Privacidade</h4>
+                </div>
+
+                <div style="margin-left:5px;">
+
+
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:24.0pt;
+font-family:"Times New Roman",serif'>Política de Privacidade</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Esta política de privacidade descreve os
+                            tipos de informações cadastrais que poderemos coletar e como iremos utilizá-la
+                            para prestar serviços através da plataforma Economiza Já e aplicativos da <b>EconomizaJa.com.br</b>.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            A primeira providência para desfrutar dos
+                            serviços da plataforma <b>EconomizaJa.com.br</b> é registrar-se e informar os
+                            dados cadastrais de sua empresa, completos e exatos.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Ao utilizar nossa plataforma e aplicativos,
+                            você concorda com a coleta e uso de suas informações cadastrais como descrito
+                            nesta política. Saiba que:
+                        </span>
+                    </p>
+
+                    <p class=MsoListParagraphCxSpFirst style='margin-left:45.0pt;text-indent:-18.0pt;
+line-height:normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            As informações coletadas
+                            serão as necessárias para armazenamento, manutenção de sua conta e conteúdo, em
+                            nossos servidores.
+                        </span>
+                    </p>
+
+                    <p class=MsoListParagraphCxSpMiddle style='margin-left:45.0pt;text-indent:-18.0pt;
+line-height:normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            No intuito de
+                            promover a interação entre os demais usuários da <b>EconomizaJa.com.br</b>,
+                            será permitido o acesso limitado à certos dados cadastrais dos demais
+                            utilizadores.
+                        </span>
+                    </p>
+
+                    <p class=MsoListParagraphCxSpLast style='margin-left:45.0pt;text-indent:-18.0pt;
+line-height:normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            A qualquer
+                            momento, sua empresa poderá atualizar as informações e preferências de sua
+                            conta, bem como solicitar a extinção de seu registro.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Conteúdo das informações coletadas</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Quando sua empresa se registrar no <b>EconomizaJa.com.br</b>,
+                            solicitaremos algumas informações cadastrais. Esses dados serão utilizados na
+                            inscrição e habilitação de uma nova conta ou serviço ao usuário, na
+                            autenticação de acesso do usuário, no faturamento e cobrança pelos serviços
+                            prestados, na pesquisa e melhoria dos serviços oferecidos, e no contato com os
+                            membros e fornecedores da nossa plataforma.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Também poderá ser realizada a coleta de
+                            informações acerca do uso de sua conta, tais como a frequência que sua empresa
+                            acessa nossa plataforma e outras informações relacionadas ao seu registro.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>A</span><b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            recebe e armazena
+                            qualquer informação enviada para a plataforma por meios eletrônicos ou físicos.
+                            Você pode optar por não enviar determinadas informações, mas pode com isso,
+                            deixar de tirar o melhor proveito das ferramentas da plataforma. A
+                        </span><b>
+                            <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            usa a informação
+                            que você envia com o objetivo de responder aos seus requerimentos, adequar suas
+                            compras futuras, melhorar de forma geral a oferta e comunicação da plataforma com
+                            seus usuários.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>A</span><b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            não se
+                            responsabiliza pela veracidade das informações divulgadas no sistema pelos
+                            Cadastrados. Os Cadastrados concordam e declaram que A
+                        </span><b>
+                            <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            não tem qualquer
+                            obrigação em monitorar e verificar o conteúdo das informações divulgadas no
+                            Sistema, expressamente isentando A
+                        </span><b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            de qualquer
+                            responsabilidade relativas a tais conteúdos.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>A</span><b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'></span>é
+                        responsável somente pela disponibilização de informações de oferta de venda de
+                        bens e serviços entre Cadastrados, intermediando a procura e a oferta entre
+                        compradores e fornecedores.
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Comunicações via E-mail, SMS e
+                            Notificações: Por assegurar uma comunicação eficiente e ágil, o E-mail, SMS e
+                            Notificações passa a ser uma ferramenta fundamental para assegurar a
+                            comunicação entre a plataforma
+                        </span><b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            e seus usuários.
+                            Através do E-mail, SMS e Notificações os usuários obtêm informações de
+                            cadastro, liberação de acesso, promoções exclusivas e muitas outras mensagens
+                            importantes para o dia-a-dia de seus negócios. A plataforma
+                        </span><b>
+                            <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            possibilita ao
+                            usuário a desativação, a qualquer momento, do envio de material informativo por
+                            E-mail e SMS.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>A </span><b>
+                            <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>EconomizaJa.com.br</span>
+                        </b><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            reserva-se no
+                            direito de compartilhar as informações que recebe de seus usuários com suas
+                            empresas parceiras, com o objetivo de oferecer os produtos e serviços a que a
+                            plataforma se propõe, que também são responsáveis em última instância pela
+                            qualidade do serviço final ofertado através da plataforma. Estas empresas têm
+                            acesso às informações dos usuários da plataforma somente para exercerem suas
+                            funções, não podendo usá-las para qualquer outro propósito
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Requisições de Autoridades</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Atendendo requisições das autoridades competentes,
+                            <b>EconomizaJa.com.br</b> poderá revelar a informação cadastral de seus
+                            utilizadores, mediante requerimento judicial ou governamental, para fins
+                            processuais e/ou investigativos.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Autenticação</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Para acesso dos serviços disponibilizados
+                            na nossa plataforma, as empresas devidamente registradas irão dispor de uma
+                            senha pessoal e intransferível. Com ela poderão comprar, vender e ofertar seus
+                            produtos/serviços, dentre outras atividades. Esta senha, que é escolhida pelo
+                            próprio utilizador, deve ser mantida sob absoluta confidencialidade e, em
+                            nenhum caso, deverá ser revelada ou compartilhada com terceiros.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            O utilizador da senha será responsável por
+                            todos os atos que sejam realizados em seu nome utilizando sua senha pessoal,
+                            incluindo a responsabilização por prejuízos que possam vir a sofrer outros
+                            utilizadores do site, por qualquer motivo. Se por qualquer razão um utilizador
+                            desconfiar que alguém pode conhecer sua senha, deverá modificá-la
+                            imediatamente.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                                Os Cookies e recursos de armazenamento
+                                pelo navegador
+                            </span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Um cookie ou</span><em>
+                            <span style='font-family:"Calibri",sans-serif;font-style:normal'>WebStorage</span>
+                        </em><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            é um pequeno
+                            arquivo de dados que é enviado para o seu computador quando você visita um
+                            site. Como a maioria dos cookies de acesso a websites, os nossos cookies e
+                        </span><em>
+                            <span style='font-family:"Calibri",sans-serif;font-style:normal'>WebStorage</span>
+                        </em><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>
+                            incluem um número
+                            de identificação que é exclusivo para o computador que sua empresa está
+                            utilizando. Esta identificação nos ajuda a compreender melhor a nossa base de
+                            usuários e como eles estão usando nosso site e serviços.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Sua empresa pode desativar os seus cookies
+                            nas opções do seu browser, ou fazendo alterações nas ferramentas do seu
+                            Antivírus. Todavia, devemos lhe informar que tal procedimento poderá alterar a
+                            forma como interage com o nosso site, ou mesmo com outros portais.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>O endereço IP (Internet Protocol)</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            O endereço IP é um número que é utilizado por
+                            computadores e servidores na Internet para identificar seu computador. Tal como
+                            os demais websites, nossos servidores automaticamente coletam o seu endereço IP
+                            como dados de tráfego, para que possamos fornecer-lhe a própria aplicação web
+                            em si. O endereço de IP dos computadores de sua empresa que acessarem nosso
+                            site jamais serão utilizados para qualquer outro fim.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Segurança das Informações</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Todas as informações coletadas em nossa
+                            plataforma são armazenadas em ambientes operacionais seguros que não estão
+                            acessíveis ao público. Os proprietários, parceiros e funcionários estão
+                            comprometidos e dedicados a manter a privacidade e a segurança de suas
+                            informações.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Infelizmente, nenhuma transmissão de dados
+                            pela Internet é garantida ou 100% segura. Em virtude disso, não obstante todos
+                            os esforços realizados por nossa equipe, não podemos garantir a segurança de
+                            qualquer informação que você transmita ao nosso site, fazendo-a por sua conta e
+                            risco.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Assim que recebermos as informações,
+                            fazemos todos os esforços comercialmente razoáveis para garantir sua segurança
+                            em nossos sistemas. Não nos responsabilizamos por eventuais danos ou prejuízos
+                            causados pela intervenção de pessoas não autorizadas ou mesmo no caso de
+                            invasão por hackers.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            Contamos com fornecedores de hardware,
+                            software, rede, armazenamento de dados e tecnologia, tudo necessário para bom
+                            funcionamento do nosso site e fornecimento dos nossos serviços. Todavia,
+                            somente nosso site possui os códigos de acesso aos seus dados e informações
+                            cadastrais.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <b>
+                            <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>Links Externos de Terceiros</span>
+                        </b>
+                    </p>
+
+                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+normal'><span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>
+                            A <b>EconomizaJa.com.br</b>, suas
+                            aplicações e/ou seus(s) websites pode(m) conter links para outros websites de
+                            terceiros. As práticas de privacidade de outros sites ou empresas não estão
+                            abrangidas pela presente declaração de privacidade. Não somos responsáveis
+                            pelas práticas de privacidade de outros sites ou seu conteúdo.
+                        </span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-left:72.0pt;line-height:normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span>
+                    </p>
+
+                    <p class=MsoNormal style='margin-left:72.0pt;line-height:normal'>
+                        <span style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span>
+                    </p>
+
+                    <p class=MsoNormal style='line-height:normal'>
+                        <span style='font-size:12.0pt;
+font-family:"Times New Roman",serif'>&nbsp;</span>
+                    </p>
+
+                    <p class=MsoNormal><u><span style='text-decoration:none'>&nbsp;</span></u></p>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

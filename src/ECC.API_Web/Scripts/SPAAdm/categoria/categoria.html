@@ -1,0 +1,254 @@
+﻿<div class="tabbable">
+    
+    <ul class="nav nav-tabs">
+        <li id="tabPesquisar" ng-class="tabsCategoria.tabPesquisar.tabAtivar" ng-show="tabsCategoria.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa();">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadCategoria" ng-class="tabsCategoria.tabCadCategoria.tabAtivar" ng-show="tabsCategoria.tabCadCategoria.tabhabilitar">
+            <a data-toggle="tab" href="#tabContCategoria" target="_self" ng-click="habilitaDesabilitaAbaCategoria();">
+                <i class="red ace-icon fa fa-th bigger-120"></i>
+                Categoria
+            </a>
+        </li>
+
+        <li id="tabCadsegmento" ng-class="tabsCategoria.tabCadsegmento.tabAtivar" ng-show="tabsCategoria.tabCadsegmento.tabhabilitar">
+            <a data-toggle="tab" href="#tabContCadsegmento" target="_self" ng-click="habilitaDesabilitaAbaSegmento();">
+                <i class=" red ace-icon fa fa-tags bigger-120">
+                </i>
+                Segmento
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabContPesquisar" ng-class="tabsCategoria.tabPesquisar.contentAtivar" ng-show="tabsCategoria.tabPesquisar.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Pesquisar Categoria</h4>
+                    <hr />
+                    <form class="form-inline" role="form">
+                        <input type="text" class="col-md-4" ng-model="filtroCategoria" placeholder="Pesquisar Categoria" />
+                        &nbsp;
+                        <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarCategoria()">
+                            <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+                       
+                        <table class="table table-bordered table-hover" id="gvPesquisaCategoria">
+                            <thead>
+                                <tr>
+
+                                    <th >
+                                        <a href="" ng-click="predicate = 'DescCategoria';  reverse = (predicate === predicate) ? !reverse : false;">Categoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescCategoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Ativo';  reverse = (predicate === predicate) ? !reverse : false;">Ativo</a>
+                                        <span class="sortorder" ng-show="predicate === 'Ativo'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                  
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="pesqCategoria in categorias | filter:filtroCategoria | orderBy:predicate:reverse">
+
+                                    <td>{{pesqCategoria.DescCategoria}}</td>
+                                    <td>
+                                        <span ng-class="pesqCategoria.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pesqCategoria.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarCategoria(pesqCategoria)">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li data-toggle="tooltip" data-placement="top" title="Relacionar Segmento">
+                                                        <a href="javascript:void(0);" ng-click="editarCategoriaSegmento(pesqCategoria)">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-tags bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarCategoria(page)"></custom-pager>
+                        </div>
+
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContCategoria" ng-class="tabsCategoria.tabCadCategoria.contentAtivar" ng-show="tabsCategoria.tabCadCategoria.contentHabilitar">
+
+            <h4>Categoria</h4>
+            <hr />
+            <form class="form-group" role="form" novalidate angular-validator name="novaCategoria" angular-validator-submit="inserirCategoria()">
+                <!--Inicio Dados do fornecedor-->
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <input type="text" class="form-control" id="txtDescricaoCategoria" name="txtDescricaoCategoria" placeholder="Categoria" ng-model="novaCategoria.DescCategoria"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="top: 5px;">
+
+                        <label>
+                            <input name="form-field-checkbox" class="ace input-lg" type="checkbox" checked="checked" id="ckbAtivo" ng-model="novaCategoria.Ativo">
+                            <span class="lbl"> Ativo</span>
+                        </label>
+                        
+                    </div>
+
+                </div>
+                <!--Fim Dados do fornecedor-->
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+
+        </div>
+        
+        <!--Relacionar Categoria com Segmeto.-->
+        <div id="tabContCadsegmento" ng-class="tabsCategoria.tabCadsegmento.tabAtivar" ng-show="tabsCategoria.tabCadsegmento.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Relacionar Segmentos</h4>
+                    <hr />
+
+
+
+                </div>
+            </div>
+            <div class="row">
+
+
+
+                <div class="col-md-4">
+
+
+                    <input type="text" ng-model="filtroSegmento" class="form-control" placeholder="Pesquisar Segmento ..." />
+                    &nbsp;
+
+                </div>
+
+                <button type="button" class="btn btn-info btn-sm">
+                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                </button>
+
+            </div>
+
+            <p>
+                <b class="red bigger-125">Categoria: </b><span class="lbl bigger-125"> {{novaCategoria.DescCategoria}}</span>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table  table-bordered table-hover" id="tbRelatProduto">
+                            <thead>
+                                <tr>
+                                    <th>Segmento</th>
+                                    <th>
+                                        <label class="pos-rel">
+                                            <input type="checkbox" class="ace input-lg" ng-model="chkAllSeg" ng-click="checkAll(segmentos, chkAllSeg )">
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <tr ng-repeat="segmentoPesq in segmentos | filter:filtroSegmento">
+                                    <td>{{segmentoPesq.DescSegmento}}</td>
+
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="segmentoPesq.selected" value="{{segmentoPesq.Id}}" ng-checked="segmentoPesq.Relacionado">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirCategoriaSegmentos();">
+                        <i class="ace-icon fa fa-check"></i>
+                        Salvar
+                    </button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

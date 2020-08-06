@@ -1,0 +1,157 @@
+﻿<div class="page-content">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="page-header">
+                <h1>
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Aprovar Fornecedores
+                </h1>
+            </div>
+        </div>
+    </div>
+    <!--Campos para filtrar fornecedores solicitados por Membros da Franquia-->
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-horizontal">
+                <span class="lbl"> Estado</span>
+                <select id="ddlEstadoreg" ng-change="loadRegiao(EstadoId)"
+                        ng-model="EstadoId" class="form-control black"
+                        ng-options="option.Id as option.DescEstado for option in estados" required></select>
+                <input type="hidden" name="EstadoId" ng-value="EstadoId" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-horizontal">
+                <span class="lbl"> Região</span>
+                <select id="ddlRegiaoRe" ng-change="loadCidadePorRegiao(EstadoId, RegiaoId)"
+                        ng-model="RegiaoId" class="form-control black"
+                        ng-options="option.Id as option.DescRegiao for option in regioes" required>
+                    <option value="" selected>Região...</option>
+                </select>
+                <input type="hidden" name="RegiaoId" ng-value="RegiaoId" />
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-horizontal">
+                <span class="lbl"> Cidade</span>
+                <select id="ddlCidade" class="form-control"
+                        ng-model="CidadeId"
+                        ng-options="cidade.Id as cidade.DescCidade for cidade in cidades">
+                    <option value="" selected>Cidade...</option>
+                </select>
+                <input type="hidden" name="CidadeId" ng-value="CidadeId" />
+
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-horizontal">
+                <span class="lbl"> Fornecedor</span>
+                <input type="text" ng-model="filtronovofornecedor" class="form-control" value=""
+                       placeholder="Cnpj, Nome Fanatasia..." />
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div class="form-horizontal" style="margin-top: 20px;">
+                <span class="lbl"></span>
+                <button class="btn btn-info btn-sm" ng-click="pesquisarNovoFornecedor(page)">
+                    <i class="icon fa fa-search"></i>
+                    Pesquisar
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover " id="gvPesquisaProduto">
+                    <thead>
+                        <tr>
+
+                            <th>Nome Fornecedor</th>
+                            <th>Razão Social</th>
+                            <th>Cnpj</th>
+                            <th>Prazo de Entrega</th>
+                            <th>Avaliação</th>
+                            <th>Detalhes</th>
+                            <th>
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace input-lg" ng-model="allReg" ng-checked="allReg"
+                                           ng-click="checkBoxAll(fornecedores, allReg)">
+                                    <span class="lbl"></span>
+                                </label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr ng-show="fornecedores.length == 0">
+                        <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                            <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                            Nenhum Fornecedor Encontrado.
+                        </td>
+                    </tr>
+                    <tbody>
+                        <tr class="ng-trans ng-trans-flip-x" ng-repeat="novoFornecedor in fornecedores | filter: filtroProduto | orderBy:predicate:reverse">
+                            <td>{{novoFornecedor.NomeFornecedor}}</td>
+                            <td>{{novoFornecedor.NomeRazaoSocialFornecedor}}</td>
+                            <td>{{novoFornecedor.CnpjFornecedor}}</td>
+                            <td>
+                                <div ng-show="novoFornecedor.PrazoEntegaFornecedor > 0">
+                                    {{novoFornecedor.PrazoEntegaFornecedor}} ({{novoFornecedor.PrazoEntegaFornecedor > 1 ? 'Dias' : 'Dia'}})
+                                </div>
+                                <div ng-show="{{novoFornecedor.FornecedorPrazoSemanal.length > 0}}">
+                                    <div ng-repeat="prazo in novoFornecedor.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                        <label class="label label-danger">
+                                            {{prazo.DescDiaSemana}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 120px;" class="align-center">
+                                <div class="text-center bigger-110">
+                                    <div class="media-bottom">
+                                        <span component-rating-fornecedor="{{novoFornecedor.MediaAvaliacaoPedido / novoFornecedor.QtdNotas }}"></span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="align-center">
+                                <a href="javascript:void(0);" ng-click="detalhesFornecedor(novoFornecedor)" tooltip="Clique para ver o detalhe" tooltip-placement="bottom">
+                                    <span class="green">
+                                        <i class="ace-icon fa fa-list bigger-160"></i>
+                                    </span>
+                                </a>
+                            </td>
+                            <td>
+                                <div class="inline pos-rel">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace input-lg"
+                                               ng-model="novoFornecedor.selected"
+                                               ng-click="franquiaSolicitaFornecedor([novoFornecedor.FornecedorId])"
+                                               value="{{novoFornecedor.FornecedorId}}" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="text-align: center">
+                    <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProduto(page)"></custom-pager>
+                </div>
+            </div>
+            <!--Fim Tabela Pesquisar-->
+        </div>
+    </div>
+
+</div>
+

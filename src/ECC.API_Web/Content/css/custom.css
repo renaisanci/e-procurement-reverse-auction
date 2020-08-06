@@ -1,0 +1,235 @@
+﻿
+
+div input, div select, div textarea {
+    margin-bottom: 17px;
+}
+
+
+.sortorder:after {
+    content: '\25b2';
+}
+
+.sortorder.reverse:after {
+    content: '\25bc';
+}
+
+
+.panel {
+    /*border-radius: 0;*/
+}
+
+
+
+.user-info {
+    max-width: 200px;
+}
+
+#myTab {
+}
+
+    #myTab > div {
+        padding: 5px;
+        border: 1px solid black;
+    }
+
+    #myTab .tab-content {
+        margin-bottom: 0;
+    }
+
+div .row {
+    margin-bottom: 5px;
+}
+
+div .label {
+    margin-bottom: 20px;
+}
+
+.col-md-1 {
+    margin-bottom: 10px;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > td {
+    padding: 1px;
+    vertical-align: bottom;
+}
+
+td > span {
+    vertical-align: text-bottom;
+}
+
+div .label {
+    margin-bottom: 5px;
+}
+
+table tbody td {
+    text-align: center;
+}
+
+.table > thead > tr > th {
+    text-align: center;
+}
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+tbody {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    overflow-y: visible !important;
+}
+
+
+.table-bordered {
+    margin-bottom: 50px;
+}
+
+/*input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], textarea, select {
+    padding: 3px;
+    height: 24px;
+    margin: 2px;
+}*/
+
+
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+    min-height: 1px;
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
+}
+
+/*select.form-control {
+    padding: 1px;
+    height: 24px;
+     margin: 2px;
+}*/
+
+/*#region Breadcrumbs*/
+.page-breadcrumbs {
+    position: relative;
+    background: #f3f3f3;
+    min-height: 40px;
+    line-height: 39px;
+    padding: 0;
+    display: block;
+    z-index: 1;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+    .page-breadcrumbs.breadcrumbs-fixed {
+        position: fixed;
+        left: 0;
+        right: 224px;
+        top: 45px;
+        z-index: 999;
+    }
+
+        .page-breadcrumbs.breadcrumbs-fixed + .page-header {
+            margin-top: 40px;
+        }
+
+.breadcrumb {
+    background-color: transparent;
+    display: inline-block;
+    line-height: 24px;
+    margin: 0 12px 0 22px;
+    padding: 0;
+    font-size: 13px;
+    color: #333333;
+    border-radius: 0;
+}
+
+    .breadcrumb > li,
+    .breadcrumb > li.active {
+        color: #777777;
+        -webkit-text-shadow: none;
+        text-shadow: none;
+    }
+
+        .breadcrumb > li + li:before {
+            color: #999999;
+        }
+
+        .breadcrumb > li > .divider {
+            padding: 0 4px;
+        }
+
+        .breadcrumb > li > a {
+            display: inline-block;
+            color: #2dc3e8;
+        }
+
+        .breadcrumb > li:first-child > a {
+            padding-right: 4px;
+        }
+
+        .breadcrumb > li > i {
+            margin-right: 4px;
+            margin-left: 2px;
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+        }
+
+    .breadcrumb .expand-icon {
+        height: 22px;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        top: 1px;
+        font-size: 14px;
+        color: #b2b6bf;
+    }
+
+.modal-header {
+    color: #808080;
+    background-color: #f2dede;
+    border-color: #F2F2F2;
+}
+
+/*Barra de rolagem e top Fixo*/
+/*tbody {
+    display:block;
+     height : 400px;
+    overflow:auto;
+}*/
+/*thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}*/
+
+
+
+
+/*
+    topo fixo e barra de rolagem nao deu muito certo
+    table tbody, table thead
+{
+    display: block;
+      
+}
+
+table tbody, table thead
+{
+    display: block;
+       
+}
+
+table tbody 
+{
+   overflow: auto;
+   height: 100px;
+ 
+
+ 
+}*/
+
+

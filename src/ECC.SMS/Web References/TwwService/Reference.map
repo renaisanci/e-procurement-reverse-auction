@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx?disco" filename="wsreluzcap.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://webservices2.twwwireless.com.br/reluzcap/wsreluzcap.asmx?wsdl" filename="wsreluzcap.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

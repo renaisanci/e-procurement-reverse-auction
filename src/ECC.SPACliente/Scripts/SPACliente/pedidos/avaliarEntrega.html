@@ -1,0 +1,368 @@
+﻿<div class="page-content">
+
+
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Avaliar Entrega
+        </h1>
+    </div>
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabPesquisar" ng-class="tabsAvlEntrega.tabPesquisar.tabAtivar" ng-show="tabsAvlEntrega.tabPesquisar.tabhabilitar">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self" ng-click="habilitaDesabilitaAbaPesquisa()">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabDetalhes" ng-class="tabsAvlEntrega.tabCadAvlEntrega.tabAtivar" ng-show="tabsAvlEntrega.tabCadAvlEntrega.tabhabilitar">
+            <a data-toggle="tab" href="#tabDetalhesPedido" target="_self">
+                <i class="red ace-icon fa fa-pencil-square-o bigger-120"></i>
+                Detalhe do Pedido
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabContPesquisar" ng-class="tabsAvlEntrega.tabPesquisar.contentAtivar" ng-show="tabsAvlEntrega.tabPesquisar.contentHabilitar">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h4>Pesquisar Pedido</h4>
+                    <hr />
+                    <form class="form-group" role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <input type="text" class="col-md-4 form-control" ng-model="filtroPedido" placeholder="Pesquisar pedido" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 pull-left">
+                                <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarAguardandoEntrega(page);">
+                                    <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover" id="gvPesquisaPedidos">
+                            <thead>
+                                <tr>
+                                    <th>Pedido</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                    <th>Qtd. Itens</th>
+                                    <th></th>
+                                    <!--<th class="tdCenter" ng-show="avaliacaoPendente" style="width: 15px;">
+                                        Avaliação
+                                    </th>-->
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="pedido in Pedidos | filter : filtroPedido">
+
+                                    <td>{{pedido.PedidoId}}</td>
+                                    <td>
+                                        <label class="label label-success">
+                                            {{pedido.Status}}
+                                        </label>
+                                    </td>
+                                    <td>{{pedido.DtPedido | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                                    <td>
+                                        {{pedido.QtdItem}}
+                                    </td>
+
+                                    <td>
+                                        <a href="javascript:void(0);" ng-click="detalhesPedido(pedido)" tooltip="Clique para avaliar os forneceores do itens do seu pedido" tooltip-placement="bottom">
+                                            <span class="green">
+                                                <i class="grey fa fa-list fa-2x"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+
+                                    <!--
+                                        rever esta regra, quando nao tem nenhum item aprovado dentro do pedido os dados do fornecedor nao aparece
+                                        <td ng-show="avaliacaoPendente">
+                                        <a href="javascript:void(0);"
+                                           ng-click="avaliarFornecedor(pedido)"
+                                           tooltip="Avaliar {{PedidosNaoAvaliados.length > 1 ?'Fornecedores':'Fornecedor'}}"
+                                           tooltip-placement="bottom"
+                                           ng-show="pedido.NaoAvaliado">
+                                            <span class="red">
+                                                <i class="red fa fa-users fa-2x"></i>
+                                            </span>
+                                        </a>
+                                    </td>-->
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarAguardandoEntrega(page)" style="padding: 0"></custom-pager>
+                        </div>
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <div id="tabDetalhesPedido" ng-class="tabsAvlEntrega.tabCadAvlEntrega.contentAtivar" ng-show="tabsAvlEntrega.tabCadAvlEntrega.contentHabilitar">
+
+            <h4>Detalhes Pedido</h4>
+            <hr />
+            
+            <!--Status do Pedido-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="widget-box">
+
+                        <div class="widget-header widget-header-flat widget-header-small">
+
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed shortMargin">
+                                    <tbody>
+                                        <tr>
+                                            <td class="shortPadding" style="width: 10%;">
+                                                <span class="blue lbl bigger-200"> Pedido: </span>
+                                            </td>
+                                            <td class="shortPadding"><span class="blue lbl bigger-200"><b>{{novoDetalhesPedido.PedidoId}}</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="shortPadding"><b>Status:</b></td>
+                                            <td class="shortPadding"><i>{{novoDetalhesPedido.Status}}</i></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="shortPadding"><b>Data:</b></td>
+                                            <td class="shortPadding"><i>{{novoDetalhesPedido.DtPedido | date:'dd/MM/yyyy HH:mm:ss'}}</i></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="shortPadding"><b>Qtd. Itens:</b></td>
+                                            <td class="shortPadding"><i>{{novoDetalhesPedido.QtdItem}} </i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer clearfix">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--Formas de Pagmento por Fornecedor-->
+            <div class="row" style="margin-bottom:20px;">
+                <div class="col-md-12">
+
+                    <div class="widget-box ui-sortable-handle collapsed" id="widget-box-2" style="opacity: 1;">
+                        <div class="widget-header">
+                            <h5 class="widget-title">Subtotal Por Fornecedor</h5>
+
+                            <div class="widget-toolbar">
+                                <a href="javascript:void(0);" data-action="fullscreen" class="orange2">
+                                    <i class="ace-icon fa fa-expand"></i>
+                                </a>
+
+                                <!--<a href="javascript:void(0);" data-action="" id="collapseDivFormaPagamento">
+                                    <i class="ace-icon fa fa-chevron-down" style="color:#AAA;"></i>
+                                </a>-->
+
+                            </div>
+                        </div>
+
+                        <div class="" id="divFormapagamento">
+                            <div class="widget-main">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed" style="padding:0;width:100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="shortPadding"><b>Fornecedor:</b></td>
+                                                <td class="shortPadding"><b>Forma de Pagamento:</b></td>
+                                                <td class="shortPadding"><b>Prazo:</b></td>
+                                                <!--<td class="shortPadding"><b>Subtotal:</b></td>-->
+                                                <td class="shortPadding"><b>Subtotal:</b></td>
+                                            </tr>
+                                            <tr ng-repeat="itens in somaSubTotalFornecedores | orderBy:'Fornecedor.NomeFantasia'">
+                                                <td class="shortPadding">
+                                                    <div style="background-color:red;color:white;opacity:0.5;font-weight:bold;border-radius:5px;font-size:15px;padding:5px;">
+                                                        {{itens.Fornecedor.NomeFantasia}}
+                                                    </div>
+                                                </td>
+                                                <td class="shortPadding tdCenter">
+                                                    <div class="row">
+                                                        <div ng-repeat="pag in itens.Fornecedor.FormasPagamento" class="col-md-12"
+                                                             ng-show="{{pag.Id == itens.FormaPagtoId}}">
+                                                            <label>
+                                                                <input name="{{itens.FornecedorId}}" class="ace" type="radio" value="{{pag.Id}}"
+                                                                       ng-checked="{{pag.Id == itens.FormaPagtoId}}" ng-model="pag.confirmed"
+                                                                       ng-disabled="pedido.StatusId != 23">
+                                                                <span class="lbl"
+                                                                      tooltip="{{pag.DescMotivo}}"
+                                                                      tooltip-placement="right">
+                                                                    {{pag.DescFormaPagto}}
+                                                                </span>
+                                                            </label>
+                                                            <span class="badge badge-danger" ng-show="{{itens.Desconto > 0}}"><b>-</b>{{itens.Desconto}}<b>%</b></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="shortPadding tdCenter">
+                                                    <div ng-show="{{itens.Fornecedor.PrazoEntrega > 0}}">
+                                                        {{itens.Fornecedor.PrazoEntrega}} dia(s)
+
+                                                    </div>
+                                                    <div ng-show="itens.Fornecedor.FornecedorPrazoSemanal.length > 0">
+                                                        <div ng-repeat="semanal in itens.Fornecedor.FornecedorPrazoSemanal" style="float: left; margin-left: 2px;">
+                                                            <label class="label label-danger">
+                                                                {{semanal.DescDiaSemana}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <!--<td class="shortPadding tdCenter" ng-show="true">
+                                                    <div style="padding: 5px;">
+                                                        <label class="label label-success" style="font-weight: bold;">
+                                                            {{itens.somaTotalItens | currency}}
+
+                                                        </label>
+                                                    </div>
+                                                </td>-->
+                                                <td class="shortPadding tdCenter" ng-show="true">
+                                                    <div style="padding:5px;">
+                                                        <label class="label label-success" style="font-weight:bold;">
+                                                            {{itens.somaTotalItensAvista | currency}}
+
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!--Itens do Pedido-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tdCenter">Descrição</th>
+                                    <th class="tdCenter">Quantidade</th>
+                                    <th class="tdCenter"><b>Preço Médio Unitário</b></th>
+                                    <th class="tdCenter">
+                                        <b class="lbl">Preço Unit.</b><b class="red lbl"> <br />Economiza Já</b>
+                                    </th>
+                                    <th class="tdCenter">
+                                        <b class="lbl">Subtotal</b><b class="red lbl"> <br />Economiza Já</b>
+                                    </th>
+                                    <th class="tdCenter">Fornecedor</th>
+                                    <!--<td class="tdCenter">Fornecedor confirmou entrega</td>-->
+                                    <th class="tdCenter">Confirmar entrega</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="itens in novoDetalhesPedido.Itens | orderBy:'Fornecedor.NomeFantasia'">
+                                    <td class="tdCenter">{{itens.name}}</td>
+                                    <td class="tdCenter">
+                                        {{itens.quantity}}
+                                    </td>
+                                    <td class="tdCenter">{{itens.PrecoMedioUnit | currency : "R$"}}</td>
+                                    <td class="tdCenter">{{itens.PrecoNegociadoUnit |currency : "R$"}}</td>
+                                    <td class="tdCenter">{{itens.PrecoNegociadoUnit * itens.quantity | currency : "R$"}}</td>
+                                    <td class="tdCenter">{{itens.Fornecedor.NomeFantasia}}</td>
+
+                                    <td class="tdCenter">
+
+                                        <label class="pos-rel" ng-show="itens.Ativo" style="margin: 0;">
+                                            <input name="cbEntregaMembro" class="ace ace-switch"
+                                                   type="checkbox" style="margin: 0; min-height: 0;"
+                                                   ng-checked="itens.entregaMembro"
+                                                   ng-model="itens.entregaMembro"
+                                                   ng-change="atualizaStatusItensPedido(this)">
+                                            <span class="lbl" data-lbl="SIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NÃO"></span>
+                                        </label>
+
+                                        <label class="label label-danger" ng-hide="itens.Ativo" style="margin: 0;">
+                                            Cancelado
+                                        </label>
+
+                                    </td>
+
+                                </tr>
+                                <tr class="well">
+                                    <td><b>Total Itens:</b></td>
+                                    <td class="tdCenter"><b>{{novoDetalhesPedido.QtdItem}}</b></td>
+                                    <td></td>
+                                    <td><b>Total:</b></td>
+                                    <!--<td class="tdCenter"><b>{{somaTotalPrecoNegociado | currency}}</b></td>-->
+                                    <td class="tdCenter"><b>{{somaTotalPrecoAvista | currency}}</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!--Inicio Botoes-->
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" ng-click="finalizarPedido(itens)">
+                        <i class="ace-icon fa fa-check-square-o"></i>
+                        Finalizar Pedido
+                    </button>
+
+                </div>
+            </div>
+
+            <!--Fim Botoes-->
+        </div>
+
+    </div>
+</div>

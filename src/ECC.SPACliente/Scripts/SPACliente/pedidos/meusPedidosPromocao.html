@@ -1,0 +1,154 @@
+﻿
+
+<div class="page-content">
+    <div class="page-header">
+        <h1>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            Pedidos Promoção
+        </h1>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="input-group">
+                <input type="text" class="form-control date-picker" name="txtDe" disabled="disabled" datepicker-popup="{{format}}" ng-model="DtDe" ng-change="limpaStatus();" is-open="datepickerDe.opened" datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close" placeholder="De" />
+
+                <span class="input-group-addon">
+                    <a href="javascript:void(0);" ng-click="openDatePickerDe($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="input-group">
+                <input type="text" class="form-control date-picker" name="txtAte" disabled="disabled" datepicker-popup="{{format}}" ng-model="DtAte" ng-change="limpaStatus();" is-open="datepickerAte.opened" datepicker-options="dateOptions" datepicker-append-to-body="true" close-text="Close" placeholder="Até" />
+
+                <span class="input-group-addon">
+                    <a href="javascript:void(0);" ng-click="openDatePickerAte($event)"><i class="fa fa-calendar bigger-110"></i></a>
+                </span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-horizontal">
+                <select id="ddlStatus" ng-model="StatusId" class="form-control black"
+                        ng-change="loadPedidosMembro();"
+                        ng-options="option.Id as option.DescStatus for option in StatusPedido" required>
+
+                    <option value="" selected>Status...</option>
+                </select>
+                <input type="hidden" name="hdnStatusId" ng-value="StatusId"/>
+            </div>
+        </div>
+
+        <div class="col-md-1 text-center">
+            <b style="font-size: 20px;">OU</b>
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" class="form-control" placeholder="Id do Produto" ng-model="IdPedido" value=""/>
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-info btn-sm" ng-click="loadPedidosMembro()">
+                <i class="icon fa fa-search"></i>
+                Pesquisar
+            </button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <br />
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+
+            <div class="table-responsive">
+
+                <span class="blue lbl bigger-125"> Período: </span>
+
+                <span class="lbl bigger-110" ng-show="DtDe!='' && DtAte!='' "> {{DtDe | date: 'dd/MM/yyyy'}} - {{DtAte | date: 'dd/MM/yyyy'}}</span>
+
+                <span class="lbl bigger-110" ng-show="DtDe=='' && DtAte=='' "> Últimos 10 Pedidos</span>
+
+                <table class="table table-bordered table-hover" id="gvPedidosMembro">
+                    <thead>
+                        <tr>
+                            <th align="center" style="width:50px;"></th>
+                            <th>Pedido</th>
+                            <th>Status</th>
+                            <th>Data</th>
+                            <th>Qtd. Itens Aprovados</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr ng-show="Pedidos.length == 0">
+                        <td class="tdCenter text-center" colspan="6" style="background-color: white; color: red; padding: 20px;">
+                            <i class="fa fa-ban" aria-hidden="true" style="font-size: 20px;"></i>
+                            Nenhum Registro Encontrado.
+                        </td>
+                    </tr>
+                    <tbody ng-repeat="pedido in Pedidos">
+
+                        <tr class="accordion-toggle">
+                            <td data-toggle="collapse" data-target="#{{pedido.PedidoId}}" style="width:50px;" align="center">
+                                <i class="blue fa fa-eye fa-2x fa-align-left" aria-hidden="true" style="cursor: pointer;" title="Clique para visualizar"></i>
+                            </td>
+                            <td>{{pedido.PedidoId}}</td>
+                            <td><span ng-class="pedido.StatusId <= 30 ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pedido.Status}}</span></td>
+                            <td>{{pedido.DtPedido | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                            <td>{{pedido.QtdItem}}</td>
+                            <td align="center" style="max-width: 150px;">
+                                
+                                <a href="javascript:void(0);" ng-href="#/avaliarEntrega" ng-show="pedido.StatusId === 29"
+                                   tooltip="Avaliar Entrega"
+                                   tooltip-placement="bottom">
+                                    <i class="grey fa fa-star fa-2x" aria-hidden="true"></i>
+                                </a>
+
+                                <a href="javascript:void(0);" ng-click="openDetPedDialog(pedido, StatusPedido);"
+                                   tooltip="Detalhe do pedido"
+                                   tooltip-placement="bottom">
+                                    <i class="grey fa fa-list fa-2x" aria-hidden="true"></i>
+                                </a>
+                                &nbsp;
+                                <a href="javascript:void(0);" ng-click="openModalLancesPorFornecedor(pedido);"
+                                   tooltip="Saiba os melhores lances por Fornecedor"
+                                   tooltip-placement="bottom" ng-show="!pedido.PedidoPromocional && pedido.OrdemStatus > 2">
+                                    <i class="grey fa fa-list-ol fa-2x" aria-hidden="true"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="hiddenRow">
+                                <div class="accordian-body collapse" id="{{pedido.PedidoId}}">
+                                    <ul style="margin-left: 0;" class="steps">
+                                        <li data-step="1" ng-class="status.Ordem <= pedido.OrdemStatus ? 'active' : ''" ng-repeat="status in pedido.StatusPedido">
+                                            <span class="step">
+                                                <i ng-class="status.Ordem <= pedido.OrdemStatus ? 'fa fa-check green fa-lg' : 'fa fa-hourglass-half grey '" aria-hidden="true"> </i>
+                                            </span>
+                                            <span class="title">{{status.DescStatus}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="text-center">
+                    <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="loadPedidosMembro(page)"></custom-pager>
+                </div>
+
+            </div>
+            <!--Fim Tabela Pesquisar-->
+
+        </div>
+
+    </div>
+
+
+</div>

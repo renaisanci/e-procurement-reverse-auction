@@ -1,0 +1,108 @@
+﻿
+<div class="panel panel-danger">
+    <div class="modal-header">
+        <button ng-click="closeModalTroca();" type="button" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title"> TROCAR FORNECEDOR DO ITEM  </h4>
+    </div>
+</div>
+
+<div class="panel-body">
+    <span class="blue lbl bigger-200"> Pedido: </span><span class="blue lbl bigger-200"><b> {{pedido.PedidoId}}</b></span>
+
+
+    <div class="content">
+
+
+        <!--Itens do pedido Membro-->
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="" id="divItensPedido" style="display:block;overflow-y:scroll;max-height:500px;">
+                    <div class="widget-main">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="gvCarrinho">
+                                <thead>
+                                    <tr style="background-color: #F5F5F5">
+                                        <td><b>Item</b></td>
+                                        <td class="tdCenter"><b class="lbl">Obs Marca ,Cor, Brinde</b></td>
+                                        <td class="tdCenter"><b class="lbl">Fornecedor </b></td>
+                                        <td class="tdCenter"><b class="lbl">QTD. </b></td>
+                                        <td class="tdCenter"><b class="lbl">Preço Unitário </b><b class="red lbl"> <br />Economiza Já</b></td>
+                                        <td class="tdCenter">
+                                            <div style="text-align:center;">
+                                                <i class="fa fa-retweet fa-2x" style="color:orange;" aria-hidden="true"
+                                                   tooltip="Selecione os itens que você deseja fechar com esse fornecedor"
+                                                   tooltip-placement="bottom"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+
+                                <tbody  ng-init="total = 0">
+                                    <tr  ng-init="qtdTotal = 0" ng-repeat="item in Pedido.ItemPedidosFornecedor">
+
+                                        <td class="tdCenter">{{item.ItemPedidos.name}}</td>
+
+                                        <td class="tdCenter"> {{item.FornecedorLance[0].obs}}</td>
+
+                                        <td class="tdCenter"> {{item.FornecedorLance[0].FornecedorLance.NomeFantasia}}</td>
+
+                                        <td class="tdCenter"  ng-init="$parent.qtdTotal = $parent.qtdTotal + (item.FornecedorLance[0].qtd)" > {{item.FornecedorLance[0].qtd}}</td>
+
+                                        <td class="tdCenter" ng-init="$parent.total = $parent.total + (item.FornecedorLance[0].valorLance *item.FornecedorLance[0].qtd)"> {{item.FornecedorLance[0].valorLance | currency : "R$"}}</td>
+
+                                        <td class="tdCenter" style="text-align:center;">
+
+                                            <div class="inline pos-rel">
+                                                <label class="pos-rel">
+                                                    <input type="checkbox" class="ace input-lg" ng-model="item.TrocaItem" ng-checked="item.TrocaItem" ng-change="addItemFornecedorTroca(item.ItemPedidos.Id, item.FornecedorLance[0].valorLance,item.TrocaItem, item.FornecedorLance[0].obs);">
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </div>
+
+
+                                        </td>
+
+                                    </tr>
+
+                                    <!-- footer -->
+                                    <tr class="well">
+
+                                        <td class="tdRight"></td>
+                                        <td class="tdRight"></td>
+                                        <td class="tdRight"><b>Total</b></td>
+                                        <td class="tdRight"><b>{{qtdTotal}}</b></td>
+                                        <td class="tdRight"><b>{{ total   | currency : "R$"}}</b></td>
+                                        <td class="tdRight"><b></b></td>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <hr />
+    <button type="button" class="btn btn-success btn-block"
+            ng-click="salvaTrocarFornecedor();">
+        <i class="ace-icon fa fa-check"></i>
+        Salvar
+    </button>
+</div>

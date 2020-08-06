@@ -1,0 +1,102 @@
+﻿
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        MANUTENÇÃO DE USUÁRIO
+    </div>
+</div>
+<form class="form-group" role="form" novalidate angular-validator name="addUsuario" angular-validator-submit="inserirUsuario()">
+    <div class="panel-body">
+        <h4>Dados Usuário</h4>
+        <hr />
+
+        <!--Inicio Dados do Usuário-->
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="text" class="form-control" ng-model="novoUsuario.UsuarioNome" id="txtUsuNome"
+                           name="txtUsuNome" placeholder="Nome"
+                           validate-on="blur" required required-message="'Nome é de preenchimento obrigatório.'" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="Email"
+                           ng-model="novoUsuario.UsuarioEmail" required required-message="'Email é de preenchimento obrigatório.'" />
+
+                </div>
+            </div>
+        </div>
+
+
+      
+       
+        
+
+
+        <div class="row"  >
+
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="password" class="form-control" ng-model="novoUsuario.Senha" id="txtSenha"
+                           name="txtSenha" placeholder="Senha" value="" maxlength="8"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <input type="password" class="form-control" id="txtConfirmaSenha" ng-model="novoUsuario.ConfirmSenha"
+                           name="txtConfirmaSenha" placeholder="Confirma Senha" maxlength="8"
+                            />
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6" style="top: 5px;">
+                <div class="form-horizontal">
+
+                    <input type="checkbox" class="ace input-lg" ng-model="novoUsuario.FlgMaster" name="ckbUsurMaster" id="ckbUsurMaster" checked="checked">
+                    <span class="lbl"> Usuário Master</span>
+                </div>
+            </div>
+            <div class="col-md-6" style="top: 5px;">
+
+                <label>
+                    <input type="checkbox" name="ckbAtivo" class="ace input-lg" id="ckbAtivo" ng-model="novoUsuario.Ativo" checked="checked">
+                    <span class="lbl"> Ativo</span>
+                </label>
+            </div>
+
+        </div>
+
+
+        <!--Fim Dados do Usuário-->
+        <!--Inicio Botoes-->
+        <hr />
+
+
+        <!--Fim Botoes-->
+        <button type="submit" class="btn btn-success btn-sm">
+            <i class="ace-icon fa fa-check"></i>
+            Salvar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm" ng-click="cancel()">
+            <i class="ace-icon fa fa-times"></i>
+            Cancel
+        </button>
+
+
+    </div>
+
+
+
+
+</form>

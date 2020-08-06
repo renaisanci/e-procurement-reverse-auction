@@ -1,0 +1,229 @@
+﻿<div class="page-content">
+    <div class="page-header">
+
+        <h1>
+            <i class="fa fa-credit-card" aria-hidden="true"></i>
+            Dados de Pagamento
+        </h1>
+    </div>
+
+    <div class="tabbable">
+
+        <ul class="nav nav-tabs">
+            <li id="tabPendente" ng-class="tabsPagamento.tabPendente.tabAtivar" ng-show="tabsPagamento.tabPendente.tabHabilitar" ng-click="habilitaPendente();">
+                <a data-toggle="tab" href="#tabContPendente" target="_self">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    Pendente
+                </a>
+            </li>
+
+            <li id="tabHistorico" ng-class="tabsPagamento.tabHistorico.tabAtivar" ng-show="tabsPagamento.tabHistorico.tabHabilitar" ng-click="habilitaHistorico();">
+                <a data-toggle="tab" href="#tabContHistorico" target="_self">
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                    Histórico
+                </a>
+            </li>
+
+            <li id="tabFormaPagamento" ng-class="tabsPagamento.tabFormaPagamento.tabAtivar" ng-show="tabsPagamento.tabFormaPagamento.tabHabilitar" ng-click="habilitaFormaPagamento();">
+                <a data-toggle="tab" href="#tabContFormaPagamento" target="_self">
+                    <i class="fa fa-barcode" aria-hidden="true"></i>
+                    Forma de Pagamento
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!--Tab Pagamentos Pendentes.-->
+            <div id="tabContPendente" ng-class="tabsPagamento.tabPendente.contAtivar" ng-show="tabsPagamento.tabPendente.contHabilitar">
+
+                <div class="row" ng-show="mensalidades.length != 0">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover" id="gvPagamentosPendentes">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Data Vencimento</th>
+                                    <th>Plano</th>
+                                    <th>Tipo Pagamento</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th ng-show="existeBoleto">Boleto</th>
+                                    <th ng-show="true">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mensalidade in mensalidades">
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.Descricao}}</td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.DtVencimento | date : 'dd/MM/yyyy'}}</td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.TipoPlano}}</td>
+                                    <td class="col-md-2">
+                                        <span class="label label-success">{{mensalidade.Tipo}}</span>
+                                    </td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span><span class="pull-right">{{mensalidade.Total | currency : ''}}</span>
+                                    </td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="label label-success" ng-show="mensalidade.Status == 1">Gerado</span>
+                                        <span class="label label-warning" ng-show="mensalidade.Status == 3">Aguardando Pagamento</span>
+                                    </td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;" ng-show="existeBoleto">
+                                        <a class="btn btn-default btn-xs" ng-href="{{mensalidade.UrlBoleto}}" target="_blank" tooltip-placement="bottom" tooltip="Impimir boleto" ng-show="mensalidade.TipoPagamentoId == 3">
+                                            <i class="ace-icon fa fa-barcode  bigger-110 icon-only"></i>
+                                        </a>
+                                    </td>
+                                    <td style="padding-right: 10pt; padding-left: 10pt;" ng-show="mensalidade.Status == 3">
+                                        <button class="btn btn-danger btn-xs" tooltip="Cancelar Plano" tooltip-placement="bottom"
+                                                ng-click="cancelarPlano(mensalidade.Id);" style="padding-top: 0; padding-bottom: 0;">
+                                            <i class="ace-icon fa fa-times  bigger-100 icon-only"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="align-center" ng-show="mensalidades.length == 0"><h4>Não existe plano pendente de pagamento.</h4></div>
+
+
+            </div>
+
+            <!--Tab Histórico de Pagamentos.-->
+            <div id="tabContHistorico" ng-class="tabsPagamento.tabHistorico.contAtivar" ng-show="tabsPagamento.tabHistorico.contHabilitar">
+
+                <div class="row" ng-show="mensalidades.length != 0">
+                    <div class="col-md-12">
+                        <table class="table table-bordered table-hover" id="gvPagamentosPendentes">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Data Vencimento</th>
+                                    <th>Plano</th>
+                                    <th>Tipo Pagamento</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Plano</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="mensalidade in mensalidades">
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.Descricao}}</td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.DtVencimento | date : 'dd/MM/yyyy'}}</td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{mensalidade.TipoPlano}}</td>
+                                    <td class="col-md-2">
+                                        <span class="label label-success">{{mensalidade.Tipo}}</span>
+                                    </td>
+                                    <td class="col-md-1" style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="pull-left">R$ </span>
+                                        <span class="pull-right">{{mensalidade.Total | currency : ''}}</span>
+                                    </td>
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="label label-warning" ng-show="mensalidade.Status == 1">Gerado</span>
+                                        <span class="label label-warning" ng-show="mensalidade.Status == 3">Aguardando Pagamento</span>
+                                        <span class="label label-success" ng-show="mensalidade.Status == 2">Pago</span>
+                                        <span class="label label-danger" ng-show="mensalidade.Status == 4">Não Pago</span>
+                                        <span class="label label-danger" ng-show="mensalidade.Status == 5">Devolvido</span>
+                                        <span class="label label-info" ng-show="mensalidade.Status == 7">Link</span>
+                                        <span class="label label-danger" ng-show="mensalidade.Status == 8">Cancelado</span>
+                                    </td>
+
+                                    <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">
+                                        <span class="label label-warning" ng-show="mensalidade.Status == 1 && mensalidade.Ativo">Gerado</span>
+                                        <span class="label label-warning" ng-show="mensalidade.Status == 3 && mensalidade.Ativo">Aguardando Pagamento</span>
+                                        <span class="label label-success" ng-show="mensalidade.Status == 2 && mensalidade.Ativo">Pago</span>
+                                        <span class="label label-danger" ng-show="mensalidade.Status == 4 && mensalidade.Ativo">Não Pago</span>
+                                        <span class="label label-danger" ng-show="mensalidade.Status == 5 && mensalidade.Ativo">Devolvido</span>
+                                        <span class="label label-info" ng-show="mensalidade.Status == 7 && mensalidade.Ativo">Link</span>
+                                        <span class="label label-danger" ng-show="(mensalidade.Status == 8 && mensalidade.Ativo) || (mensalidade.Status == 2 && !mensalidade.Ativo)">Cancelado</span>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="align-center" ng-show="mensalidades.length == 0"><h4>Não existem planos anteriores.</h4></div>
+
+            </div>
+
+            <!--Tab Forma de Pagamento.-->
+            <div id="tabContFormaPagamento" ng-class="tabsPagamento.tabFormaPagamento.contAtivar" ng-show="tabsPagamento.tabFormaPagamento.contHabilitar">
+                <div class="row">
+                    <div class="col-md-12 align-right">
+                        <button type="button" ng-click="addCartao()" class="btn btn-empty">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            ADICIONAR CARTÃO
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="existeCartaoCredito">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover" id="gvPagamentosPendentes">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Número</th>
+                                            <th>Data Vencimento</th>
+                                            <th>Bandeira</th>
+                                            <th>Padrão</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="cartao in cartoesCredito">
+                                            <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{cartao.Nome}}</td>
+                                            <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{cartao.Numero}}</td>
+                                            <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{cartao.DataVencimento | date : 'MM/yyyy'}}</td>
+                                            <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">{{cartao.DescricaoCartaoBandeira}}</td>
+
+                                            <td class="col-md-2" style="padding-right: 10pt; padding-left: 10pt;">
+                                                <span class="label label-success" ng-show="cartao.Padrao">Sim</span>
+                                                <span class="label label-danger" ng-show="!cartao.Padrao">Não</span>
+                                            </td>
+
+                                            <td style="padding-right: 10pt; padding-left: 10pt;">
+                                                <div class="">
+                                                    <div class="inline pos-rel">
+                                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                            <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+
+                                                            <li data-toggle="tooltip" data-placement="top" title="Editar">
+                                                                <a href="javascript:void(0);" ng-click="addCartao(cartao);">
+                                                                    <span class="green">
+                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+
+                                                            <li data-toggle="tooltip" data-placement="top" title="Remover">
+                                                                <a href="javascript:void(0);" ng-click="removerCartaoCredito(cartao.Id);">
+                                                                    <span class="green">
+                                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

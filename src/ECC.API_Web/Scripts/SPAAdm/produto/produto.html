@@ -1,0 +1,422 @@
+﻿<div class="tabbable">
+
+    <ul class="nav nav-tabs">
+
+        <li id="tabPesquisar" ng-class="tabsProduto.tabPesquisar.tabAtivar" ng-show="tabsProduto.tabPesquisar.tabhabilitar" ng-click="habilitaDesabilitaAbaPesquisa();">
+            <a data-toggle="tab" href="#tabContPesquisar" target="_self">
+                <i class="green ace-icon fa fa-search bigger-120"></i>
+                Pesquisar
+            </a>
+        </li>
+
+        <li id="tabCadProduto" ng-class="tabsProduto.tabCadProduto.tabAtivar" ng-show="tabsProduto.tabCadProduto.tabhabilitar" ng-click="habilitaDesabilitaAbaCad();">
+            <a data-toggle="tab" href="#tabContProduto" target="_self">
+                <i class="red ace-icon fa fa-barcode bigger-120"></i>
+                Produto
+            </a>
+        </li> 
+
+
+        <li id="tabProdutoImg" ng-class="tabsProduto.tabProdutoImg.tabAtivar" ng-show="tabsProduto.tabProdutoImg.tabhabilitar" ng-click="habilitaDesabilitaAbaImg();">
+            <a data-toggle="tab" href="#tabContProdutoImg" target="_self">
+                <i class="red ace-icon fa fa-picture-o bigger-120">
+                </i>
+                Imagens
+            </a>
+        </li>
+
+
+    </ul>
+
+    <div class="tab-content">
+
+        <div id="tabContPesquisar" ng-class="tabsProduto.tabPesquisar.contentAtivar" ng-show="tabsProduto.tabPesquisar.contentHabilitar">
+            <h4>Pesquisar Produto</h4>
+            <hr />
+            <form class="form-group" role="form">
+                <div class="row">
+                    <div class="col-md-3">
+                        Segmento
+                        <select id="ddlSegmentoPesq" ng-model="filtroCategoriaSegmento" class="form-control black" ng-change="loadCategoriaPorSegmento(filtroCategoriaSegmento)">
+                            <option value="0" selected>Todos</option>
+                            <option ng-repeat="option in segmentos" value="{{option.Id}}">{{option.DescSegmento}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Categoria</span>
+                            <select id="ddlCategoriaPesq" ng-model="CategoriaId" class="form-control black" ng-options="option.Id as option.DescCategoria for option in categorias | filter :{visivel : true}" required ng-change="pesquisarSubCategoria(CategoriaId);"></select>
+                            <input type="hidden" name="CategoriaId" ng-value="CategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Sub-Categoria</span>
+                            <select id="ddlSubCategoriaPesq" ng-model="SubCategoriaId" class="form-control black" ng-options="option.Id as option.DescSubCategoria for option in subcategorias" ng-disabled="DesabilitarSubCategoria">
+                                <option value="">Subcategoria ...</option>
+                            </select>
+                            <input type="hidden" name="pesq.SubCategoriaId" ng-value="SubCategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Descrição</span>
+                            <input type="text" class="form-control" ng-model="filtroProduto" placeholder="Pesquisar Produto" maxlength="100" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+
+                            <span class="lbl"></span>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarProduto()" ng-disabled="!SubCategoriaId > 0">
+                                <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover " id="gvPesquisaProduto">
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'DescProduto';  reverse = (predicate === predicate) ? !reverse : false;">Produto</a>
+                                        <span class="sortorder" ng-show="predicate === 'DescProduto'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Categoria';  reverse = (predicate === predicate) ? !reverse : false;">Categoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'Categoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Subcategoria';  reverse = (predicate === predicate) ? !reverse : false;">Subcategoria</a>
+                                        <span class="sortorder" ng-show="predicate === 'Subcategoria'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Marca';  reverse = (predicate === predicate) ? !reverse : false;">Marca</a>
+                                        <span class="sortorder" ng-show="predicate === 'Marca'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'UnidadeMedida';  reverse = (predicate === predicate) ? !reverse : false;">Un. Medida</a>
+                                        <span class="sortorder" ng-show="predicate === 'UnidadeMedida'" ng-class="{reverse:reverse}"></span>
+
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'PrecoMedio';  reverse = (predicate === predicate) ? !reverse : false;">Preço Médio</a>
+                                        <span class="sortorder" ng-show="predicate === 'PrecoMedio'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>
+                                        <a href="" ng-click="predicate = 'Ativo';  reverse = (predicate === predicate) ? !reverse : false;">Ativo</a>
+                                        <span class="sortorder" ng-show="predicate === 'Ativo'" ng-class="{reverse:reverse}"></span>
+                                    </th>
+                                    <th>Ação</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="ng-trans ng-trans-flip-x" ng-repeat="pesqProduto in produtos | filter: filtroProduto | orderBy:predicate:reverse">
+
+                                    <td>{{pesqProduto.DescProduto}}</td>
+                                    <td>{{pesqProduto.DescCategoria}}</td>
+                                    <td>{{pesqProduto.DescSubCategoria}}</td>
+
+                                    <td>{{pesqProduto.Marca}}</td>
+                                    <td>{{pesqProduto.UnidadeMedida}}</td>
+                                    <td>{{pesqProduto.PrecoMedio}}</td>
+
+                                    <td>
+                                        <span ng-class="pesqProduto.Ativo ? 'label label-sm label-success' : 'label label-sm label-danger'">{{pesqProduto.DescAtivo}}</span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <div class="inline pos-rel">
+                                                <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto" aria-expanded="true">
+                                                    <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+                                                </button>
+
+                                                <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-top dropdown-caret dropdown-close">
+                                                    <li data-toggle="tooltip" data-placement="left" title="Editar">
+                                                        <a href="javascript:void(0);" ng-click="editarProduto(pesqProduto)">
+                                                            <span class="green">
+                                                                <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <custom-pager    ng-hide="(produtos | filter:filtroProdutos).length  > 0 )"     page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProduto(page)"></custom-pager>
+                        </div>
+                    </div>
+                    <!--Fim Tabela Pesquisar-->
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tabContProduto" ng-class="tabsProduto.tabCadProduto.contentAtivar" ng-show="tabsProduto.tabCadProduto.contentHabilitar">
+
+            <h4>Produto</h4>
+            <hr />
+            <form class="form-group" role="form" novalidate angular-validator name="novoProduto" angular-validator-submit="inserirProduto()">
+                <!--Inicio Dados dos Produtos-->
+                <div class="row">
+                    <div class="col-md-3">
+                        Segmento
+                        <select id="ddlSegmento" ng-model="filtroCategoriaSegmento" class="form-control black" ng-change="loadCategoriaPorSegmento(filtroCategoriaSegmento)">
+                            <option value="0" selected>Todos</option>
+                            <option ng-repeat="option in segmentos" value="{{option.Id}}">{{option.DescSegmento}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Categoria</span>
+                            <select id="ddlCategoria" ng-model="novoProduto.CategoriaId" class="form-control black" ng-options="option.Id as option.DescCategoria for option in categorias | filter :{visivel : true}" required ng-change="pesquisarSubCategoria(novoProduto.CategoriaId);"></select>
+                            <input type="hidden" name="novoProduto.CategoriaId" ng-value="novoProduto.CategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Sub-Categoria</span>
+                            <select id="ddlSubCategoria" ng-model="novoProduto.SubCategoriaId" class="form-control black" ng-options="option.Id as option.DescSubCategoria for option in subcategorias" ng-disabled="DesabilitarSubCategoria">
+                                <option value="">Subcategoria ...</option>
+                            </select>
+                            <input type="hidden" name="novoProduto.SubCategoriaId" ng-value="novoProduto.SubCategoriaId" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-horizontal">
+                            <span class="lbl">Descrição</span>
+                            <input type="text" class="form-control" id="txtDescricaoProduto" name="txtDescricaoProduto" placeholder="Descrição Produto" ng-model="novoProduto.DescProduto" maxlength="500" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Unidade Medida</span>
+                            <select id="ddlUnidMedida" ng-model="novoProduto.UnidadeMedidaId" class="form-control black" ng-options="option.Id as option.DescUnidadeMedida for option in unidademedida"></select>
+                            <input type="hidden" name="novoProduto.UnidadeMedidaId" ng-value="novoProduto.UnidadeMedidaId" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Código CNP</span>
+                            <input type="text" class="form-control" id="txtCodigoCNP" name="txtCodigoCNP" placeholder="Código CNP" ng-model="novoProduto.CodigoCNP" maxlength="100" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Marca</span>
+
+                            <angucomplete-alt id="members"
+                                              placeholder="Marca"
+                                              pause="200"
+                                              selected-object="selectCustomer"
+                                              input-changed=""
+                                              remote-url="/api/produto/marca?filter="
+                                              remote-url-data-field=""
+                                              title-field="DescMarca"
+                                              description-field=""
+                                              input-class="form-control"
+                                              match-class="red"
+                                                minlength="1"
+                                              text-searching="Procurando marca.."
+                                              text-no-results="Não há marca com está descrição" />
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-2">
+                        <div class="form-horizontal">
+                            <span class="lbl">Preço</span>
+                            <input type="text" class="form-control" id="txtPrecoMedio" name="txtPrecoMedio" placeholder="Preço" ng-model="novoProduto.PrecoMedio" money-mask />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="top: 20px;">
+                        <div class="form-horizontal">
+                            <label>
+                                <input name="form-field-checkbox" class="ace input-lg" type="checkbox" checked="checked" id="ckbAtivo" ng-model="novoProduto.Ativo">
+                                <span class="lbl"> Ativo</span>
+                            </label>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="form-horizontal">
+                            <span class="lbl">Especificação</span>
+                            <textarea rows="4" class="form-control" cols="50" ng-model="novoProduto.Especificacao" placeholder="Especificação"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim Dados dos Produtos-->
+                <!--Inicio Botoes-->
+                <hr />
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="ace-icon fa fa-check"></i>
+                            Salvar
+                        </button>
+
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="limpaDados()">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Novo
+                        </button>
+
+                    </div>
+                </div>
+
+                <!--Fim Botoes-->
+            </form>
+
+        </div>
+
+
+        <div id="tabContProdutoImg" ng-class="tabsProduto.tabProdutoImg.contentAtivar" ng-show="tabsProduto.tabProdutoImg.contentHabilitar">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Cadastro de Imagens Produto</h4>
+                    <hr />
+
+                    <form class="form-inline" role="form" novalidate angular-validator name="novaImagem" enctype="multipart/form-data" angular-validator-submit="inserirImagem()">
+
+                        <!--Imagem Pequena-->
+
+                        <div ng-show="exibirImagemPequena">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <b class="red bigger-125">Produto: </b><span class="lbl bigger-125"> {{novoProduto.DescProduto}}</span>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="label label-xlg label-danger arrowed arrowed-right">Imagem Pequena</span>
+                                </div>
+                            </div>
+
+                            <div class="row text-center">
+                                <div class="col-md-12 text-center">
+                                    <div class="text-center">
+                                        <img ng-src="{{novaImagem.CaminhoImagem}}" class="avatar img-responsive" alt="Imagem Pequena"  height="200" width="200">
+
+                                        <br />
+                                        <input type="file" ng-file-select="prepareFiles($files)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Salvar
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr />
+
+                        <!--Imagem Grande-->
+
+                        <div ng-show="exibirImageGrande">
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <b class="red bigger-125">Produto: </b><span class="lbl bigger-125"> {{novoProduto.DescProduto}}</span>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="label label-xlg label-danger arrowed arrowed-right">Imagem Grande</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        <img ng-src="{{novaImagem.CaminhoImagemGrande}}" class="avatar img-responsive" alt="Imagem Grande" height="400" width="400">
+
+                                        <br />
+                                        <input type="file" ng-file-select="prepareFilesImageGrande($files)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-success btn-sm" ng-click="inserirImagemGrande()">
+                                        <i class="ace-icon fa fa-check"></i>
+                                        Salvar
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Inicio Tabela Pesquisar-->
+                    <div class="table-responsive">
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

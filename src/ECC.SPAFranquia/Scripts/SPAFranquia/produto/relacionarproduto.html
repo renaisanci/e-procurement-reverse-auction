@@ -1,0 +1,127 @@
+﻿
+<div class="page-content">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="page-header">
+                <h1>
+                    <i class="icon fa fa-barcode" aria-hidden="true"></i>
+                    Relacionar Produto
+                </h1>
+
+            </div>
+
+            <!--Campos para filtrar a pesquisa dos produtos promocionais-->
+            <form class="form-group" role="form">
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Categoria</span>
+                            <select id="ddlCategoriaPesq" class="form-control"
+                                    ng-model="CategoriaId"
+                                    ng-options="option.Id as option.DescCategoria for option in categorias" required
+                                    ng-change="pesquisarSubCategoria(CategoriaId);">
+                                <option value="">Categoria...</option>
+                            </select>
+                            <input type="hidden" name="CategoriaId" ng-value="CategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Sub-Categoria</span>
+                            <select id="ddlSubCategoriaPesq" ng-model="SubCategoriaId" class="form-control black"
+                                    ng-options="option.Id as option.DescSubCategoria for option in subcategorias"
+                                    ng-disabled="DesabilitarSubCategoria">
+                                <option value="">Subcategoria...</option>
+                            </select>
+                            <input type="hidden" name="pesq.SubCategoriaId" ng-value="SubCategoriaId" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal">
+                            <span class="lbl">Descrição</span>
+                            <input type="text" class="form-control" ng-model="filtroProduto" placeholder="Pesquisar Produto" maxlength="100" />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-horizontal" style="margin-top: 20px;">
+                            <span class="lbl">
+                            </span>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="pesquisarProduto()" ng-disabled="!SubCategoriaId > 0 || SubCategoriaId === undefined">
+                                <i class="ace-icon fa fa-search bigger-110"></i>Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!--Inicio Tabela Pesquisar-->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover " id="gvPesquisaProduto">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Categoria</th>
+                            <th>Subcategoria</th>
+                            <th>Marca</th>
+                            <th>Un. Medida</th>
+                            <th>
+                                <label class="pos-rel">
+                                    <input type="checkbox" class="ace input-lg" ng-model="allReg" ng-checked="allReg" ng-click="checkBoxAll(Produtos, allReg )">
+                                    <span class="lbl"></span>
+                                </label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr ng-show="Produtos.length == 0">
+                        <td class="tdCenter text-center" colspan="10" style="background-color: white; color: red; padding: 10px;">
+                            <i class="icon fa fa-ban" style="font-size: 20px;"></i>
+                            Nenhum Produto Encontrado.
+                        </td>
+                    </tr>
+                    <tbody>
+                        <tr class="ng-trans ng-trans-flip-x" ng-repeat="pesqProduto in Produtos | filter: filtroProduto | orderBy:predicate:reverse">
+                            <td>{{pesqProduto.DescProduto}}</td>
+                            <td>{{pesqProduto.DescCategoria}}</td>
+                            <td>{{pesqProduto.DescSubCategoria}}</td>
+                            <td>{{pesqProduto.Marca}}</td>
+                            <td>{{pesqProduto.UnidadeMedida}}</td>
+                            <td>
+                                <div class="inline pos-rel">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace input-lg"
+                                               ng-model="pesqProduto.selected"
+                                               ng-click="inserirDeletarProdutosFranquia([pesqProduto.Id])"
+                                               value="{{pesqProduto.Id}}" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--Fim Tabela Pesquisar-->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div style="text-align: center">
+                <custom-pager page="{{page}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="pesquisarProduto(page)"></custom-pager>
+            </div>
+        </div>
+    </div>
+</div>
+

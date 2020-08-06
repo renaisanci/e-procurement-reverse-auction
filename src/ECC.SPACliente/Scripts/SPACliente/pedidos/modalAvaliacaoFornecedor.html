@@ -1,0 +1,156 @@
+﻿<style>
+    img {
+        height: 40px;
+        width: 40px;
+    }
+</style>
+
+<div class="panel panel-danger">
+
+    <div class="modal-header">
+        <button type="button" ng-click="cancel()" class="bootbox-close-button close">
+            X
+        </button>
+        <h4 class="modal-title">AVALIAÇÃO DO FORNECEDOR</h4>
+    </div>
+
+    <div class="panel-body">
+        <div class="row" style="margin-bottom:30px;" ng-show="comboNomeFornecedorModal">
+            <div class="col-md-12">
+                <label>Nome Fornecedor:</label>
+                <select class="form-control" id="form-field-select-1"
+                        ng-model="fornecedor"
+                        ng-options="fornecedor.NomeFantasia for fornecedor in PedidoFornecedor track by fornecedor.Id">
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed shortMargin">
+                        <tr>
+                            <td class="shortPadding"><b>Nome Fantasia:</b></td>
+                            <td class="shortPadding"><i>{{fornecedor.NomeFantasia}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Razão Social:</b></td>
+                            <td class="shortPadding"><i>{{fornecedor.RazaoSocial}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Cnpj:</b></td>
+                            <td class="shortPadding"><i>{{fornecedor.Cnpj}}</i></td>
+                        </tr>
+                        <tr>
+                            <td class="shortPadding"><b>Representante:</b></td>
+                            <td class="shortPadding"><i>{{fornecedor.Contato}} </i></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top:20px;">
+            <!--Avaliação Qualidade dos Produtos-->
+            <div class="col-xs-4 pricing-box">
+                <div class="widget-box widget-color-orange">
+                    <div class="widget-header">
+                        <h4 class="widget-title bigger lighter">Produto(s)</h4>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center bigger-110">
+                                        <div class="media-bottom">
+                                            <span component-rating-fornecedor-avaliacao="" id="qualidadeProduto"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="painelObsQualidade">
+                                <div class="col-md-12">
+                                    <label>Motivo da nota Ruim:</label>
+                                    <textarea id="txtObsQualidadeRuim" ng-model="novaAvaliacaoFornecedor.ObsQualidade" class="form-control" style="min-height:100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Avaliação Tempo de Entrega-->
+            <div class="col-xs-4 pricing-box">
+                <div class="widget-box widget-color-orange">
+                    <div class="widget-header">
+                        <h4 class="widget-title bigger lighter">Tempo de Entrega</h4>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center bigger-110">
+                                        <div class="media-bottom">
+                                            <span component-rating-fornecedor-avaliacao="" id="tempoEntrega"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="painelObsEntrega">
+                                <div class="col-xs-12">
+                                    <label>Motivo da nota Ruim:</label>
+
+                                    <textarea id="txtObsEntregaRuim" ng-model="novaAvaliacaoFornecedor.ObsEntrega" class="form-control" style="min-height:100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Avaliação Atendimento do Fornecedor-->
+            <div class="col-xs-4 pricing-box">
+                <div class="widget-box widget-color-orange">
+                    <div class="widget-header">
+                        <h4 class="widget-title bigger lighter">Atendimento</h4>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="text-center bigger-110">
+                                        <div class="media-bottom">
+                                            <span component-rating-fornecedor-avaliacao="" id="atendimentoFornecedor"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" ng-show="painelObsAtendimento">
+                                <div class="col-xs-12">
+                                    <label>Motivo da nota Ruim:</label>
+
+                                    <textarea id="txtObsAtendimentoRuim" ng-model="novaAvaliacaoFornecedor.ObsAtendimento" class="form-control" style="min-height:100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr />
+
+        <button class="btn btn-block btn-success" ng-click="salvarAvaliacao()">Salvar Avaliação</button>
+    </div>
+
+</div>
+
+
