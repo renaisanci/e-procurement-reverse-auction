@@ -543,7 +543,6 @@
             return true;
         }
         //13------------------------------------------------------------
-
         habilitaDesabilitaAbaPesquisa();
         loadLogradouro();
         loadEstado();
