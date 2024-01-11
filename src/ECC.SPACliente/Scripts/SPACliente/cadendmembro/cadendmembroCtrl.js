@@ -538,8 +538,7 @@
                 notificationService.displayInfo('Selecione um período de entrega!');
                 return false;
             }
-
-
+            
             return true;
         }
         //13------------------------------------------------------------
